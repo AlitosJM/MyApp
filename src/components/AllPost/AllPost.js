@@ -1,7 +1,7 @@
 import React from "react";
 import {useState,useEffect} from 'react';
 
-import './css/styles.css';
+import '../css/styles.css';
 
 function AllPost() {
   document.body.className='';
@@ -12,16 +12,16 @@ function AllPost() {
       <div className="wrapper">
 
         <div className="top">
-          <div className="title"><h1>☕</h1></div>
+          <div className="title"><h1>JMAT ☕</h1></div>
         </div>
 
         <div className="content">
           <div className="card">
+            <h1>Hola Mundo</h1>
+            <h2> :) </h2>
             <p>Ing. Electrónico</p>
           </div>
         </div>
-
-
 
       </div>
 

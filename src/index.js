@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Route,BrowserRouter} from 'react-router-dom';
-import AllPost from './components/AllPost';
-import App from "./components/App";
+import AllPost from './components/AllPost/AllPost';
+import App from './containers/App';
 
 function Router(){
 
