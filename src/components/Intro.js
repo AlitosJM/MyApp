@@ -1,6 +1,17 @@
 import React from "react";
+import {useState,useEffect} from 'react';
 
 function Intro() {
+
+  // useEffect( () => {
+  //   // console.log(token);
+  //   window.location.href ='/';
+  // },[])
+  const onRouteChange = (e) =>{
+    e.preventDefault();
+    console.log('onRouteChange');
+    window.location.href = "/MyPage";
+  }
   return (
     <div className="is-preload">
 
@@ -15,7 +26,8 @@ function Intro() {
 
           <footer>
             <ul className="icons">
-              <li><a href="" className="icon solid fa-robot">Robot</a></li>
+              <li><a href="#" onClick={onRouteChange} className="icon solid fa-robot">Robot</a></li>
+              {/*<button className="icon solid fa-robot">Robot</button>*/}
             </ul>
           </footer>
 

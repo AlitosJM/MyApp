@@ -1,8 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {Route,BrowserRouter} from 'react-router-dom';
+import AllPost from './components/AllPost';
 import App from "./components/App";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+function Router(){
+
+  return (
+    <React.StrictMode>
+        <BrowserRouter>
+          <Route exact path="/" component={App}/>
+          <Route exact path="/MyPage" component={AllPost}/>
+        </BrowserRouter>
+    </React.StrictMode>
+  )
+}
+
+ReactDOM.render(<Router />, document.getElementById("root"));
 // ReactDOM.render(<h1>React</h1>, document.querySelector(".welcome-back"));
 
 //5. Create a Note.jsx component to show a <div> element with a
