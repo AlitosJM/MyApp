@@ -3,10 +3,13 @@ import {useState,useEffect} from 'react';
 
 function Intro() {
 
-  // useEffect( () => {
-  //   // console.log(token);
-  //   window.location.href ='/';
-  // },[])
+  useEffect( () => {
+    if ('addEventListener' in window) {
+      console.log('addEventListener');
+      window.addEventListener('load', () => { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+      document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');}
+
+  },[])
   const onRouteChange = (e) =>{
     e.preventDefault();
     console.log('onRouteChange');

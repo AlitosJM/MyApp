@@ -2,9 +2,10 @@ import React from "react";
 import {useState,useEffect} from 'react';
 
 function AllPost() {
+  document.body.className='';
 
   return (
-    <div className="is-preload">
+    <div className="">
 
       <div id="wrapper">
         <section id="main">

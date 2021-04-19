@@ -94,6 +94,7 @@
 		box-sizing: inherit;
 	}
 
+
 	body.is-preload *, body.is-preload *:before, body.is-preload *:after {
 		-moz-animation: none !important;
 		-webkit-animation: none !important;
@@ -122,6 +123,7 @@
 		background-attachment: fixed,			fixed,				fixed;
 	}
 
+
 		body:after {
 			content: '';
 			display: block;
@@ -145,6 +147,7 @@
 			-ms-transition: opacity 1.75s ease-out;
 			transition: opacity 1.75s ease-out;
 		}
+
 
 		body.is-preload:after {
 			opacity: 1;
