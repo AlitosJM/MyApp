@@ -1,22 +1,26 @@
 import React from "react";
 import {useState,useEffect} from 'react';
 
+import './css/styles.css';
+
 function AllPost() {
   document.body.className='';
 
   return (
     <div className="">
 
-      <div id="wrapper">
-        <section id="main">
+      <div className="wrapper">
 
-          <header>
-            <span className="avatar"><img src="Jmat2.jpg" alt="" /></span>
-            <h1><em>@liTos</em></h1>
+        <div className="top">
+          <div className="title"><h1>☕</h1></div>
+        </div>
+
+        <div className="content">
+          <div className="card">
             <p>Ing. Electrónico</p>
-          </header>
+          </div>
+        </div>
 
-        </section>
 
 
       </div>

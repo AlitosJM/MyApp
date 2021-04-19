@@ -1,5 +1,7 @@
 import React from "react";
 import {useState,useEffect} from 'react';
+import JMAT from './images/Jmat2.jpg';
+import './css/main.css';
 
 function Intro() {
 
@@ -22,7 +24,7 @@ function Intro() {
         <section id="main">
 
           <header>
-            <span className="avatar"><img src="Jmat2.jpg" alt="" /></span>
+            <span className="avatar"><img src={JMAT} alt="" /></span>
             <h1><em>@liTos</em></h1>
             <p>Ing. Electrónico</p>
           </header>
