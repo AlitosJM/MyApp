@@ -6,7 +6,7 @@ import '../css/styles.css';
 
 const MappingFunc = (post) => {
    return (
-      <Card post_id={post.post_id} title={post.title} subtitle={post.subtitle} body={post.body}/>
+      <Card key={post.post_id} title={post.title} subtitle={post.subtitle} body={post.body}/>
    );
 }
 
