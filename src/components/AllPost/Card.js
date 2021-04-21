@@ -1,14 +1,14 @@
 import React from "react";
-import '../css/styles.css';
+// import '../css/styles.css';
 
 function Card(props) {
 
   return (
     <div className="content">
       <div className="card">
-          <h1>{props.title}</h1>
-          <h2>{props.subtitle}</h2>
-          <p>{props.body}</p>
+          <h2>{props.title}</h2>
+          <p className="text">{props.subtitle}</p>
+          <a href="#">Leer</a>
       </div>
     </div>
   );
