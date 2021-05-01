@@ -1,8 +1,10 @@
 import React from "react";
 import {useState,useEffect} from 'react';
 import JMAT from '../images/Jmat2.jpg';
+
 import '../css/main.css';
 // import '../css/noscript.css';
+
 
 function Intro() {
 
