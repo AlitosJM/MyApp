@@ -5,7 +5,6 @@ function Card(props) {
 
   const Clicked = (id) =>{
     console.log('Clicked', id);
-
     props.onClicked(id);
   }
 

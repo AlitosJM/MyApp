@@ -2,6 +2,7 @@ import React from "react";
 import {useState,useEffect} from 'react';
 import Post from './Post';
 import Card from './Card';
+import MyFom from './CsvForm';
 
 // import '../css/main.css';
 import '../css/styles.css';
@@ -52,6 +53,7 @@ function AllPost() {
           <div>
             <h1>Bye</h1>
             <button onClick={() => alert("Bye!")}>Say Bye</button>
+            <MyFom />
           </div>
         );
     default:
