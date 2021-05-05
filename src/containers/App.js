@@ -4,7 +4,7 @@ import Intro from "../components/Intro/Intro";
 // import '../components/css/noscript.css';
 
 
-function App() {
+const App = () => {
   return (
     <div>
 

@@ -26,13 +26,15 @@ body {
   width: 100%;
   overflow: hidden;
 }
-/*
-.wrapper{
-  display: grid;
-  grid-templates-columns: 1fr;
-  grid-templates-rows: 1fr;
+
+.sub-wrapper{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-gap: 5px;
+	justify-items: center;
+	align-items: center;
   }
- */
+
 
 .top{
   background: #4e89ae;
