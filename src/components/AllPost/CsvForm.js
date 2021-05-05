@@ -20,15 +20,16 @@ class MyForm extends Component {
     };
 
     return (
-      <form>
+      <div>
         <h1>Hello {this.state.username}</h1>
-        <p><span style={mystyle}>CSV</span>Enter your name:</p>
-
-      <input
-        type='text'
-        onChange={this.myChangeHandler}
-      />
-      </form>
+        <form>          
+            <p><span style={mystyle}>CSV</span>
+            <input type="file" name="file" required="required"></input>
+            <input type="submit" value="Guardar" class="btn btn-primary btn-block btn-large"></input>
+            </p>          
+          
+        </form> 
+      </div>
     );
   }
 }
