@@ -14,5 +14,9 @@ export class API{
             }
             )
             .then( resp => resp.json() )
+            .then( data => {
+              alert( JSON.stringify(data, null, "\t") ); 
+              return JSON.stringify(data, null, "\t");
+            })
     }
 }

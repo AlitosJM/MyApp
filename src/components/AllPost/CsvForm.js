@@ -24,8 +24,7 @@ class MyForm extends Component {
   /*console.log('formData')
   console.log(formData['file'])*/
 
-  const msg = await API.sendFile(formData);
-
+  let msg = await API.sendFile(formData);
   console.log(msg)
 
   /*await fetch('/api/upload', {
@@ -33,7 +32,6 @@ class MyForm extends Component {
     body: formData,
   });*/
 
-  alert('done');
 }
 
   myChangeHandler = (e) => {
