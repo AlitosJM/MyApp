@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { API } from '../API';
 
 class MyForm extends Component {
   constructor(props) {
@@ -16,11 +16,17 @@ class MyForm extends Component {
   e.preventDefault();
 
   const formData = new FormData();
+  formData.append("remark", "csv file");
   for (let name in this.state) {
-    console.log(name)
-    console.log(this.state[name])
     formData.append(name, this.state[name]);
   }
+
+  /*console.log('formData')
+  console.log(formData['file'])*/
+
+  const msg = await API.sendFile(formData);
+
+  console.log(msg)
 
   /*await fetch('/api/upload', {
     method: 'POST',
@@ -43,20 +49,25 @@ class MyForm extends Component {
       textDecoration: "underline"
     };
 
+    const submit = this.handleSubmit;
+    const fileChange  = this.handleFileChange;
 
     return (
-      <div>
 
-        {/*<h1>Hello {this.state.name}</h1>*/}
-        <form onSubmit={this.handleSubmit}>
-            <p><span style={mystyle}>CSV</span>
-            {/*<input type='text' />*/}
-            <input type="file" name="file" required="required" onChange={this.handleFileChange}/>
-            <input type="submit" value="Guardar" className="btn btn-primary btn-block btn-large"/>
-            </p>
+        // <h1>Hello {this.state.name}</h1>
+        <div className="content">
+          <div className="card">
+            <form onSubmit={submit}>
+                <p><span style={mystyle}>CSV</span>
+                {/*<input type='text' />*/}
+                <input type="file" name="file" required="required" onChange={fileChange}/>
+                <input type="submit" value="Guardar" className="btn btn-primary btn-block btn-large"/>
+                </p>
 
-        </form>
-      </div>
+            </form>
+          </div>
+        </div>
+
     );
   }
 }

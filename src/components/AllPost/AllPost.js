@@ -50,11 +50,9 @@ function AllPost() {
       );
     case 1:
         return (
-          <div>
-            <h1>Bye</h1>
-            <button onClick={() => alert("Bye!")}>Say Bye</button>
+
             <MyFom />
-          </div>
+
         );
     default:
       return SetIsView1(-1);
@@ -69,12 +67,9 @@ function AllPost() {
           <div className="title"><h1>JMAT ☕</h1></div>
         </div>
 
-        { isView1===-1?
         <div className="sub-wrapper">
-          {post_objects.map(MappingFunc)}
+          { isView1===-1? post_objects.map(MappingFunc) : renderSwitch(isView1) }
         </div>
-        : renderSwitch(isView1)
-        }
 
       </div>
 
