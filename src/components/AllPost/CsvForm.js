@@ -5,18 +5,22 @@ class MyForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {file: null}
+    this.state = {file: null, remark: ''}
   }
 
   handleFileChange = (e) => {
-    this.setState({[e.target.name]: e.target.files[0],})
+    let file = e.target.files[0];
+    let remark = e.target.files[0].name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
+    console.log(e.target.name, remark, e.target.files[0]);
+    // this.setState({[e.target.name]: e.target.files[0], remark: remark});
+    this.setState({ file, remark });
   }
 
   handleSubmit = async e => {
   e.preventDefault();
 
   const formData = new FormData();
-  formData.append("remark", "csv file");
+  // formData.append("remark", "csv file");
   for (let name in this.state) {
     formData.append(name, this.state[name]);
   }
