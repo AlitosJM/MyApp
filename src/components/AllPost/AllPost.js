@@ -54,7 +54,7 @@ function AllPost() {
             <MyFom />
         );
     case 2:
-          return(
+          return(            
             <DataForm />
           );
     default:

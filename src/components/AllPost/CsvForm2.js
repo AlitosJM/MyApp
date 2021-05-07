@@ -57,7 +57,7 @@ export const FileUploaded = ({onFileSelectSuccess, onFileSelectError}) => {
     return ( 
         <div>
              <input type="file" onChange={handleFileInput}></input>
-             <button onClick={e => fileInput.current && fileInput.current.click()} className="btn btn-primary btn-block"></button>
+             {/* <button onClick={e => fileInput.current && fileInput.current.click()} className="btn btn-primary btn-block"></button> */}
         </div>
 
     );
