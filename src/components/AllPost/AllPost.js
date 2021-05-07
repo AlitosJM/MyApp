@@ -3,6 +3,7 @@ import {useState,useEffect} from 'react';
 import Post from './Post';
 import Card from './Card';
 import MyFom from './CsvForm';
+import DataForm from './CsvForm2';
 
 // import '../css/main.css';
 import '../css/styles.css';
@@ -50,10 +51,12 @@ function AllPost() {
       );
     case 1:
         return (
-
             <MyFom />
-
         );
+    case 2:
+          return(
+            <DataForm />
+          );
     default:
       return SetIsView1(-1);
     }

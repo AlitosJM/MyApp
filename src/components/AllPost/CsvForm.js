@@ -59,7 +59,7 @@ class MyForm extends Component {
                 <p><span style={mystyle}>CSV</span>
                 {/*<input type='text' />*/}
                 <input type="file" name="file" required="required" onChange={fileChange}/>
-                <input type="submit" value="Guardar" className="btn btn-primary btn-block btn-large"/>
+                <input type="submit" value="Enviar" className="btn btn-primary btn-block btn-large"/>
                 </p>
 
             </form>
