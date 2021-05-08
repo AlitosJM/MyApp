@@ -5,15 +5,16 @@ class MyForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {file: null, remark: ''}
+    this.state = {file: null, remark: '' , showInput: false,}
   }
 
   handleFileChange = (e) => {
-    let file = e.target.files[0];
-    let remark = e.target.files[0].name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
+    const file = e.target.files[0];
+    const remark = e.target.files[0].name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
     console.log(e.target.name, remark, e.target.files[0]);
+    const showInput = false;
     // this.setState({[e.target.name]: e.target.files[0], remark: remark});
-    this.setState({ file, remark });
+    this.setState({ file, remark, showInput });
   }
 
   handleSubmit = async e => {
@@ -21,8 +22,9 @@ class MyForm extends Component {
 
   const formData = new FormData();
   // formData.append("remark", "csv file");
-  for (let name in this.state) {
-    formData.append(name, this.state[name]);
+  for (const name in this.state) {
+    console.log(name);
+    name !== "showInput"? formData.append(name, this.state[name]): null;
   }
 
   /*console.log('formData')
@@ -62,7 +64,8 @@ class MyForm extends Component {
             <form onSubmit={submit}>
                 <p><span style={mystyle}>CSV</span>
                 {/*<input type='text' />*/}
-                <input type="file" name="file" required="required" onChange={fileChange}/>
+                <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>
+                {false && <input type='text' name="x_new" placeholder= " type here " disabled = {true}/>}
                 <input type="submit" value="Enviar" className="btn btn-primary btn-block btn-large"/>
                 </p>
 
