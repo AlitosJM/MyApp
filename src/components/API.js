@@ -1,6 +1,6 @@
 export class API{
 
-    static sendFile(body){
+    static sendFile(body, Myfunction){
       const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
       // const config = {headers: { 'content-type': 'multipart/form-data' }}
       let datitos = {};
@@ -20,6 +20,8 @@ export class API{
               
               const status = resp.statusText;
               datitos.status = status;
+            
+              status==="Created"? Myfunction(true) : Myfunction(false);
             })
             .then( () => {
               alert( JSON.stringify(datitos, null, "\t") ); 

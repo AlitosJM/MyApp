@@ -30,8 +30,9 @@ class MyForm extends Component {
   /*console.log('formData')
   console.log(formData['file'])*/
 
-  let msg = await API.sendFile(formData);
+  let msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
   console.log(msg)
+  console.log(this.state["showInput"])
 
   /*await fetch('/api/upload', {
     method: 'POST',
@@ -56,6 +57,8 @@ class MyForm extends Component {
     const submit = this.handleSubmit;
     const fileChange  = this.handleFileChange;
 
+    const {file, remark, showInput} = this.state;
+
     return (
 
         // <h1>Hello {this.state.name}</h1>
@@ -65,7 +68,7 @@ class MyForm extends Component {
                 <p><span style={mystyle}>CSV</span>
                 {/*<input type='text' />*/}
                 <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>
-                {false && <input type='text' name="x_new" placeholder= " type here " disabled = {true}/>}
+                {showInput && <input type='text' name="x_new" placeholder= " type here " disabled = {true}/>}
                 <input type="submit" value="Enviar" className="btn btn-primary btn-block btn-large"/>
                 </p>
 
