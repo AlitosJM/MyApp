@@ -13,11 +13,19 @@ class MyForm extends Component {
     const remark = e.target.files[0].name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
     console.log(e.target.name, remark, e.target.files[0]);
     const showInput = false;
+
+    !this.state.showInput?
+    (
     // this.setState({[e.target.name]: e.target.files[0], remark: remark});
-    this.setState({ file, remark, showInput });
+    this.setState({ file, remark, showInput })
+    )
+    :(null);
+    
+    
   }
 
   handleSubmit = async e => {
+  if (!this.state.showInput){
   e.preventDefault();
 
   const formData = new FormData();
@@ -38,6 +46,7 @@ class MyForm extends Component {
     method: 'POST',
     body: formData,
   });*/
+  }
 
 }
 
@@ -69,7 +78,7 @@ class MyForm extends Component {
                 {/*<input type='text' />*/}
                 <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>
                 {showInput && <input type='text' name="x_new" placeholder= " type here " disabled = {true}/>}
-                <input type="submit" value="Enviar" className="btn btn-primary btn-block btn-large"/>
+                <input type="submit" value={!this.state.showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
                 </p>
 
             </form>
