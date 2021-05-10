@@ -29,6 +29,36 @@ export class API{
            });
 
     }
+
+    static sendData(x_new){
+      const authHeader = new Headers({'Content-Type':'application/json', "Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
+      // const config = {headers: { 'content-type': 'multipart/form-data' }}
+      let datitos = {};
+      console.log("sendData")
+        return fetch(
+            `http://127.0.0.1:8000/file/lr/`, {
+              method:'POST',
+              headers: authHeader,
+              body: JSON.stringify({x: x_new})
+            }
+            )
+            .then( async resp => {
+
+              datitos = await resp.json()  
+              
+              const status = resp.statusText;
+              datitos.status = status;
+              alert(status)
+            
+              // status==="Ok"? Myfunction(true) : Myfunction(false);
+            })
+            .then( () => {
+              alert( JSON.stringify(datitos, null, "\t") ); 
+              return JSON.stringify(datitos, null, "\t");
+           });
+
+    }
+
 }
 
 /* .then( data => {

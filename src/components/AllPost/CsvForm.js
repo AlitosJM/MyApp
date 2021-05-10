@@ -5,49 +5,50 @@ class MyForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {file: null, remark: '' , showInput: false,}
+    this.state = {file: null, remark: '' , showInput: false, x_new: 0}
   }
 
   handleFileChange = (e) => {
-    const file = e.target.files[0];
-    const remark = e.target.files[0].name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
-    console.log(e.target.name, remark, e.target.files[0]);
-    const showInput = false;
+    if(!this.state.showInput){
+      const file = e.target.files[0];
+      const remark = e.target.files[0].name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
+      console.log(e.target.name, remark, e.target.files[0]);
+      const showInput = false;
 
-    !this.state.showInput?
-    (
     // this.setState({[e.target.name]: e.target.files[0], remark: remark});
-    this.setState({ file, remark, showInput })
-    )
-    :(null);
-    
+      this.setState({ file, remark, showInput })}    
+    else {
+      const x_new = e.target.value;
+      console.log(e.target.name, x_new);
+      this.setState({ x_new })
+      
+    }
     
   }
 
   handleSubmit = async e => {
-  if (!this.state.showInput){
-  e.preventDefault();
+    e.preventDefault();
+    if (!this.state.showInput){
 
-  const formData = new FormData();
-  // formData.append("remark", "csv file");
-  for (const name in this.state) {
-    console.log(name);
-    name !== "showInput"? formData.append(name, this.state[name]): null;
+      const formData = new FormData();
+      // formData.append("remark", "csv file");
+      for (const name in this.state) {
+        console.log(name);
+        name !== "showInput"? formData.append(name, this.state[name]): null;
+      }
+
+      /*console.log('formData')
+      console.log(formData['file'])*/
+
+      const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
+      console.log(msg)
+      console.log(this.state["showInput"])
   }
+  else {
+    const msg = await API.sendData(this.state.x_new);
+    console.log(msg)
 
-  /*console.log('formData')
-  console.log(formData['file'])*/
-
-  let msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
-  console.log(msg)
-  console.log(this.state["showInput"])
-
-  /*await fetch('/api/upload', {
-    method: 'POST',
-    body: formData,
-  });*/
   }
-
 }
 
   myChangeHandler = (e) => {
@@ -76,7 +77,7 @@ class MyForm extends Component {
             <form onSubmit={submit}>
                 <p><span style={mystyle}>CSV</span>
                 {/*<input type='text' />*/}
-                <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>
+                <input type={!this.state.showInput? "file" : "text"} name={!this.state.showInput? "file" : "text"} placeholder= {!this.state.showInput? "archivo" : "x_new"} required="required" onChange={fileChange}/>
                 {showInput && <input type='text' name="x_new" placeholder= " type here " disabled = {true}/>}
                 <input type="submit" value={!this.state.showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
                 </p>
