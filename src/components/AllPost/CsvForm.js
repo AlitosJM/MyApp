@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { API } from '../API';
+import { trackPromise } from 'react-promise-tracker';
 
 class MyForm extends Component {
   constructor(props) {
@@ -39,8 +40,14 @@ class MyForm extends Component {
 
       /*console.log('formData')
       console.log(formData['file'])*/
-
+      
+      
       const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
+      /*
+      trackPromise(
+        await API.sendFile(formData, (showInput) => this.setState({ showInput }))
+      )*/
+
       console.log(msg)
       console.log(this.state["showInput"])
   }
