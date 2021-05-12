@@ -59,6 +59,37 @@ export class API{
 
     }
 
+    static sendFile2(body, Myfunction) {
+      const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
+      let datitos = {};
+
+      const promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(fetch(
+            `http://127.0.0.1:8000/file/upload/`, {
+              method:'POST',
+              headers: authHeader,
+              body: body
+            }
+          )
+            .then(
+              async resp => {
+
+                datitos = await resp.json()  
+                
+                const status = resp.statusText;
+                datitos.status = status;
+              
+                status==="Created"? Myfunction(true) : Myfunction(false);
+              })
+            
+            );
+        }, 3000)
+      });
+    
+      return promise;
+    }
+
 }
 
 /* .then( data => {
