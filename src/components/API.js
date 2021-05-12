@@ -65,7 +65,8 @@ export class API{
 
       const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
-          resolve(fetch(
+          resolve(
+            fetch(
             `http://127.0.0.1:8000/file/upload/`, {
               method:'POST',
               headers: authHeader,
@@ -74,16 +75,12 @@ export class API{
           )
             .then(
               async resp => {
-
-                datitos = await resp.json()  
-                
+                datitos = await resp.json();     
+                console.log(datitos)             
                 const status = resp.statusText;
-                datitos.status = status;
-              
+                datitos.status = status;              
                 status==="Created"? Myfunction(true) : Myfunction(false);
-              })
-            
-            );
+              }));
         }, 3000)
       });
     

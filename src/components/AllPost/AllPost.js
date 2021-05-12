@@ -7,6 +7,7 @@ import DataForm from './CsvForm2';
 
 // import '../css/main.css';
 import '../css/styles.css';
+import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 
 // <Card key={post_objects[0].post_id} title={post_objects[0].title} subtitle={post_objects[0].subtitle} body={post_objects[0].body}/>
 
@@ -19,6 +20,7 @@ post_objects.push(new Post(2, "Bye bye!", "🤖", Post.intro));
 
 function AllPost() {
   const [isView1, SetIsView1] = useState(-1);
+  const { promiseInProgress } = usePromiseTracker(false);
   document.body.className='';
   // document.querySelectorAll('style,link[rel="stylesheet"]').forEach(item => item.remove())
   // console.log(post_objects[0].title)
@@ -51,7 +53,10 @@ function AllPost() {
       );
     case 1:
         return (
+          <React.Fragment>
             <MyFom />
+            {promiseInProgress ? <h3>Hey I'm a spinner loader wannabe !!!</h3>:null}
+          </React.Fragment>
         );
     case 2:
           return(            
