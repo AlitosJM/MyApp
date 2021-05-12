@@ -91,22 +91,3 @@ export class API{
     }
 
 }
-
-/* .then( data => {
-    alert( JSON.stringify(data, null, "\t") ); 
-    return JSON.stringify(data, null, "\t");
- })*/
-
- /*
-             .then( async resp => {
-
-              const data = await resp.json()  
-              
-              const status = resp.statusText;
-              console.log(status);                         
-
-              alert( JSON.stringify(data, null, "\t") ); 
-              return JSON.stringify(data, null, "\t");}
-
-            )
- */

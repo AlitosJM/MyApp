@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { API } from '../API';
-import { trackPromise } from 'react-promise-tracker';
+import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 
 class MyForm extends Component {
   constructor(props) {
@@ -42,11 +42,16 @@ class MyForm extends Component {
       console.log(formData['file'])*/
       
       
-      const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
-      /*
+      // const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
+      
       trackPromise(
-        await API.sendFile(formData, (showInput) => this.setState({ showInput }))
-      )*/
+        await API.sendFile2(formData, (showInput) => this.setState({ showInput }))
+        .then( (datitos) => {
+          alert( JSON.stringify(datitos, null, "\t") ); 
+        }
+
+        )
+      );
 
       console.log(msg)
       console.log(this.state["showInput"])
@@ -76,6 +81,8 @@ class MyForm extends Component {
 
     const {file, remark, showInput} = this.state;
 
+    const { promiseInProgress } = usePromiseTracker();
+
     return (
 
         // <h1>Hello {this.state.name}</h1>
@@ -87,8 +94,8 @@ class MyForm extends Component {
                 <input type={!this.state.showInput? "file" : "text"} name={!this.state.showInput? "file" : "text"} placeholder= {!this.state.showInput? "archivo" : "x_new"} required="required" onChange={fileChange}/>
                 {showInput && <input type='text' name="x_new" placeholder= " type here " disabled = {true}/>}
                 <input type="submit" value={!this.state.showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
+                (promiseInProgress) ? <h3>Hey I'm a spinner loader wannabe !!!</h3>:null
                 </p>
-
             </form>
           </div>
         </div>
