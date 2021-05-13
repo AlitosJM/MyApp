@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { API } from '../API';
+import { userAPI } from '../DummyFetch';
 import { trackPromise } from 'react-promise-tracker';
 
 class MyForm extends Component {
@@ -44,15 +45,20 @@ class MyForm extends Component {
       
       // const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
       
-      trackPromise(
-        API.sendFile2(formData, (showInput) => this.setState({ showInput }))
-        .then( (datitos) => {alert( JSON.stringify(datitos, null, "\t") ); }
+      // trackPromise(
+      //   API.sendFile2(formData, (showInput) => this.setState({ showInput }))
+      //   .then( (datitos) => {console.log( JSON.stringify(datitos, null, "\t") ); }
 
-        )
+      //   )
+        trackPromise(
+          userAPI.fetchFiles(formData, (showInput) => this.setState({ showInput }))
+          .then( (datitos) => {console.log( JSON.stringify(datitos, null, "\t") ); }
+  
+          )
       );
 
       // console.log(msg)
-      console.log(this.state["showInput"])
+      console.log("->",this.state["showInput"])
   }
   else {
     const msg = API.sendData(this.state.x_new);

@@ -75,17 +75,19 @@ export class API{
           )
             .then(
                 resp => {
-                datitos = resp.json();     
-                console.log(datitos);     
-                console.log("setTimeout");          
-                const status = resp.statusText;
-                datitos.status = status;       
-                console.log(datitos);        
-                status==="Created"? Myfunction(true) : Myfunction(false);
+                // resp.json();
+                resp.json();     
+                // console.log(datitos);     
+                // console.log("setTimeout");          
+                // const status = resp.statusText;
+                // datitos.status = status;       
+                // console.log(datitos);        
+                // status==="Created"? Myfunction(true) : Myfunction(false);
               }));
         }, 3000)
       });
-    
+      console.log("promise"); 
+      console.log(promise); 
       return promise;
     }
 
