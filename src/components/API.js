@@ -74,11 +74,13 @@ export class API{
             }
           )
             .then(
-              async resp => {
-                datitos = await resp.json();     
-                console.log(datitos)             
+                resp => {
+                datitos = resp.json();     
+                console.log(datitos);     
+                console.log("setTimeout");          
                 const status = resp.statusText;
-                datitos.status = status;              
+                datitos.status = status;       
+                console.log(datitos);        
                 status==="Created"? Myfunction(true) : Myfunction(false);
               }));
         }, 3000)

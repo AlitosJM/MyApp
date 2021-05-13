@@ -27,7 +27,7 @@ class MyForm extends Component {
     
   }
 
-  handleSubmit = async e => {
+  handleSubmit = e => {
     e.preventDefault();
     if (!this.state.showInput){
 
@@ -55,7 +55,7 @@ class MyForm extends Component {
       console.log(this.state["showInput"])
   }
   else {
-    const msg = await API.sendData(this.state.x_new);
+    const msg = API.sendData(this.state.x_new);
     console.log(msg)
 
   }
