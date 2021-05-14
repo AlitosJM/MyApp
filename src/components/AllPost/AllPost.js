@@ -1,9 +1,9 @@
 import React from "react";
 import {useState,useEffect} from 'react';
-import Post from './Post';
-import Card from './Card';
-import MyFom from './CsvForm';
-import DataForm from './CsvForm2';
+import Post from './Post/Post';
+import Card from './Card/Card';
+import MyFom from './CsvForm/CsvForm';
+import DataForm from './CsvForm/CsvForm2';
 
 // import '../css/main.css';
 import '../css/styles.css';

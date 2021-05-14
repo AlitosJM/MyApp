@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { API } from '../API';
+import { API } from '../../API';
 
 const DataForm = () => {
 
