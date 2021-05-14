@@ -45,16 +45,16 @@ class MyForm extends Component {
       
       // const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
       
-      // trackPromise(
-      //   API.sendFile2(formData, (showInput) => this.setState({ showInput }))
-      //   .then( (datitos) => {console.log( JSON.stringify(datitos, null, "\t") ); }
+      trackPromise(
+        API.sendFile2(formData, (showInput) => this.setState({ showInput }))
+        .then( (datitos) => {alert( JSON.stringify(datitos, null, "\t") ); }
 
-      //   )
-        trackPromise(
-          userAPI.fetchFiles(formData, (showInput) => this.setState({ showInput }))
-          .then( (datitos) => {console.log( JSON.stringify(datitos, null, "\t") ); }
+        )
+        // trackPromise(
+        //   userAPI.fetchFiles(formData, (showInput) => this.setState({ showInput }))
+        //   .then( (datitos) => {console.log( JSON.stringify(datitos, null, "\t") ); }
   
-          )
+        //   )
       );
 
       // console.log(msg)
