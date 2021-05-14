@@ -4,6 +4,7 @@ import Post from './Post/Post';
 import Card from './Card/Card';
 import MyFom from './CsvForm/CsvForm';
 import DataForm from './CsvForm/CsvForm2';
+import { Spinner } from './Spinner/spinner';
 
 // import '../css/main.css';
 import '../css/styles.css';
@@ -55,7 +56,8 @@ function AllPost() {
         return (
           <React.Fragment>
             <MyFom />
-            {promiseInProgress ? <h3>Hey I'm a spinner loader wannabe !!!</h3>:null}
+            
+            <Spinner />
           </React.Fragment>
         );
     case 2:
