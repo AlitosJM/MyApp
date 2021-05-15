@@ -59,7 +59,7 @@ export class API{
 
     }
 
-    static sendFile2(body) {
+    static sendFile2(body, Myfunction) {
       const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
       let datitos = {};
 
@@ -83,12 +83,12 @@ export class API{
                   datitos.status = status;  
                   console.log("-1", datitos.status);        
                   console.log("0", datitos);     
+                  status==="Created"? Myfunction(true) : Myfunction(false);
                   return datitos
 
                 }
                 // console.log(datitos);     
    
-                // status==="Created"? Myfunction(true) : Myfunction(false);
                 )
                 .then( resp => {
                   console.log("1",resp); 

@@ -47,10 +47,10 @@ class MyForm extends Component {
       // const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
       
       trackPromise(
-        API.sendFile2(formData)
+        API.sendFile2(formData, (showInput) => this.setState({ showInput }))
         .then( (datitos) => {
           console.log("2",datitos);
-          //alert( JSON.stringify(datitos2, null, "\t") );
+          alert( JSON.stringify(datitos, null, "\t") );
         
         }));
         // trackPromise(
