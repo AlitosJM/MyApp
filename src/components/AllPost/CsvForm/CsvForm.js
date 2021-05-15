@@ -30,6 +30,7 @@ class MyForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    
     if (!this.state.showInput){
 
       const formData = new FormData();
@@ -46,16 +47,18 @@ class MyForm extends Component {
       // const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
       
       trackPromise(
-        API.sendFile2(formData, (showInput) => this.setState({ showInput }))
-        .then( (datitos) => {alert( JSON.stringify(datitos, null, "\t") ); }
-
-        )
+        API.sendFile2(formData)
+        .then( (datitos) => {
+          console.log("2",datitos);
+          //alert( JSON.stringify(datitos2, null, "\t") );
+        
+        }));
         // trackPromise(
         //   userAPI.fetchFiles(formData, (showInput) => this.setState({ showInput }))
         //   .then( (datitos) => {console.log( JSON.stringify(datitos, null, "\t") ); }
   
         //   )
-      );
+      
 
       // console.log(msg)
       console.log("->",this.state["showInput"])

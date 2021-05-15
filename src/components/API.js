@@ -59,7 +59,7 @@ export class API{
 
     }
 
-    static sendFile2(body, Myfunction) {
+    static sendFile2(body) {
       const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
       let datitos = {};
 
@@ -74,16 +74,30 @@ export class API{
             }
           )
             .then(
-                resp => 
+                async resp => 
                 // resp.json();
-                resp.json()     
+                {
+                  console.log("setTimeout");     
+                  datitos = await resp.json();       
+                  const status = resp.statusText;           
+                  datitos.status = status;  
+                  console.log("-1", datitos.status);        
+                  console.log("0", datitos);     
+                  return datitos
+
+                }
                 // console.log(datitos);     
-                // console.log("setTimeout");          
-                // const status = resp.statusText;
-                // datitos.status = status;       
-                // console.log(datitos);        
+   
                 // status==="Created"? Myfunction(true) : Myfunction(false);
-                ));
+                )
+                .then( resp => {
+                  console.log("1",resp); 
+                  return resp
+
+                }
+
+                )
+                );
         }, 3000)
       });
       console.log("promise"); 
