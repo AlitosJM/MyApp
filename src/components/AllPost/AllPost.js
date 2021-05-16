@@ -76,10 +76,15 @@ function AllPost() {
         <div className="top">
           <div className="title"><h1>JMAT ☕</h1></div>
         </div>
-
-        <div className="sub-wrapper">
-          { isView1===-1? post_objects.map(MappingFunc) : renderSwitch(isView1) }
-        </div>
+        
+        
+        {isView1===-1? 
+          <div className="sub-wrapper">
+            {post_objects.map(MappingFunc)}
+          </div>: 
+          renderSwitch(isView1)
+        }
+        
 
       </div>
 
