@@ -26,11 +26,11 @@ body {
   width: 100%;
   overflow: hidden;
 }
-
+/* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
 .sub-wrapper{
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	grid-gap: 5px;
+	grid-gap: 50px;
 	justify-items: center;
 	align-items: center;
   }
@@ -55,7 +55,7 @@ body {
 }
 
 .content{
-  margin: -80px auto 100px;
+  margin: -80px auto 10px;
   padding-bottom: 20px;
 }
 
