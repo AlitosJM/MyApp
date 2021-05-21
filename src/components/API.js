@@ -121,6 +121,13 @@ export class API{
                   datitos = await resp.json()
                   console.log(resp)
                   console.log("-> 1",datitos)
+
+                  const url = ["http://127.0.0.1:8000/file", datitos['url']];
+                  datitos.url= url.join("")
+                   
+                  // console.log("-> array",url.join(""))
+
+                  // datitos['url']="http://127.0.0.1:8000/file"+datitos['url']
                   
                   // const status = resp.statusText;
                   // const url = resp.url;
