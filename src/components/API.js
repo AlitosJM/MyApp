@@ -82,8 +82,7 @@ export class API{
                   console.log("setTimeout");     
                   datitos = await resp.json();       
                   const status = resp.statusText;           
-                  datitos.status = status;  
-                  console.log("-1", datitos.status);        
+                  datitos.status = status;         
                   console.log("0", datitos);     
                   status==="Created"? Myfunction(true) : Myfunction(false);
                   return datitos
@@ -121,16 +120,18 @@ export class API{
               
                   datitos = await resp.json()
                   console.log(resp)
-                  console.log("->",datitos)
+                  console.log("-> 1",datitos)
                   
-                  const status = resp.statusText;
-                  const url = resp.url;
-                  datitos.status = status;
-                  datitos.url = url;}
+                  // const status = resp.statusText;
+                  // const url = resp.url;
+                  // datitos.status = status;
+                  // datitos.url = url;
+                      }
                     )
                     .then( () => {
+                      console.log("-> 2",datitos)
                       alert( JSON.stringify(datitos, null, "\t") ); 
-                      return JSON.stringify(datitos, null, "\t"); }) 
+                      return datitos }) 
               );
           }
         );

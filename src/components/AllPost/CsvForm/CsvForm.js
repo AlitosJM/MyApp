@@ -60,13 +60,16 @@ class MyForm extends Component {
       
 
       // console.log(msg)
-      console.log("->",this.state["showInput"])
+      console.log("->","fin") // this.state["showInput"]
   }
   else {
-    const x_new = e.target.value;
-    console.log(e.target.value, x_new);
-    this.setState( {x_new} )
-    const msg = API.sendData2(this.state.x_new);
+
+    const msg = API.sendData2(this.state.x_new)
+    .then( (datitos) => {
+      console.log("-> 3",datitos);
+      alert( JSON.stringify(datitos, null, "\t") );
+    
+    });
     console.log("+",msg)
 
   }
