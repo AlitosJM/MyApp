@@ -74,9 +74,7 @@ export class API{
             `http://127.0.0.1:8000/file/upload/`, {
               method:'POST',
               headers: authHeader,
-              body: body
-            }
-          )
+              body: body})
             .then(
                 async resp => 
                 // resp.json();
@@ -96,10 +94,8 @@ export class API{
                 )
                 .then( resp => {
                   console.log("1",resp); 
-                  return resp
-                }
-
-                )
+                  return resp}
+                  )
                 );
         }, 3000)
       });
@@ -107,5 +103,39 @@ export class API{
       console.log(promise); 
       return promise;
     }
+
+    static sendData2(x_new){
+      const authHeader = new Headers({'Content-Type':'application/json', "Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
+      let datitos = {};
+      console.log("sendData: ", x_new)
+
+      const promise = new Promise((resolve, reject) => {
+        resolve(
+            fetch(
+              `http://127.0.0.1:8000/file/lr/`, {
+                method:'POST',
+                headers: authHeader,
+                body: JSON.stringify({x: x_new})}
+                )
+                .then( async resp => {
+              
+                  datitos = await resp.json()
+                  console.log(resp)
+                  console.log("->",datitos)
+                  
+                  const status = resp.statusText;
+                  const url = resp.url;
+                  datitos.status = status;
+                  datitos.url = url;}
+                    )
+                    .then( () => {
+                      alert( JSON.stringify(datitos, null, "\t") ); 
+                      return JSON.stringify(datitos, null, "\t"); }) 
+              );
+          }
+        );
+         return promise; 
+    }
+  
 
 }

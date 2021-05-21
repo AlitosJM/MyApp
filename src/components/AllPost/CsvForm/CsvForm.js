@@ -66,7 +66,7 @@ class MyForm extends Component {
     const x_new = e.target.value;
     console.log(e.target.value, x_new);
     this.setState( {x_new} )
-    const msg = API.sendData(this.state.x_new);
+    const msg = API.sendData2(this.state.x_new);
     console.log("+",msg)
 
   }
