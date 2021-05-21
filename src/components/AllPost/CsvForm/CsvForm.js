@@ -28,6 +28,24 @@ class MyForm extends Component {
     
   }
 
+  async sendFile(formData){
+    await API.sendFile2(formData, (showInput) => this.setState({ showInput }))
+    .then( (datitos) => {
+      console.log("2",datitos);
+      alert( JSON.stringify(datitos, null, "\t") );}
+      )
+  }
+
+  sendData = async (x_new) => {
+    const msg = await API.sendData2(x_new)
+    .then( (datitos) => {
+      console.log("-> 3",datitos);
+      alert( JSON.stringify(datitos, null, "\t") );
+    
+    });
+    return msg
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     
@@ -46,12 +64,14 @@ class MyForm extends Component {
       // const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
       
       trackPromise(
-        API.sendFile2(formData, (showInput) => this.setState({ showInput }))
+        this.sendFile(formData)
+        /*API.sendFile2(formData, (showInput) => this.setState({ showInput }))
         .then( (datitos) => {
           console.log("2",datitos);
           alert( JSON.stringify(datitos, null, "\t") );
         
-        }));
+        })*/
+        );
         // trackPromise(
         //   userAPI.fetchFiles(formData, (showInput) => this.setState({ showInput }))
         //   .then( (datitos) => {console.log( JSON.stringify(datitos, null, "\t") ); }
@@ -60,16 +80,17 @@ class MyForm extends Component {
       
 
       // console.log(msg)
-      console.log("->","fin") // this.state["showInput"]
+      console.log("->","fin", this.state["showInput"]) // this.state["showInput"]
   }
   else {
+    const msg = this.sendData(this.state.x_new);
 
-    const msg = API.sendData2(this.state.x_new)
-    .then( (datitos) => {
-      console.log("-> 3",datitos);
-      alert( JSON.stringify(datitos, null, "\t") );
+    // const msg = API.sendData2(this.state.x_new)
+    // .then( (datitos) => {
+    //   console.log("-> 3",datitos);
+    //   alert( JSON.stringify(datitos, null, "\t") );
     
-    });
+    // });
     console.log("+",msg)
 
   }

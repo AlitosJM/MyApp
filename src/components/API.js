@@ -122,7 +122,7 @@ export class API{
                   console.log(resp)
                   console.log("-> 1",datitos)
 
-                  const url = ["http://127.0.0.1:8000/file", datitos['url']];
+                  const url = ["http://127.0.0.1:8000", datitos['url']];
                   datitos.url= url.join("")
                    
                   // console.log("-> array",url.join(""))
