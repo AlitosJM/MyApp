@@ -20,9 +20,9 @@ class MyForm extends Component {
     // this.setState({[e.target.name]: e.target.files[0], remark: remark});
       this.setState({ file, remark, showInput })}    
     else {
-      const x_new = e.target.value;
-      console.log(e.target.name, x_new);
-      this.setState({ x_new })
+      // const x_new = e.target.value;
+      // console.log(e.target.name, x_new);
+      // this.setState({ x_new })
       
     }
     
@@ -41,8 +41,7 @@ class MyForm extends Component {
       }
 
       /*console.log('formData')
-      console.log(formData['file'])*/
-      
+      console.log(formData['file'])*/      
       
       // const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
       
@@ -64,14 +63,17 @@ class MyForm extends Component {
       console.log("->",this.state["showInput"])
   }
   else {
+    const x_new = e.target.value;
+    console.log(e.target.value, x_new);
+    this.setState( {x_new} )
     const msg = API.sendData(this.state.x_new);
-    console.log(msg)
+    console.log("+",msg)
 
   }
 }
 
   myChangeHandler = (e) => {
-    this.setState({name: e.target.value});
+    this.setState({x_new: e.target.value});
   }
 
 
@@ -85,8 +87,9 @@ class MyForm extends Component {
 
     const submit = this.handleSubmit;
     const fileChange  = this.handleFileChange;
+    const myChangeHandler  = this.myChangeHandler;
 
-    const {file, remark, showInput} = this.state;
+    const {file, remark, showInput, x_new} = this.state;
 
     return (
 
@@ -96,9 +99,9 @@ class MyForm extends Component {
             <form onSubmit={submit}>
                 <p><span style={mystyle}>CSV</span>
                 {/*<input type='text' />*/}
-                <input type={!this.state.showInput? "file" : "text"} name={!this.state.showInput? "file" : "text"} placeholder= {!this.state.showInput? "archivo" : "x_new"} required="required" onChange={fileChange}/>
-                {showInput && <input type='text' name="x_new" placeholder= " type here " disabled = {true}/>}
-                <input type="submit" value={!this.state.showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
+                {!showInput && <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>}
+                { showInput && <input type='text' name="x_new" placeholder= "type here" disabled = {false}  onChange={myChangeHandler}/>}
+                <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
                 
                 </p>
             </form>

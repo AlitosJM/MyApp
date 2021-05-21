@@ -34,7 +34,7 @@ export class API{
       const authHeader = new Headers({'Content-Type':'application/json', "Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
       // const config = {headers: { 'content-type': 'multipart/form-data' }}
       let datitos = {};
-      console.log("sendData")
+      console.log("sendData: ", x_new)
         return fetch(
             `http://127.0.0.1:8000/file/lr/`, {
               method:'POST',
@@ -43,12 +43,16 @@ export class API{
             }
             )
             .then( async resp => {
-
-              datitos = await resp.json()  
+              
+              datitos = await resp.json()
+              console.log(resp)
+              console.log("->",datitos)
               
               const status = resp.statusText;
+              const url = resp.url;
               datitos.status = status;
-              alert(status)
+              datitos.url = url;
+              // alert(status)
             
               // status==="Ok"? Myfunction(true) : Myfunction(false);
             })
@@ -93,7 +97,6 @@ export class API{
                 .then( resp => {
                   console.log("1",resp); 
                   return resp
-
                 }
 
                 )
