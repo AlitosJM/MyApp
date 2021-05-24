@@ -3,6 +3,11 @@ import { API } from '../../API';
 import { userAPI } from '../../DummyFetch';
 import { trackPromise } from 'react-promise-tracker';
 
+export const areas = {
+  spinner1: 'spinner1-area',
+  spinner2: 'spinner2-area',
+};
+
 class MyForm extends Component {
   constructor(props) {
     super(props);
@@ -34,16 +39,19 @@ class MyForm extends Component {
       console.log("2",datitos);
       alert( JSON.stringify(datitos, null, "\t") );}
       )
+      areas.spinner1
   }
 
   sendData = async (x_new) => {
-    const msg = await API.sendData2(x_new)
+    // const msg = await API.sendData2(x_new)
+    await API.sendData2(x_new)
     .then( (datitos) => {
       console.log("-> 3",datitos);
       alert( JSON.stringify(datitos, null, "\t") );
     
-    });
-    return msg
+    })
+    areas.spinner2
+    // return msg
   }
 
   handleSubmit = e => {
@@ -83,7 +91,9 @@ class MyForm extends Component {
       console.log("->","fin", this.state["showInput"]) // this.state["showInput"]
   }
   else {
-    const msg = this.sendData(this.state.x_new);
+    trackPromise(
+      this.sendData(this.state.x_new));
+    // const msg = this.sendData(this.state.x_new);
 
     // const msg = API.sendData2(this.state.x_new)
     // .then( (datitos) => {
@@ -91,7 +101,7 @@ class MyForm extends Component {
     //   alert( JSON.stringify(datitos, null, "\t") );
     
     // });
-    console.log("+",msg)
+    // console.log("+",msg)
 
   }
 }

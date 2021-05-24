@@ -1,3 +1,4 @@
+// https://stackoverflow.com/questions/38235715/fetch-reject-promise-and-catch-the-error-if-status-is-not-ok
 export class API{
 
     static sendFile(body, Myfunction){
@@ -65,7 +66,6 @@ export class API{
 
     static sendFile2(body, Myfunction) {
       const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
-      let datitos = {};
 
       const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -76,25 +76,27 @@ export class API{
               headers: authHeader,
               body: body})
             .then(
-                async resp => 
-                // resp.json();
-                {
-                  console.log("setTimeout");     
-                  datitos = await resp.json();       
-                  const status = resp.statusText;           
-                  datitos.status = status;         
-                  console.log("0", datitos);     
-                  status==="Created"? Myfunction(true) : Myfunction(false);
-                  return datitos
-
-                }
-                // console.log(datitos);     
-   
+                async resp => {
+                  const datitos = await resp;
+                  if (datitos.ok)
+                    {
+                    console.log("setTimeout");      
+                    console.log("0", datitos);    
+                    resp.statusText==="Created"? Myfunction(true) : Myfunction(false);
+                    return datitos.json();  
+                  }
+                  else{
+                    throw new Error(resp.statusText);
+                    }
+                  }  
                 )
-                .then( resp => {
-                  console.log("1",resp); 
-                  return resp}
+                .then( datitos => {
+                  console.log("1",datitos); 
+                  return datitos}
                   )
+                .catch((error) => {
+                  console.log(error)
+                })
                 );
         }, 3000)
       });
@@ -105,10 +107,10 @@ export class API{
 
     static sendData2(x_new){
       const authHeader = new Headers({'Content-Type':'application/json', "Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
-      let datitos = {};
       console.log("sendData: ", x_new)
 
       const promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
         resolve(
             fetch(
               `http://127.0.0.1:8000/file/lr/`, {
@@ -117,13 +119,20 @@ export class API{
                 body: JSON.stringify({x: x_new})}
                 )
                 .then( async resp => {
-              
-                  datitos = await resp.json()
-                  console.log(resp)
-                  console.log("-> 1",datitos)
 
-                  const url = ["http://127.0.0.1:8000", datitos['url']];
-                  datitos.url= url.join("")
+                  const datitos = await resp;
+
+                  if (datitos.ok)
+                  {
+                    console.log("-> 1", datitos)
+                    return datitos.json()
+                  }
+                  else
+                  {
+                    throw new Error(datitos.statusText);
+                  }
+              
+
                    
                   // console.log("-> array",url.join(""))
 
@@ -135,13 +144,20 @@ export class API{
                   // datitos.url = url;
                       }
                     )
-                    .then( () => {
+                    .then( (datitos) => {
+                     
+                      const url = ["http://127.0.0.1:8000", datitos['url']];
+                      datitos.url= url.join("")
+
                       console.log("-> 2",datitos)
                       alert( JSON.stringify(datitos, null, "\t") ); 
-                      return datitos }) 
+                      return datitos })
+                    .catch((error) => {
+                      console.log(error)
+                    })
               );
-          }
-        );
+            }, 3000)
+          });
          return promise; 
     }
   
