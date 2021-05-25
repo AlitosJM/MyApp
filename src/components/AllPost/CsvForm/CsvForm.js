@@ -34,7 +34,7 @@ class MyForm extends Component {
   }
 
   async sendFile(formData){
-    await API.sendFile2(formData, (showInput) => this.setState({ showInput }))
+    await API.sendFile2(formData, (showInput) => this.setState({showInput}))
     .then( (datitos) => {
       console.log("2",datitos);
       alert( JSON.stringify(datitos, null, "\t") );}
@@ -43,11 +43,16 @@ class MyForm extends Component {
   }
 
   sendData = async (x_new) => {
+    const {fnt0, fnt1} = this.props;
     // const msg = await API.sendData2(x_new)
     await API.sendData2(x_new)
     .then( (datitos) => {
       console.log("-> 3",datitos);
-      alert( JSON.stringify(datitos, null, "\t") );
+      // alert( JSON.stringify(datitos, null, "\t") );
+      const url = datitos['url'].toString();
+      
+      fnt0(true);
+      fnt1(url);
     
     })
     areas.spinner2
@@ -107,6 +112,8 @@ class MyForm extends Component {
 }
 
   myChangeHandler = (e) => {
+  
+    this.props.fnt0(false);
     this.setState({x_new: e.target.value});
   }
 
@@ -134,7 +141,7 @@ class MyForm extends Component {
                 <p><span style={mystyle}>CSV</span>
                 {/*<input type='text' />*/}
                 {!showInput && <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>}
-                { showInput && <input type='text' name="x_new" placeholder= "type here" disabled = {false}  onChange={myChangeHandler}/>}
+                { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {false}  onChange={myChangeHandler}/>}
                 <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
                 
                 </p>

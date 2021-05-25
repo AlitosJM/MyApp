@@ -4,6 +4,7 @@ import Post from './Post/Post';
 import Card from './Card/Card';
 import MyFom from './CsvForm/CsvForm';
 import DataForm from './CsvForm/CsvForm2';
+import MyGraph from './Graphs/Graphs';
 import { Spinner } from './Spinner/spinner';
 
 // import '../css/main.css';
@@ -21,6 +22,8 @@ post_objects.push(new Post(2, "Bye bye!", "🤖", Post.intro));
 
 function AllPost() {
   const [isView1, SetIsView1] = useState(-1);
+  const [isView2, SetIsView2] = useState(false);
+  const [imageUrl, SetImageUrl] = useState('');
   const { promiseInProgress } = usePromiseTracker(false);
   document.body.className='';
   // document.querySelectorAll('style,link[rel="stylesheet"]').forEach(item => item.remove())
@@ -55,9 +58,10 @@ function AllPost() {
     case 1:
         return (
           <React.Fragment>
-            <MyFom />
-            
+            <MyFom fnt0={(isView2) => SetIsView2(isView2)} fnt1={(imageUrl) => SetImageUrl(imageUrl)}/>            
             <Spinner />
+
+            {isView2 && <MyGraph image = {imageUrl}/>}
           </React.Fragment>
         );
     case 2:
