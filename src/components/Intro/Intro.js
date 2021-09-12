@@ -1,5 +1,6 @@
 import React from "react";
 import {useState,useEffect} from 'react';
+import {Link, NavLink} from 'react-router-dom';
 import JMAT from '../images/Jmat2.jpg';
 
 import '../css/main.css';
@@ -15,11 +16,11 @@ function Intro() {
       document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');}
 
   },[])
-  const onRouteChange = (e) =>{
-    e.preventDefault();
-    console.log('onRouteChange');
-    window.location.href = "/MyPage";
-  }
+  // const onRouteChange = (e) =>{
+  //   e.preventDefault();
+  //   console.log('onRouteChange');
+  //   window.location.href = "/MyPage";
+  // }
   return (
     <div className="is-preload">
 
@@ -34,7 +35,8 @@ function Intro() {
 
           <footer>
             <ul className="icons">
-              <li><a href="#" onClick={onRouteChange} className="icon solid fa-robot">Robot</a></li>
+              {/* <li><a href="#" onClick={onRouteChange} className="icon solid fa-robot">Robot</a></li> */}
+              <li><Link className="icon solid fa-robot" to="/MyPage">Robot</Link></li>
               {/*<button className="icon solid fa-robot">Robot</button>*/}
             </ul>
           </footer>
