@@ -1,11 +1,11 @@
 import React from "react";
 // import '../css/styles.css';
 
-function Card(props) {
+function Card({objPost}) {
 
   const Clicked = (id) =>{
     console.log('Clicked', id);
-    props.onClicked(id);
+    onClicked(id);
   }
 
   const onRouteChange = (e)=>{
@@ -14,17 +14,17 @@ function Card(props) {
     window.location.href = "/";
   }
 
-  const MyClicked  = props.onClicked;
-  const id  = props.id;
+  const id  = objPost.id;
 
   return (
     <div className="content">
       <div className="card">
-          <h2>{props.title}</h2>
-          <p className="text">{props.subtitle}</p>
+          <h2>{objPost.title}</h2>
+          <p className="text">{objPost.subtitle}</p>
           {/*<a href="#" onClick={onRouteChange}>RouteChange</a>*/}
           {/*<a href="#" onClick={() =>Clicked(props.id)}>Clicked1</a>*/}
-          <a onClick={() =>MyClicked(id)}>Clicked2</a>
+          {/* <a onClick={() =>onClicked(id)}>Clicked2</a> */}
+          <a onClick={() =>objPost.fn(id)}>Clicked2</a>
       </div>
     </div>
   );

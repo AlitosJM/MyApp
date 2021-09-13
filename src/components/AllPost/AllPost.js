@@ -15,23 +15,29 @@ import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 
 let post_objects = [];
 post_objects.push(new Post(0, "Hello world!", "😄", Post.intro));
-post_objects.push(new Post(1, "Bye bye!", "🤖", Post.intro));
-post_objects.push(new Post(2, "Bye bye!", "🤖", Post.intro));
+post_objects.push(new Post(1, "Hi there!", "🤖", Post.intro));
+post_objects.push(new Post(2, "wanna a cookie?", "🍪", Post.intro));
 
 
 
 function AllPost() {
-  const [isView1, SetIsView1] = useState(-1);
-  const [isView2, SetIsView2] = useState(false);
-  const [imageUrl, SetImageUrl] = useState('');
+  const [isView1, setIsView1] = useState(-1);
+  const [isView2, setIsView2] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
   const { promiseInProgress } = usePromiseTracker(false);
   document.body.className='';
   // document.querySelectorAll('style,link[rel="stylesheet"]').forEach(item => item.remove())
   // console.log(post_objects[0].title)
 
+  const onClicked = (id) => {
+    setIsView1(id)
+    console.log('onClicked in allpost:', id, isView1);
+  }
+
   const MappingFunc = (post) => {
+    const objPost = {id:post.post_id, title:post.title, subtitle:post.subtitle, body:post.body, fn:onClicked};
      return (
-        <Card key={post.post_id} id={post.post_id} title={post.title} subtitle={post.subtitle} body={post.body} onClicked ={onClicked} />
+        <Card key={post.post_id} objPost = {objPost} />
      );
   }
 
@@ -40,11 +46,6 @@ function AllPost() {
   //   console.log('onRouteChange');
   //   window.location.href = "/";
   // }
-
-  const onClicked = (id) => {
-    SetIsView1(id)
-    console.log('onClicked in allpost:', id, isView1);
-  }
 
   const renderSwitch = (id) => {
   switch(id) {
@@ -58,7 +59,7 @@ function AllPost() {
     case 1:
         return (
           <React.Fragment>
-            <MyFom fnt0={(isView2) => SetIsView2(isView2)} fnt1={(imageUrl) => SetImageUrl(imageUrl)}/>            
+            <MyFom fnt0={(isView2) => setIsView2(isView2)} fnt1={(imageUrl) => setImageUrl(imageUrl)}/>            
             <Spinner />
 
             {isView2 && <MyGraph image = {imageUrl}/>}
@@ -69,7 +70,7 @@ function AllPost() {
             <DataForm />
           );
     default:
-      return SetIsView1(-1);
+      return setIsView1(-1);
     }
   }
 
