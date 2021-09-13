@@ -22,7 +22,6 @@ class MyForm extends Component {
       console.log(e.target.name, remark, e.target.files[0]);
       const showInput = false;
 
-    // this.setState({[e.target.name]: e.target.files[0], remark: remark});
       this.setState({ file, remark, showInput })}    
     else {
       // const x_new = e.target.value;
@@ -70,43 +69,15 @@ class MyForm extends Component {
         // console.log(name);
         name !== "showInput"? formData.append(name, this.state[name]): null;
       }
-
-      /*console.log('formData')
-      console.log(formData['file'])*/      
-      
-      // const msg = await API.sendFile(formData, (showInput) => this.setState({ showInput }));
       
       trackPromise(
         this.sendFile(formData)
-        /*API.sendFile2(formData, (showInput) => this.setState({ showInput }))
-        .then( (datitos) => {
-          console.log("2",datitos);
-          alert( JSON.stringify(datitos, null, "\t") );
-        
-        })*/
         );
-        // trackPromise(
-        //   userAPI.fetchFiles(formData, (showInput) => this.setState({ showInput }))
-        //   .then( (datitos) => {console.log( JSON.stringify(datitos, null, "\t") ); }
-  
-        //   )
-      
-
-      // console.log(msg)
-      console.log("->","fin", this.state["showInput"]) // this.state["showInput"]
+      console.log("->","fin", this.state["showInput"]);
   }
   else {
     trackPromise(
       this.sendData(this.state.x_new));
-    // const msg = this.sendData(this.state.x_new);
-
-    // const msg = API.sendData2(this.state.x_new)
-    // .then( (datitos) => {
-    //   console.log("-> 3",datitos);
-    //   alert( JSON.stringify(datitos, null, "\t") );
-    
-    // });
-    // console.log("+",msg)
 
   }
 }
@@ -133,13 +104,10 @@ class MyForm extends Component {
     const {file, remark, showInput, x_new} = this.state;
 
     return (
-
-        // <h1>Hello {this.state.name}</h1>
         <div className="content">
           <div className="card">
             <form onSubmit={submit}>
                 <p><span style={mystyle}>CSV</span>
-                {/*<input type='text' />*/}
                 {!showInput && <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>}
                 { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {false}  onChange={myChangeHandler}/>}
                 <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
