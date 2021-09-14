@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { API } from '../../API';
 import { userAPI } from '../../DummyFetch';
 import { trackPromise } from 'react-promise-tracker';
+import { connect } from 'react-redux';
 
 export const areas = {
   spinner1: 'spinner1-area',
@@ -81,6 +82,10 @@ class MyForm extends Component {
     this.setState({x_new: e.target.value});
   }
 
+  toggle = () => {
+    this.props.statusFn1(); 
+  };
+
 
   render() {
 
@@ -104,7 +109,8 @@ class MyForm extends Component {
                 {!showInput && <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>}
                 { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {false}  onChange={myChangeHandler}/>}
                 <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
-                
+                <button onClick={this.toggle}>Testing redux</button>
+                { this.props.status1 && <h2>Text for testing redux inside of class</h2> }
                 </p>
             </form>
           </div>
@@ -114,4 +120,16 @@ class MyForm extends Component {
   }
 }
 
-export default MyForm;
+const mapStateToProps = (state) => {
+  return {
+    status1: state.status1
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    statusFn1: () => dispatch({type:"status1"})
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps) (MyForm);
