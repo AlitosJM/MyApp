@@ -1,11 +1,13 @@
 import React from "react";
-import {useState,useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Post from './Post/Post';
 import Card from './Card/Card';
 import MyFom from './CsvForm/CsvForm';
 import DataForm from './CsvForm/CsvForm2';
 import MyGraph from './Graphs/Graphs';
 import { Spinner } from './Spinner/spinner';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 // import '../css/main.css';
 import '../css/styles.css';
@@ -20,17 +22,24 @@ post_objects.push(new Post(2, "wanna a cookie?", "🍪", Post.intro));
 
 
 
-function AllPost() {
+const AllPost = () => {
   const [isView1, setIsView1] = useState(-1);
   const [isView2, setIsView2] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const { promiseInProgress } = usePromiseTracker(false);
+  const dispatch = useDispatch();
+  const status0 = useSelector(state => state.status0);
   document.body.className='';
   // document.querySelectorAll('style,link[rel="stylesheet"]').forEach(item => item.remove())
   // console.log(post_objects[0].title)
 
+  const toggle = () => {
+    dispatch({type:"status0"}); 
+  };
+  
+
   const onClicked = (id) => {
-    setIsView1(id)
+    setIsView1(id);
     console.log('onClicked in allpost:', id, isView1);
   }
 
@@ -61,7 +70,8 @@ function AllPost() {
           <React.Fragment>
             <MyFom fnt0={(isView2) => setIsView2(isView2)} fnt1={(imageUrl) => setImageUrl(imageUrl)}/>            
             <Spinner />
-
+            <button onClick={toggle}>Testing redux</button>
+            {status0 && <h2>Text for testing redux</h2>}
             {isView2 && <MyGraph image = {imageUrl}/>}
           </React.Fragment>
         );
