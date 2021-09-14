@@ -18,18 +18,11 @@ class MyForm extends Component {
   handleFileChange = (e) => {
     if(!this.state.showInput){
       const file = e.target.files[0];
-      const remark = e.target.files[0].name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
-      console.log(e.target.name, remark, e.target.files[0]);
+      const remark = file.name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
+      console.log(e.target.name, remark, file);
       const showInput = false;
 
       this.setState({ file, remark, showInput })}    
-    else {
-      // const x_new = e.target.value;
-      // console.log(e.target.name, x_new);
-      // this.setState({ x_new })
-      
-    }
-    
   }
 
   async sendFile(formData){
