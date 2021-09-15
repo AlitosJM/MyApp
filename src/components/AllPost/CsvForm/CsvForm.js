@@ -49,7 +49,8 @@ class MyForm extends Component {
     .then( (datitos) => {
       console.log("-> 3",datitos);
       // alert( JSON.stringify(datitos, null, "\t") );
-      const url = datitos.data['image'].toString();
+      // const url = datitos.data['image'].toString();
+      const url = datitos['url'].toString();
       console.log("-> 4",url);
       fnt0(true);
       fnt1(url);
