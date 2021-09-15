@@ -45,7 +45,9 @@ class MyForm extends Component {
       const url = datitos.data['image'].toString();
       console.log("-> 4",url);
       fnt0(true);
+      this.props.statusFn1(true); 
       fnt1(url);
+      this.props.statusFn2(url);
     
     })
     areas.spinner2
@@ -79,11 +81,12 @@ class MyForm extends Component {
   myChangeHandler = (e) => {
   
     this.props.fnt0(false);
+    this.props.statusFn1(false); 
     this.setState({x_new: e.target.value});
   }
 
   toggle = () => {
-    this.props.statusFn1(); 
+    this.props.statusFn1(true); 
   };
 
 
@@ -122,13 +125,15 @@ class MyForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    status0: state.status0,
     status1: state.status1
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    statusFn1: () => dispatch({type:"status1"})
+    statusFn1: (status) => dispatch({type:"status1", status:status}),
+    statusFn2: (url) => dispatch({type:"setUrl", url:url})
   };
 };
 

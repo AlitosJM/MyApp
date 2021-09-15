@@ -29,6 +29,8 @@ const AllPost = () => {
   const { promiseInProgress } = usePromiseTracker(false);
   const dispatch = useDispatch();
   const status0 = useSelector(state => state.status0);
+  const isView3 = useSelector(state => state.status1);
+  const imageUrl1 = useSelector(state => state.url);
   document.body.className='';
   // document.querySelectorAll('style,link[rel="stylesheet"]').forEach(item => item.remove())
   // console.log(post_objects[0].title)
@@ -70,9 +72,9 @@ const AllPost = () => {
           <React.Fragment>
             <MyFom fnt0={(isView2) => setIsView2(isView2)} fnt1={(imageUrl) => setImageUrl(imageUrl)}/>            
             <Spinner />
-            <button onClick={toggle}>Testing redux</button>
-            {status0 && <h2>Text for testing redux</h2>}
-            {isView2 && <MyGraph image = {imageUrl}/>}
+            {/* <button onClick={toggle}>Testing redux</button>
+            {status0 && <h2>Text for testing redux</h2>} */}
+            {isView3 && <MyGraph image = {imageUrl1}/>}
           </React.Fragment>
         );
     case 2:
