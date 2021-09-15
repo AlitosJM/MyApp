@@ -148,6 +148,8 @@ export class API{
                      
                       // const url = ["http://127.0.0.1:8000", datitos['url']];
                       // datitos.url= url.join("")
+                      const url = ["http://127.0.0.1:8000", datitos.data['image']];
+                      datitos.url= url.join("")
 
                       console.log("-> 2",datitos)
                       alert( JSON.stringify(datitos, null, "\t") ); 

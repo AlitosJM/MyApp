@@ -74,7 +74,7 @@ const AllPost = () => {
             <Spinner />
             {/* <button onClick={toggle}>Testing redux</button>
             {status0 && <h2>Text for testing redux</h2>} */}
-            {isView2 && <MyGraph image = {imageUrl}/>}
+            {isView3 && <MyGraph image = {imageUrl1}/>}
           </React.Fragment>
         );
     case 2:

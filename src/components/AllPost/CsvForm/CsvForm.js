@@ -42,7 +42,8 @@ class MyForm extends Component {
     .then( (datitos) => {
       console.log("-> 3",datitos);
       // alert( JSON.stringify(datitos, null, "\t") );
-      const url = datitos.data['image'].toString();
+      // const url = datitos.data['image'].toString();
+      const url = datitos['url'].toString();
       console.log("-> 4",url);
       fnt0(true);
       this.props.statusFn1(true); 
@@ -85,11 +86,6 @@ class MyForm extends Component {
     this.setState({x_new: e.target.value});
   }
 
-  toggle = () => {
-    this.props.statusFn1(true); 
-  };
-
-
   render() {
 
     const mystyle = {
@@ -112,8 +108,6 @@ class MyForm extends Component {
                 {!showInput && <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>}
                 { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {false}  onChange={myChangeHandler}/>}
                 <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
-                <button onClick={this.toggle}>Testing redux</button>
-                { this.props.status1 && <h2>Text for testing redux inside of class</h2> }
                 </p>
             </form>
           </div>
