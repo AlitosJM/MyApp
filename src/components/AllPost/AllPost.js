@@ -75,7 +75,7 @@ const AllPost = () => {
             <MyFom />
             {/* <MyFom fnt0={(isView2) => setIsView2(isView2)} fnt1={(imageUrl) => setImageUrl(imageUrl)}/>             */}
             <Spinner />
-            {isView3 && <MyGraph image = {imageUrl1}/>}
+            {isView3 && <MyGraph image={imageUrl1}/>}
           </React.Fragment>
         );
     case 2:
