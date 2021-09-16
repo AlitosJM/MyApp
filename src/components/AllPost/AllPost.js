@@ -100,7 +100,9 @@ const AllPost = () => {
         <section id="welcome">
           <header>
             <img src={JMAT} alt="JMAT's Blog"/>
-            <div className="title"><h2>Welcome</h2></div>
+            <div className="title">
+              <h2>Welcome</h2>
+            </div>
           </header>
         </section>
         
