@@ -9,6 +9,8 @@ import { Spinner } from './Spinner/spinner';
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import JMAT from '../images/Jmat2.jpg';
+
 // import '../css/main.css';
 import '../css/styles.css';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
@@ -70,10 +72,9 @@ const AllPost = () => {
     case 1:
         return (
           <React.Fragment>
-            <MyFom fnt0={(isView2) => setIsView2(isView2)} fnt1={(imageUrl) => setImageUrl(imageUrl)}/>            
+            <MyFom />
+            {/* <MyFom fnt0={(isView2) => setIsView2(isView2)} fnt1={(imageUrl) => setImageUrl(imageUrl)}/>             */}
             <Spinner />
-            {/* <button onClick={toggle}>Testing redux</button>
-            {status0 && <h2>Text for testing redux</h2>} */}
             {isView3 && <MyGraph image = {imageUrl1}/>}
           </React.Fragment>
         );
@@ -89,19 +90,26 @@ const AllPost = () => {
 
   return (
       <div className="wrapper">
-
-        <div className="top">
-          <div className="title"><h1>JMAT ☕</h1></div>
-        </div>
         
+        <header id="main-navigation"> 
+            <div className="top title">              
+              <h1>JMAT's Blog ☕</h1>
+            </div>
+        </header>
+
+        <section id="welcome">
+          <header>
+            <img src={JMAT} alt="JMAT's Blog"/>
+            <div className="title"><h2>Welcome</h2></div>
+          </header>
+        </section>
         
         {isView1===-1? 
           <div className="sub-wrapper">
             {post_objects.map(MappingFunc)}
           </div>: 
           renderSwitch(isView1)
-        }
-        
+        }        
 
       </div>
 

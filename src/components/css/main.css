@@ -160,7 +160,7 @@
 		font-weight: 300;
 		line-height: 2;
 		letter-spacing: 0.2em;
-		text-transform: uppercase;
+		/* text-transform: uppercase; */
 	}
 
 		@media screen and (max-width: 1680px) {
@@ -215,7 +215,7 @@
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #313f47;
+		color: white;
 		line-height: 1.5;
 		margin: 0 0 0.75em 0;
 	}

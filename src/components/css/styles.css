@@ -18,6 +18,48 @@ body {
 	font-family: "Source Sans Pro", Helvetica, sans-serif;
 }
 
+#main-navigation h1{
+	width: 100%;
+	height: 5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 10%;
+	position: absolute;
+	/* top: 0; */
+	left: 0;
+  }
+
+#welcome {
+	background: #4e89ae;
+    padding: 1rem 10%;
+}
+
+#welcome header {
+    display: flex;
+    align-items: flex-start;
+    margin: 3rem auto;
+  }
+
+#welcome img {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    object-position: top;
+    border: 5px solid white;
+    border-radius: 12px;
+    background-color: #ffe1bf;
+    transform: rotateZ(-5deg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  #welcome h2 {
+    font-size: 3.5rem;
+    margin: 0 0 0 2rem;
+    color: #e4e4e4;
+    width: 10rem;
+}
+
 
 .wrapper{
   position: relative;
@@ -37,9 +79,9 @@ body {
 
 
 .top{
-  background: #4e89ae;
+  background: linear-gradient(to right top, #4e89ae, #000508);
   height: 85px;
-  border-top: 20px solid #43658b;
+  /* border-top: 20px solid #43658b; */
 }
 
 .top .title {
@@ -47,7 +89,7 @@ body {
   margin: 28px auto 0 auto;
 }
 
-.title h1 {
+.title h2 {
   font-size:24px;
   color:#FFF;
   font-weight:500;
