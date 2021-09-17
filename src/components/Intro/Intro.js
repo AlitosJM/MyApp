@@ -36,7 +36,7 @@ function Intro() {
           <footer>
             <ul className="icons">
               {/* <li><a href="#" onClick={onRouteChange} className="icon solid fa-robot">Robot</a></li> */}
-              <li><Link className="icon solid fa-robot" to="/MyPage">Robot</Link></li>
+              <li><Link className="icon solid fa-robot" to="/myPage">Robot</Link></li>
               {/*<button className="icon solid fa-robot">Robot</button>*/}
             </ul>
           </footer>

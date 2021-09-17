@@ -4,12 +4,12 @@ import Post from './Post/Post';
 import Card from './Card/Card';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 import JMAT from '../images/Jmat2.jpg';
 
 // import '../css/main.css';
-import '../css/styles.css';
+
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 
 // <Card key={post_objects[0].post_id} title={post_objects[0].title} subtitle={post_objects[0].subtitle} body={post_objects[0].body}/>
@@ -22,7 +22,6 @@ post_objects.push(new Post(2, "wanna a cookie?", "🍪", Post.intro));
 
 
 const AllPost = () => {
-  const [isView1, setIsView1] = useState(-1);
   const dispatch = useDispatch();
   const status0 = useSelector(state => state.status0);
 
@@ -32,9 +31,8 @@ const AllPost = () => {
   // console.log(post_objects[0].title)
 
   const onClicked = (id) => {
-    setIsView1(id);
     dispatch({type:"status0", status:id}); 
-    console.log('onClicked in allpost:', id, isView1);
+    console.log('onClicked in allpost:', id, status0);
   }
 
   const MappingFunc = (post) => {
@@ -68,14 +66,14 @@ const AllPost = () => {
             {post_objects.map(MappingFunc)}
           </div>
           :(
-           
-            history.push("/Detail")
-            )
+            <Redirect to={`/detail/${status0}`}/>
+            
+          )
         }        
 
       </div>
 
   );
 }
-
+// history.push(`/detail/${status0}`)
 export default AllPost;
