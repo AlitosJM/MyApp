@@ -1,6 +1,6 @@
 import React from "react";
-import {useState,useEffect} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import JMAT from '../images/Jmat2.jpg';
 
 import '../css/main.css';

@@ -1,7 +1,9 @@
+import React from "react";
+
 const Children = props => {
     const classWrapper0 = props.className0;
     const classWrapper1 = props.className1;
-    const idWrapper = props.id;
+    const idWrapper = props.idWrapper;
 
     return (
         <div className={classWrapper0}>

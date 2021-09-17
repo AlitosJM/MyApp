@@ -1,12 +1,12 @@
-import {createStore} from 'redux';
+import { createStore } from 'redux';
 
-const initialState = {status0: false, status1: false, url:""};
+const initialState = {status0: -1, status1: false, url:""};
 
 const myReducer = (state = initialState, action) => {
     if (action.type==="status0")
     {        
         return {
-            status0: !state.status0? true:false,
+            status0: action.status,
             status1: state.status1,
             url: state.url
         };
