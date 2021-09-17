@@ -16,17 +16,25 @@ function Card({objPost}) {
 
   const id  = objPost.id;
 
-  return (
-    <div className="content">
-      <div className="card">
-          <h2>{objPost.title}</h2>
-          <p className="text">{objPost.subtitle}</p>
-          {/*<a href="#" onClick={onRouteChange}>RouteChange</a>*/}
-          {/*<a href="#" onClick={() =>Clicked(props.id)}>Clicked1</a>*/}
-          {/* <a onClick={() =>onClicked(id)}>Clicked2</a> */}
-          <a onClick={() =>objPost.fn(id)}>Clicked2</a>
-      </div>
-    </div>
+  return (    
+  <ul>
+    <li>
+      <article className="post">
+
+        <a onClick={() => objPost.fn(id)}>
+
+          <div className="content">
+            <div className="card">
+              <h3>{objPost.title}</h3>
+              <p className="text">{objPost.subtitle}</p>
+            </div>
+          </div>
+          
+        </a>        
+      </article>
+    </li>
+  </ul>
+
   );
 }
 

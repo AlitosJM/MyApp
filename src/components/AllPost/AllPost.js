@@ -17,7 +17,7 @@ import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 let post_objects = [];
 post_objects.push(new Post(0, "Hello world!", "😄", Post.intro));
 post_objects.push(new Post(1, "Hi there!", "🤖", Post.intro));
-post_objects.push(new Post(2, "wanna a cookie?", "🍪", Post.intro));
+post_objects.push(new Post(2, "Wanna a cookie?", "🍪", Post.intro));
 
 
 const AllPost = () => {
