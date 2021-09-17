@@ -20,7 +20,6 @@ post_objects.push(new Post(1, "Hi there!", "🤖", Post.intro));
 post_objects.push(new Post(2, "wanna a cookie?", "🍪", Post.intro));
 
 
-
 const AllPost = () => {
   const dispatch = useDispatch();
   const status0 = useSelector(state => state.status0);
@@ -42,6 +41,13 @@ const AllPost = () => {
      );
   }
 
+  const mystyle = {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    margin: "1rem 0.5rem auto 1rem"
+  };
+
 
   return (
       <div className="wrapper">
@@ -56,15 +62,22 @@ const AllPost = () => {
           <header>
             <img src={JMAT} alt="JMAT's Blog"/>
             <div className="title">
-              <h2>Welcome</h2>
+              <h2>Welcome</h2>  
+              <p style={mystyle}>"Success is not final; failure is not fatal: It is the courage to continue that counts."</p> 
+              <p style={mystyle}>Winston S. Churchill</p>           
             </div>
+            
           </header>
+          
         </section>
         
         {status0===-1? 
-          <div className="sub-wrapper">
-            {post_objects.map(MappingFunc)}
-          </div>
+          <section id="latest-posts">
+            <h2 style={mystyle}>Things I like doing...</h2>
+            <div className="sub-wrapper">
+              {post_objects.map(MappingFunc)}
+            </div>
+          </section>
           :(
             <Redirect to={`/detail/${status0}`}/>
             
