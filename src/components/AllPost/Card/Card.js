@@ -25,11 +25,12 @@ function Card({objPost}) {
 
           <div className="content">
             <div className="card">
-              <h3>{objPost.title}</h3>
+              {objPost.title}
               <p className="text">{objPost.subtitle}</p>
+              {objPost.body}
             </div>
           </div>
-          
+
         </a>        
       </article>
     </li>
