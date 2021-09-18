@@ -101,7 +101,7 @@ class MyForm extends Component {
     const {file, remark, showInput, x_new} = this.state;
 
     return (
-        <div className="content">
+        // <div className="content">
           <div className="card">
             <form onSubmit={submit}>
                 <p><span style={mystyle}>CSV</span>
@@ -111,7 +111,7 @@ class MyForm extends Component {
                 </p>
             </form>
           </div>
-        </div>
+        // </div>
 
     );
   }

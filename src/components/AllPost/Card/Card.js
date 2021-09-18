@@ -23,13 +23,13 @@ function Card({objPost}) {
 
         <a onClick={() => objPost.fn(id)}>
 
-          <div className="content">
+          {/* <div className="content"> */}
             <div className="card">
               {objPost.title}
               <p className="text">{objPost.subtitle}</p>
               {objPost.body}
             </div>
-          </div>
+          {/* </div> */}
 
         </a>        
       </article>
