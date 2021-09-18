@@ -15,6 +15,14 @@ const Children = props => {
                         <h1>JMAT's Blog ☕</h1>
                     </div>
                 </header>
+                <section id="summary">
+                    <h2>Test</h2>
+                </section>
+                <main>
+                    <p> This is a test</p>
+                </main>
+
+
                 {props.children}       
             </div>
             <section>
