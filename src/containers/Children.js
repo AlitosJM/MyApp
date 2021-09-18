@@ -20,6 +20,7 @@ const Children = props => {
                 </section>
                 <main>
                     <p> This is a test</p>
+                    <p> This is a test</p>
                 </main>
 
 
