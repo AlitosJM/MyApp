@@ -21,8 +21,13 @@ const App = () => {
       <Switch>
         <Route exact path="/myPage" component={AllPost} />  
         <Route path="/detail/:id">
-          <Children className0="wrapper" className1="top title" idWrapper="main-navigation">
-            <Detail />        
+          <Children 
+            className0="wrapper" 
+            className1="top title" 
+            idWrapper="main-navigation"
+            idFooter="Myfooter"
+            >
+              <Detail />        
           </Children>
         </Route>
         <Route path="/" component={Intro}/>            
