@@ -94,7 +94,7 @@ body {
 
 .top{
   background: linear-gradient(to right top, #4e89ae, #000508);
-  height: 85px;
+  height: 5rem;
   /* border-top: 20px solid #43658b; */
 }
 
@@ -236,11 +236,13 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
   }
 
 #Myfooter {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #43658b;
+  /* position: fixed; */
+  /* left: 0; */
+  /* bottom: 0; */
+  /* width: 100%;  */
+  background: linear-gradient(to right top, #4e89ae, #000508);
+  padding: 1rem;
+  margin: 18rem 0 0 0;
   color: white;
   text-align: center;
   font-family: "Source Sans Pro", Helvetica, sans-serif;

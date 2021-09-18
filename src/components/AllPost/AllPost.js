@@ -50,6 +50,7 @@ const AllPost = () => {
 
 
   return (
+    <React.Fragment>
       <div className="wrapper">
         
         <header id="main-navigation"> 
@@ -82,9 +83,15 @@ const AllPost = () => {
             <Redirect to={`/detail/${status0}`}/>
             
           )
-        }        
-
+        }
       </div>
+      <section>
+        <footer id="Myfooter">
+          <p> JMAT </p>
+        </footer>
+      </section>
+
+    </React.Fragment>
 
   );
 }
