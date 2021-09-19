@@ -19,19 +19,18 @@ function Card({objPost}) {
   return (    
   <ul>
     <li>
-      <article className="post">
-
-        <a onClick={() => objPost.fn(id)}>
+      <article className="post">        
 
           {/* <div className="content"> */}
-            <div className="card">
-              {objPost.title}
-              <p className="text">{objPost.subtitle}</p>
-              {objPost.body}
+          <a onClick={() => objPost.fn(id)}>
+            <div className="card">              
+                <h3>{objPost.title}</h3>
+                <p className="text">{objPost.subtitle}</p>
+                {objPost.body}              
             </div>
+          </a> 
           {/* </div> */}
-
-        </a>        
+               
       </article>
     </li>
   </ul>

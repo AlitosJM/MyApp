@@ -23,9 +23,9 @@ post_objects.push(new Post(2, "Wanna a cookie?", "🍪", Post.intro));
 const AllPost = () => {
   const dispatch = useDispatch();
   const status0 = useSelector(state => state.status0);
-
   const history = useHistory();
   document.body.className='';
+  console.log(Post.intro);
   // document.querySelectorAll('style,link[rel="stylesheet"]').forEach(item => item.remove())
   // console.log(post_objects[0].title)
 
