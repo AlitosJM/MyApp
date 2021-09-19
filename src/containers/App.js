@@ -19,7 +19,7 @@ const App = () => {
   return (
     <React.Fragment>  
       <Switch>
-        <Route exact path="/myPage" component={AllPost} />  
+        <Route path="/myPage" exact component={AllPost} />  
         <Route path="/detail/:id">
           <Children 
             className0="wrapper" 

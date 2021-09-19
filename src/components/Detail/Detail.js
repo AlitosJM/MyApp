@@ -12,6 +12,7 @@ const Detail = props => {
     const history = useHistory();
     const params = useParams();
     document.body.className='';
+    
 
     const renderSwitch = (id) => {
         switch(id) {
