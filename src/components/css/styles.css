@@ -191,7 +191,16 @@ padding-bottom: 20px; */
   text-decoration:none;
 } */
 
+.post a {
+	display: flex;
+	flex: 1;
+	padding: 30px;
+}
+
 .card{
+	display: flex;
+	flex: 1;
+	flex-direction: column;
 	position: relative;
 	background-color: white;
 	/*background-color: rgba(78,137,174, 0.5);*/
