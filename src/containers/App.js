@@ -5,7 +5,7 @@ import Intro from "../components/Intro/Intro";
 import AllPost from '../components/AllPost/AllPost';
 import Detail from "../components/Detail/Detail";
 
-import '../components/css/styles.css';
+import './styles.css';
 
 // import { Provider } from 'react-redux';
 // import store from "../store/index";

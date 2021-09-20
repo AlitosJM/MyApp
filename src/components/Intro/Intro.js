@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import JMAT from '../images/Jmat2.jpg';
 
-import '../css/main.css';
+import './main.css';
+// import '../css/main.css';
 // import '../css/noscript.css';
 
 
