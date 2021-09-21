@@ -10,9 +10,7 @@ const Detail = props => {
     const imageUrl = useSelector(state => state.url);
     const dispatch = useDispatch();
     const history = useHistory();
-    const params = useParams();
-    document.body.className='';
-    
+    const params = useParams();    
 
     const renderSwitch = (id) => {
         switch(id) {

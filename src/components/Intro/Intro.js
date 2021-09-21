@@ -1,58 +1,65 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import JMAT from '../images/Jmat2.jpg';
 
-import './main.css';
+// import './main.css';
+import classes from'./main.module.css';
+
 // import '../css/main.css';
 // import '../css/noscript.css';
+// https://embed.plnkr.co/eoa4QEp6b83L9Ky3F3Tj/
 
-
-function Intro() {
+function PortalToIntro() {
 
   useEffect( () => {
     if ('addEventListener' in window) {
       console.log('addEventListener');
-      window.addEventListener('load', () => { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
-      document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');}
+      window.addEventListener('load', () => { document.getElementsByTagName("BODY")[0].className = document.getElementsByTagName("BODY")[0].className.replace(/\bis-preload\b/, ''); });
+      document.getElementsByTagName("BODY")[0].className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+      console.log(document.getElementsByTagName("BODY")[0].className);
+    }
 
   },[])
-  // const onRouteChange = (e) =>{
-  //   e.preventDefault();
-  //   console.log('onRouteChange');
-  //   window.location.href = "/MyPage";
-  // }
-  return (
-    <div className="is-preload">
 
-      <div id="wrapper">
-        <section id="main">
+  return (
+
+      <div id={classes.wrapper}>
+        <section id={classes.main}>
 
           <header>
-            <span className="avatar"><img src={JMAT} alt="" /></span>
+            <span className={classes.avatar}><img src={JMAT} alt="JMAT" /></span>
             <h1><em>@liTos</em></h1>
             <p>Ing. Electrónico</p>
           </header>
 
           <footer>
-            <ul className="icons">
-              {/* <li><a href="#" onClick={onRouteChange} className="icon solid fa-robot">Robot</a></li> */}
-              <li><Link className="icon solid fa-robot" to="/myPage">Robot</Link></li>
-              {/*<button className="icon solid fa-robot">Robot</button>*/}
+            <ul className={classes.icons}>
+              <li><Link className={"icon solid fa-robot"} to="/myPage">Robot</Link></li>
             </ul>
           </footer>
 
         </section>
 
-        <footer id="footer">
-          <ul className="copyright">
+        <footer id={classes.footer}>
+          <ul className={classes.copyright}>
             <li>&copy; JMAT </li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
           </ul>
         </footer>
       </div>
 
-    </div>
   );
 }
+
+const Intro = () =>{
+  return(
+    <React.Fragment>
+      {ReactDOM.createPortal(<PortalToIntro />, document.getElementById('intro'))}
+    </React.Fragment>
+  );
+
+}
+
 
 export default Intro;
