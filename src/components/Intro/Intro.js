@@ -4,12 +4,14 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import JMAT from '../images/Jmat2.jpg';
 
-// import './main.css';
-import classes from'./main.module.css';
+import './main.css';
+// import classes from'./main.module.css';
 
 // import '../css/main.css';
 // import '../css/noscript.css';
 // https://embed.plnkr.co/eoa4QEp6b83L9Ky3F3Tj/
+// document.getElementsByTagName("BODY")[0].className
+// document.body.className = "";
 
 function PortalToIntro() {
 
@@ -25,25 +27,25 @@ function PortalToIntro() {
 
   return (
 
-      <div id={classes.wrapper}>
-        <section id={classes.main}>
+      <div id={"wrapper"}>
+        <section id={"main"}>
 
           <header>
-            <span className={classes.avatar}><img src={JMAT} alt="JMAT" /></span>
+            <span className={"avatar"}><img src={JMAT} alt="JMAT" /></span>
             <h1><em>@liTos</em></h1>
             <p>Ing. Electrónico</p>
           </header>
 
           <footer>
-            <ul className={classes.icons}>
+            <ul className={"icons"}>
               <li><Link className={"icon solid fa-robot"} to="/myPage">Robot</Link></li>
             </ul>
           </footer>
 
         </section>
 
-        <footer id={classes.footer}>
-          <ul className={classes.copyright}>
+        <footer id={"footer"}>
+          <ul className={"copyright"}>
             <li>&copy; JMAT </li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
           </ul>
         </footer>

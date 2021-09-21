@@ -24,7 +24,7 @@ const AllPost = () => {
   const dispatch = useDispatch();
   const status0 = useSelector(state => state.status0);
   const history = useHistory();
-  console.log(Post.intro);
+  // document.body.className = "";
   // document.querySelectorAll('style,link[rel="stylesheet"]').forEach(item => item.remove())
   // console.log(post_objects[0].title)
 
