@@ -28,6 +28,10 @@
 		vertical-align: baseline;
 	}
 
+	#myHeader em, #myHeader p {
+		color: #414f57;
+	}
+
 	article, aside, details, figcaption, figure,
 	footer, header, hgroup, menu, nav, section {
 		display: block;
@@ -154,7 +158,7 @@
 /* Type */
 /* body, input, select, textarea */
 	body, select, textarea {
-		color: #414f57;
+		/* color: #414f57; */
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
 		font-size: 14pt;
 		font-weight: 300;
@@ -182,7 +186,7 @@
 
 		}
 
-	a {
+/* 	a {
 		-moz-transition: color 0.2s ease, border-color 0.2s ease;
 		-webkit-transition: color 0.2s ease, border-color 0.2s ease;
 		-ms-transition: color 0.2s ease, border-color 0.2s ease;
@@ -200,7 +204,7 @@
 
 		a:hover {
 			color: #ff7496;
-		}
+		} */
 
 	strong, b {
 		color: #313f47;
@@ -215,7 +219,7 @@
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: black;
+		/* color: black; */
 		line-height: 1.5;
 		margin: 0 0 0.75em 0;
 	}

@@ -66,7 +66,7 @@ body {
   #welcome h2 {
     font-size: 3.5rem;
     margin: 0 0 0 2rem;
-    color: #e4e4e4;
+    /* color: #e4e4e4; */
     width: 10rem;
 }
 
@@ -170,27 +170,6 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 .btn-block { width: 100%; display:block; }
 
 
-
-/* margin: -80px auto 10px;
-padding-bottom: 20px; */
-/* .card_LR{
-  position: relative;
-  padding:25px;
-  width: 600px;
-  margin: 100px auto 0 auto;
-} */
-
-/* .card h3 {
-  color:black;
-  font-size:1rem;
-  font-weight:bold;
-} */
-
-/* .card h2 a {
-  color:#CC0000;
-  text-decoration:none;
-} */
-
 .post a {
 	display: flex;
 	flex: 1;
@@ -212,9 +191,9 @@ padding-bottom: 20px; */
 	/*box-shadow: 0 2px 4px rgba(100,100,100,.1);*/
 	box-shadow:0 0 15px 5px #ccc;
 	border-radius:10px;
-	color:black;
+	/* color:black;
 	font-size:1rem;
-	font-weight:bold;
+	font-weight:bold; */
   }
 
 .post .card{
@@ -233,7 +212,7 @@ padding-bottom: 20px; */
 .card h3{
 	text-align: center;
 	letter-spacing: 3px;
-	color:black;
+	/* color:black; */
 	font-size:1rem;
 	font-weight:bold;
   }

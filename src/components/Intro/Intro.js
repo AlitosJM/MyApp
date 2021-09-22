@@ -19,7 +19,7 @@ function PortalToIntro() {
     if ('addEventListener' in window) {
       console.log('addEventListener');
       window.addEventListener('load', () => { document.getElementsByTagName("BODY")[0].className = document.getElementsByTagName("BODY")[0].className.replace(/\bis-preload\b/, ''); });
-      document.getElementsByTagName("BODY")[0].className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+      document.getElementsByTagName("BODY")[0].className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? 'is-ie' : '');
       console.log(document.getElementsByTagName("BODY")[0].className);
     }
 
@@ -30,8 +30,10 @@ function PortalToIntro() {
       <div id={"wrapper"}>
         <section id={"main"}>
 
-          <header>
-            <span className={"avatar"}><img src={JMAT} alt="JMAT" /></span>
+          <header id={"myHeader"}>
+            <span className={"avatar"}>
+              <img src={JMAT} alt="JMAT" />
+            </span>
             <h1><em>@liTos</em></h1>
             <p>Ing. Electrónico</p>
           </header>

@@ -50,7 +50,7 @@ const AllPost = () => {
 
   return (
     <React.Fragment>
-      <div className="wrapper">
+      <div className="styles.wrapper">
         
         <header id="main-navigation"> 
             <div className="top title">              
