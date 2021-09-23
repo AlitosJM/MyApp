@@ -21,12 +21,7 @@ const App = () => {
       <Switch>
         <Route path="/myPage" exact component={AllPost} />  
         <Route path="/detail/:id">
-          <Children 
-            className0="wrapper" 
-            className1="top title" 
-            idWrapper="main-navigation"
-            idFooter="Myfooter"
-            >
+          <Children >
               <Detail />        
           </Children>
         </Route>

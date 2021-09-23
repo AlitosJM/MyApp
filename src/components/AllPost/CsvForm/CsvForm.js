@@ -36,7 +36,7 @@ class MyForm extends Component {
   }
 
   sendData = async (x_new) => {
-    const {fnt0, fnt1} = this.props;
+    // const {fnt0, fnt1} = this.props;
     // const msg = await API.sendData2(x_new)
     await API.sendData2(x_new)
     .then( (datitos) => {
@@ -45,9 +45,9 @@ class MyForm extends Component {
       // const url = datitos.data['image'].toString();
       const url = datitos['url'].toString();
       console.log("-> 4",url);
-      fnt0(true);
+      // fnt0(true);
       this.props.statusFn1(true); 
-      fnt1(url);
+      // fnt1(url);
       this.props.statusFn2(url);
     
     })
@@ -80,8 +80,8 @@ class MyForm extends Component {
 }
 
   myChangeHandler = (e) => {
-  
-    this.props.fnt0(false);
+    console.log(e.target.value);
+    // this.props.fnt0(false);
     this.props.statusFn1(false); 
     this.setState({x_new: e.target.value});
   }

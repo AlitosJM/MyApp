@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 const Children = props => {
     // const { classWrapper0, classWrapper1, idWrapper, idFooter } = props;
     // const history = useHistory();
-    const classWrapper0 = props.classWrapper0;
-    const classWrapper1 = props.className1;
-    const idWrapper = props.idWrapper;
-    const idFooter = props.idFooter;
+    // const classWrapper0 = props.classWrapper0;
+    // const classWrapper1 = props.className1;
+    // const idWrapper = props.idWrapper;
+    // const idFooter = props.idFooter;
     const dispatch = useDispatch();
     // const status0 = useSelector(state => state.status0);
     document.body.className='';
@@ -23,9 +23,9 @@ const Children = props => {
 
     return (
         <React.Fragment>
-            <div className={classWrapper0}>
-                <header id={idWrapper}> 
-                    <div className={classWrapper1}>
+            <div className={"wrapper"}>
+                <header id={"main-navigation"}> 
+                    <div className={"top title"}>
                         <Link
                             to={() => {
                                 dispatch({type:"status0", status:-1});
@@ -55,7 +55,7 @@ const Children = props => {
                 {props.children}       
             </div>
             <section>
-                <footer id={idFooter}>
+                <footer id={"Myfooter"}>
                     <p> JMAT </p>
                 </footer>
             </section>
