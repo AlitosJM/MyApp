@@ -1,9 +1,9 @@
 import React from "react";
 import { Switch, Route } from 'react-router-dom';
-import Children from "./Children";
-import Intro from "../components/Intro/Intro";
-import AllPost from '../components/AllPost/AllPost';
-import Detail from "../components/Detail/Detail";
+import Wrapper from "../Wrapper/Wrapper";
+import Intro from "../../components/Intro/Intro";
+import AllPost from '../../components/AllPost/AllPost';
+import Detail from "../../components/Detail/Detail";
 
 import './styles.css';
 
@@ -21,13 +21,11 @@ const App = () => {
       <Switch>
         <Route path="/myPage" exact component={AllPost} />  
         <Route path="/detail/:id">
-          <Children >
+          <Wrapper >
               <Detail />        
-          </Children>
+          </Wrapper>
         </Route>
-        <Route path="/" component={Intro}/>            
-        
-
+        <Route path="/" component={Intro}/>
       </Switch>
     </React.Fragment>
   );

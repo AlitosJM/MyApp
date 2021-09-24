@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink,Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-const Children = props => {
+const Wrapper = props => {
     // const { classWrapper0, classWrapper1, idWrapper, idFooter } = props;
     // const history = useHistory();
     // const classWrapper0 = props.classWrapper0;
@@ -63,4 +63,4 @@ const Children = props => {
     );
 };
 
-export default Children;
+export default Wrapper;

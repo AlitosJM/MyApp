@@ -120,43 +120,30 @@ export class API{
                 body: JSON.stringify({x: x_new})}
                 )
                 .then( resp => {
-
                   const datitos = resp;
 
-                  if (datitos.ok)
-                  {
-                    console.log("-> 1", datitos)
-                    return datitos.json()
-                  }
-                  else
-                  {
-                    throw new Error(datitos.statusText);
-                  }
-                  // console.log("-> array",url.join(""))
+                  if (datitos.ok){
+                    console.log("-> 1", datitos);
+                    return datitos.json();}
+                  else{
+                    throw new Error(datitos.statusText);}
 
-                  // datitos['url']="http://127.0.0.1:8000/file"+datitos['url']
-                  
-                  // const status = resp.statusText;
-                  // const url = resp.url;
-                  // datitos.status = status;
-                  // datitos.url = url;
-                      }
-                    )
-                    .then( (datitos) => {
+                })
+                .then( (datitos) => {
                      
-                      // const url = ["http://127.0.0.1:8000", datitos['url']];
-                      // datitos.url= url.join("")
-                      console.log("-> 1.5",datitos)
-                      const url = ["http://127.0.0.1:8000", datitos.data['image']];
-                      datitos.url= url.join("")
+                  // const url = ["http://127.0.0.1:8000", datitos['url']];
+                  // datitos.url= url.join("")
+                  console.log("-> 1.5",datitos)
+                  const url = ["http://127.0.0.1:8000", datitos.data['image']];
+                  datitos.url= url.join("")
 
-                      console.log("-> 2",datitos)
-                      // alert( JSON.stringify(datitos, null, "\t") ); 
-                      alert(datitos); 
-                      return datitos })
-                    .catch((error) => {
-                      console.log(error)
-                    })
+                  console.log("-> 2",datitos)
+                  // alert( JSON.stringify(datitos, null, "\t") ); 
+                  alert(datitos); 
+                  return datitos })
+                .catch( (error) => {
+                    console.log(error)
+                  })
               );
             }, 3000)
           });

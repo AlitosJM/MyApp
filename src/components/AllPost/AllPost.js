@@ -6,7 +6,7 @@ import Card from './Card/Card';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Redirect } from "react-router-dom";
 
-import JMAT from '../images/Jmat2.jpg';
+import JMAT from '../../images/Jmat2.jpg';
 
 // import '../css/main.css';
 
