@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { API } from '../../API';
-import { userAPI } from '../../DummyFetch';
+import { API } from '../../Api/API';
+// import { userAPI } from '../../DummyFetch';
 import { trackPromise } from 'react-promise-tracker';
 import { connect } from 'react-redux';
 

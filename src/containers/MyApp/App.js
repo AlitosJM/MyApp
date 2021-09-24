@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from 'react-router-dom';
 import Wrapper from "../Wrapper/Wrapper";
 import Intro from "../../components/Intro/Intro";
-import AllPost from '../../components/AllPost/AllPost';
+import AllPost from '../AllPost/AllPost';
 import Detail from "../../components/Detail/Detail";
 
 import './styles.css';

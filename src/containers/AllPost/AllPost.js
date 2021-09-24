@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
-import Post from './Post/Post';
-import Card from './Card/Card';
+import Post from '../../components/Post/Post';
+import Card from '../../components/Card/Card';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Redirect } from "react-router-dom";

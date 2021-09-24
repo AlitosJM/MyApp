@@ -142,7 +142,7 @@ export class API{
                   alert(datitos); 
                   return datitos })
                 .catch( (error) => {
-                    console.log(error)
+                    console.log("in Api",error)
                   })
               );
             }, 3000)

@@ -1,8 +1,8 @@
 import React from "react";
-import MyFom from '../AllPost/CsvForm/CsvForm';
-import DataForm from '../AllPost/CsvForm/CsvForm2';
-import MyGraph from '../AllPost/Graphs/Graphs'
-import { Spinner } from '../AllPost/Spinner/spinner';
+import MyFom from '../CsvForm/CsvForm';
+import DataForm from '../CsvForm/CsvForm2';
+import MyGraph from '../Graphs/Graphs'
+import { Spinner } from '../Spinner/spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams, Redirect } from "react-router-dom";
 
