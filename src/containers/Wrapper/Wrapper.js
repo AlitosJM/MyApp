@@ -13,13 +13,13 @@ const Wrapper = props => {
     // const status0 = useSelector(state => state.status0);
     document.body.className='';
 
-    const  myStyle = { fontWeight: "bold", color: "red"};
+    // const  myStyle = { fontWeight: "bold", color: "red"};
 
-    // const onClicked = () => {
-    //     dispatch({type:"status0", status:-1}); 
-    //     console.log("push");
-    //     history.push("/myPage");
-    // }
+    /* const onClicked = () => {
+        dispatch({type:"status0", status:-1}); 
+        console.log("push");
+        history.push("/myPage");
+    } */
 
     return (
         <React.Fragment>
@@ -27,6 +27,7 @@ const Wrapper = props => {
                 <header id={"main-navigation"}> 
                     <div className={"top title"}>
                         <Link
+                            style={{ textDecoration: 'none' }}
                             to={() => {
                                 dispatch({type:"status0", status:-1});
                                 return { pathname: "/myPage"}}} 
@@ -35,7 +36,7 @@ const Wrapper = props => {
                         </Link>
                         {/* <a onClick={onClicked}>
                             <h1>JMAT's Blog ☕</h1>  
-                        </a>   */}
+                        </a> */}
                         
                         {/* <a href="/myPage">
                             <h1>JMAT's Blog ☕</h1>  
