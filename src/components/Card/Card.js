@@ -1,34 +1,31 @@
 import React from "react";
+import {default as Wrapper} from "./LinkTo";
 // import '../css/styles.css';
 
 function Card({objPost}) {
-
-  const Clicked = (id) =>{
-    console.log('Clicked', id);
-    onClicked(id);
-  }
-
-  const onRouteChange = (e)=>{
-    e.preventDefault();
-    console.log('onRouteChange');
-    window.location.href = "/";
-  }
-
   const id  = objPost.id;
+
+  const onClicked = () =>{
+    console.log('Clicked', id);
+    objPost.fn(id);
+  }
 
   return (    
   <ul>
     <li>
-      <article className="post">        
-
+      <article className="post">  
           {/* <div className="content"> */}
-          <a onClick={() => objPost.fn(id)}>
+          {/* <a onClick={()=>onClicked(id)}> */}
+          {/* <Wrapper value={id} onClicked={onClicked}> */}
+          <a onClick={onClicked}>
             <div className="card">              
                 <h3>{objPost.title}</h3>
                 <p className="text">{objPost.subtitle}</p>
                 {objPost.body}              
             </div>
-          </a> 
+          </a>
+          {/* </Wrapper> */}
+          {/* </a> */}
           {/* </div> */}
                
       </article>
