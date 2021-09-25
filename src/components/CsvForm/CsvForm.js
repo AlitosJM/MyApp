@@ -27,7 +27,7 @@ class MyForm extends Component {
   }
 
   async sendFile(formData){
-    await API.sendFile2(formData, (showInput) => this.setState({showInput}))
+    await API.sendFile(formData, (showInput) => this.setState({showInput}))
     .then( (datitos) => {
       console.log("2",datitos);
       alert( JSON.stringify(datitos, null, "\t") );}
@@ -38,7 +38,7 @@ class MyForm extends Component {
   sendData = async (x_new) => {
     // const {fnt0, fnt1} = this.props;
     // const msg = await API.sendData2(x_new)
-    await API.sendData2(x_new)
+    await API.sendData(x_new)
     .then( (datitos) => {
       console.log("-> 3",datitos);
       // alert( JSON.stringify(datitos, null, "\t") );
@@ -75,7 +75,6 @@ class MyForm extends Component {
   else {
     trackPromise(
       this.sendData(this.state.x_new));
-
   }
 }
 
