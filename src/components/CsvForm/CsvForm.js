@@ -32,7 +32,8 @@ class MyForm extends Component {
       console.log("2",datitos);
       alert( JSON.stringify(datitos, null, "\t") );}
       )
-      areas.spinner1
+
+    areas.spinner1
   }
 
   sendData = async (x_new) => {

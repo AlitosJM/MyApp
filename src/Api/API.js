@@ -58,12 +58,21 @@ export class API{
         }
         else{
           console.log("datitos no ok"); 
-          throw new Error("Error sending file");
+          throw new Error("sending data "+[datitos.statusText, datitos.status].join(" "));
           }
         }  
       )
-      .catch(error => console.log(`Failed with reason: ${error}`))
-      .finally(() => timeout.clear(...timeout.ids));
+      .catch( (error) => {  
+        console.log("inner catch", error.reason);     
+        const isObj = typeof error !== 'undefined' && "reason" in error;
+        console.log("obj", isObj);
+        !isObj? console.log(`${error}`):
+                console.log(`Failed with reason: ${error.reason}`)
+      })
+      .finally(() => {
+        timeout.clear(...timeout.ids);
+        console.log("finally 1");
+      });
 
     console.log("fin"); 
     return promesa;
@@ -91,9 +100,9 @@ export class API{
             console.log("-> 1", datitos);
             return datitos.json();}
           else{
+            console.log("-> 1.3", datitos);
             console.log("datitos no ok"); 
-            throw new Error("Error sending data");}
-
+            throw new Error("sending data "+[datitos.statusText, datitos.status].join(" "));}
         })
         .then( (datitos) => {
           console.log("-> 1.5",datitos)
@@ -102,9 +111,14 @@ export class API{
 
           console.log("-> 2",datitos)
           // alert( JSON.stringify(datitos, null, "\t") ); 
-          alert(datitos); 
+          // alert(datitos); 
           return datitos })
-        .catch(error => console.log(`Failed with reason: ${error}`))
+        .catch(error => {
+          const isObj = typeof error !== 'undefined' && "reason" in error;
+          console.log("obj", isObj);
+          !isObj? console.log(`${error}`):
+                  console.log(`Failed with reason: ${error.reason}`)
+        })
         .finally(() => timeout.clear(...timeout.ids));
     
     return promesa; 
