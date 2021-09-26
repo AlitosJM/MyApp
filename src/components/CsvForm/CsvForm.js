@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { API } from '../../Api/API';
+import { API } from '../../Api/Api';
 // import { userAPI } from '../../DummyFetch';
 import { trackPromise } from 'react-promise-tracker';
 import { connect } from 'react-redux';
@@ -14,16 +14,6 @@ class MyForm extends Component {
     super(props);
 
     this.state = {file: null, remark: '' , showInput: false, x_new: 0}
-  }
-
-  handleFileChange = (e) => {
-    if(!this.state.showInput){
-      const file = e.target.files[0];
-      const remark = file.name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
-      console.log(e.target.name, remark, file);
-      const showInput = false;
-
-      this.setState({ file, remark, showInput })}    
   }
 
   async sendFile(formData){
@@ -56,7 +46,19 @@ class MyForm extends Component {
     // return msg
   }
 
-  handleSubmit = e => {
+  fileChangeHandler = e => {
+    if(!this.state.showInput){
+      const file = e.target.files[0];
+      const remark = file.name.replace(/^.*[\\\/]/, '').split(".")[1] + " file";
+      console.log(e.target.name, remark, file);
+      // const showInput = false;
+
+      this.setState(
+        (state) => ({ file, remark, showInput:false, x_new:state.x_new }));
+    }    
+  }
+
+  submitHandler = e => {
     e.preventDefault();
     
     if (!this.state.showInput){
@@ -79,34 +81,39 @@ class MyForm extends Component {
   }
 }
 
-  myChangeHandler = (e) => {
-    console.log(e.target.value);
-    // this.props.fnt0(false);
-    this.props.statusFn1(false); 
-    this.setState({x_new: e.target.value});
+  changeHandler = (e) => {
+    const x_new = e.target.value;
+    console.log(x_new);
+    this.props.statusFn1(false);
+    this.setState(
+      (state, e) => 
+        (
+          {file: state.file, remark: state.remark, showInput:state.showInput , x_new}
+        )
+      );
   }
 
   render() {
 
-    const mystyle = {
+    const myStyle = {
       color: "black",
       fontWeight: "bold",
       textDecoration: "underline"
     };
 
-    const submit = this.handleSubmit;
-    const fileChange  = this.handleFileChange;
-    const myChangeHandler  = this.myChangeHandler;
+    const submitHandler = this.submitHandler;
+    const fileChangeHandler  = this.fileChangeHandler;
+    const changeHandler  = this.changeHandler;
 
     const {file, remark, showInput, x_new} = this.state;
 
     return (
 
           <div className="card">
-            <form onSubmit={submit}>
-                <p><span style={mystyle}>CSV</span>
-                {!showInput && <input type="file" name="file" placeholder= "archivo" required="required" onChange={fileChange}/>}
-                { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {false}  onChange={myChangeHandler}/>}
+            <form onSubmit={submitHandler}>
+                <p><span style={myStyle}>CSV</span>
+                {!showInput && <input type="file" name="file" placeholder= "file" required="required" onChange={fileChangeHandler}/>}
+                { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {false}  onChange={changeHandler}/>}
                 <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
                 </p>
             </form>
