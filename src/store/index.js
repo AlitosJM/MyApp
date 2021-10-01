@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-const initialState = {status0: -1, status1: false, url:""};
+const initialState = { status0: -1, status1: false, url:"", obj0:{} };
 
 const myReducer = (state = initialState, action) => {
     if (action.type==="status0")
@@ -8,7 +8,8 @@ const myReducer = (state = initialState, action) => {
         return {
             status0: action.status,
             status1: state.status1,
-            url: state.url
+            url: state.url,
+            obj0: action.obj
         };
     }
     if (action.type==="status1")
@@ -16,7 +17,8 @@ const myReducer = (state = initialState, action) => {
         return {
             status0: state.status0,
             status1: action.status? true:false,
-            url: state.url
+            url: state.url,
+            obj0: action.obj
         };
     }
     if (action.type==="setUrl")
@@ -24,7 +26,15 @@ const myReducer = (state = initialState, action) => {
         return {
             status0: state.status0,
             status1: state.status1,
-            url: action.url
+            url: action.url,
+            obj0: action.obj
+        };
+    }
+    if (action.type==="setObj0")
+    {        
+        return {
+            ...state,
+            obj0: action.obj
         };
     }
     return state;

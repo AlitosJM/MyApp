@@ -9,6 +9,15 @@ export const areas = {
   spinner2: 'spinner2-area',
 };
 
+const debounce = (fnt, delay) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout( () => { fnt(...args)}, delay);
+  };
+
+};
+
 class MyForm extends Component {
   constructor(props) {
     super(props);
@@ -16,12 +25,18 @@ class MyForm extends Component {
     this.state = {file: null, remark: '' , showInput: false, x_new: 0}
   }
 
+  debounceLog = debounce( text => console.log(text) ,500 );
+
   async sendFile(formData){
     await API.sendFile(formData, (showInput) => this.setState({showInput}))
     .then( (datitos) => {
       console.log("2",datitos);
-      alert( JSON.stringify(datitos, null, "\t") );}
-      )
+
+      this.props.setObj({...datitos});
+ 
+      // dataFromBackEnd.push(Obj);   
+      alert( JSON.stringify(datitos, null, "\t") )
+    })
 
     areas.spinner1
   }
@@ -37,9 +52,9 @@ class MyForm extends Component {
       const url = datitos['url'].toString();
       console.log("-> 4",url);
       // fnt0(true);
-      this.props.statusFn1(true); 
+      this.props.setStatus1(true); 
       // fnt1(url);
-      this.props.statusFn2(url);
+      this.props.setUrl(url);
     
     })
     areas.spinner2
@@ -83,14 +98,15 @@ class MyForm extends Component {
 
   changeHandler = (e) => {
     const x_new = e.target.value;
-    console.log(x_new);
-    this.props.statusFn1(false);
+    // console.log(x_new);
+    this.props.setStatus1(false);
     this.setState(
       (state, e) => 
         (
           {file: state.file, remark: state.remark, showInput:state.showInput , x_new}
         )
       );
+      this.debounceLog(x_new);
   }
 
   render() {
@@ -125,14 +141,16 @@ class MyForm extends Component {
 const mapStateToProps = (state) => {
   return {
     status0: state.status0,
-    status1: state.status1
+    status1: state.status1,
+    obj0: state.obj0
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    statusFn1: (status) => dispatch({type:"status1", status:status}),
-    statusFn2: (url) => dispatch({type:"setUrl", url:url})
+    setStatus1: (status) => dispatch({type:"status1", status:status}),
+    setUrl: (url) => dispatch({type:"setUrl", url:url}),
+    setObj : (obj) => dispatch({type:"setObj0", obj}),
   };
 };
 
