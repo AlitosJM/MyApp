@@ -9,6 +9,17 @@ export const areas = {
   spinner2: 'spinner2-area',
 };
 
+
+const myDebouncex = (fnt, delay) => {
+  let timer;
+  const internalDebounce = (x_new) => {
+    clearTimeout(timer);
+    timer = setTimeout( () => { fnt(x_new)}, delay);
+  }
+  return internalDebounce;
+};
+
+
 const debounce = (fnt, delay) => {
   let timer;
   return (...args) => {
@@ -26,6 +37,8 @@ class MyForm extends Component {
   }
 
   debounceLog = debounce( text => console.log(text) ,500 );
+  debounceLogx = myDebouncex( text => console.log(text) ,500 );
+  
 
   async sendFile(formData){
     await API.sendFile(formData, (showInput) => this.setState({showInput}))
@@ -106,7 +119,9 @@ class MyForm extends Component {
           {file: state.file, remark: state.remark, showInput:state.showInput , x_new}
         )
       );
-      this.debounceLog(x_new);
+      // this.debounceLog(x_new);
+      this.debounceLogx( x_new );
+      
   }
 
   render() {
