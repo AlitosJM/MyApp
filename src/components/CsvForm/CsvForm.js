@@ -31,24 +31,24 @@ const debounce = (fnt, delay) => {
 };
 
 const inputValidation = (num) => {
-  let validNum = false;
+  const validNum = (num.length<3 || num.length>9) ? false : true;
+  console.log("number is...", validNum)
   // num.match(/^\d+\.\d+$/) valid float  
   
-  if( num.match(/^-?\d+$/) ){
+  if(validNum){
     //valid integer (positive or negative)
-    validNum = num.length<3 || num.length>9 ? false : true;
     console.log("number ok...", validNum)
-    return validNum; 
+    return num.match(/^-?\d+$/) ? true:false;
   }
     //not valid number
     console.log("number no ok...", validNum)
-    return validNum; 
+    return false; 
 }
 
 class MyForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {file: null, remark: '' , showInput: false, x_new: 0, error: null}
+    this.state = {file: null, remark: '' , showInput: false, x_new: '', error: null}
   }
 
   // debounceLog = debounce( this.inputValidation ,500 );
@@ -100,9 +100,9 @@ class MyForm extends Component {
 
   submitHandler = e => {
     e.preventDefault();
-        
+
     if (!this.state.showInput){
-      const ModalErr = {title: 'Invalid input', message: 'Ingrese un archivo *.csv'};
+      const ModalErr = {title: 'Archivo inválida', message: 'Ingrese un archivo *.csv'};
       if (this.state.remark.split(" ")[0] !== "csv"){
         console.log("no csv file");
         this.setState(
@@ -122,7 +122,7 @@ class MyForm extends Component {
     }
     else {
       const isIntegerValid = this.debounceValidation(this.state.x_new);
-      const ModalErr = {title: 'Invalid input', message: 'Ingrese un entero'};
+      const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
       isIntegerValid ? trackPromise( this.sendData(this.state.x_new) ):
       (
         this.setState(
