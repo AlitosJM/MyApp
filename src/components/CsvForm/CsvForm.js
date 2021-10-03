@@ -10,7 +10,7 @@ export const areas = {
 };
 
 
-const myDebouncex = (fnt, delay) => {
+const myDebounce = (fnt, delay) => {
   let timer;
   const internalDebounce = (x_new) => {
     clearTimeout(timer);
@@ -36,8 +36,26 @@ class MyForm extends Component {
     this.state = {file: null, remark: '' , showInput: false, x_new: 0}
   }
 
-  debounceLog = debounce( text => console.log(text) ,500 );
-  debounceLogx = myDebouncex( text => console.log(text) ,500 );
+  inputValidation = (num) => {
+    let validNum = false;
+
+    // num.match(/^\d+\.\d+$/) valid float  
+    
+    if( num.match(/^-?\d+$/) ){
+      //valid integer (positive or negative)
+      validNum = num.length<3 || num.length>9 ? false : true;
+      console.log("number ok...", validNum)
+      return validNum; 
+    }
+      //not valid number
+      console.log("number no ok...", validNum)
+      return validNum; 
+  }
+
+  // debounceLog = debounce( this.inputValidation ,500 );
+  // myDebounceLog = myDebounce( text => console.log(text) ,500 );
+
+  debounceValidation = myDebounce( this.inputValidation, 500 );
   
 
   async sendFile(formData){
@@ -98,20 +116,25 @@ class MyForm extends Component {
         name !== "showInput"? formData.append(name, this.state[name]): null;
       }
       
-      trackPromise(
-        this.sendFile(formData)
-        );
+      trackPromise(this.sendFile(formData));
       console.log("->","fin", this.state["showInput"]);
   }
   else {
-    trackPromise(
-      this.sendData(this.state.x_new));
+    const isIntegerValid = this.debounceValidation(this.state.x_new);
+
+    isIntegerValid ? trackPromise( this.sendData(this.state.x_new) ):
+    (
+      this.setState(
+        (state) => ({ file:state.file, remark:state.remark, showInput:false, x_new:state.x_new })
+        )
+    );
+    
   }
 }
 
   changeHandler = (e) => {
     const x_new = e.target.value;
-    // console.log(x_new);
+    const isIntegerValid = this.debounceValidation(x_new);
     this.props.setStatus1(false);
     this.setState(
       (state, e) => 
@@ -119,8 +142,8 @@ class MyForm extends Component {
           {file: state.file, remark: state.remark, showInput:state.showInput , x_new}
         )
       );
-      // this.debounceLog(x_new);
-      this.debounceLogx( x_new );
+      
+      // this.myDebounceLog( x_new );
       
   }
 
