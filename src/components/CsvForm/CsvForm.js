@@ -159,13 +159,26 @@ class MyForm extends Component {
     }
     else {
       // const isIntegerValid = this.debounceValidation(this.state.x_new);
-      // const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
-      (!this.state.error && this.state.x_new) ? trackPromise( this.sendData(this.state.x_new) ):
-      (
-        this.setState(
-          (state) => ({ file:state.file, remark:state.remark, showInput:true, x_new:state.x_new, error: state.error })
+      if(!this.state.error ){
+        console.log("!this.state.error");
+        if(this.state.x_new.trim()){
+          trackPromise( this.sendData(this.state.x_new) )
+        }
+        else{
+          const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
+          this.setState(
+            (state) => ({ file:state.file, remark:state.remark, showInput:true, x_new:state.x_new, error: ModalErr })
           )
-      );  
+        }
+
+      }
+      
+      // !this.state.error && this.state.x_new ? trackPromise( this.sendData(this.state.x_new) ) :
+      // (
+      //   this.setState(
+      //     (state) => ({ file:state.file, remark:state.remark, showInput:true, x_new:state.x_new, error: state.error })
+      //   )
+      // );  
     }
   }
 
@@ -208,8 +221,8 @@ class MyForm extends Component {
           <div className="card">
             <form onSubmit={submitHandler}>
                 <p><span style={myStyle}>{!showInput? "CSV" : "Calcular"}</span>
-                {!showInput && <input type="file" name="file" placeholder= "file" required="required" onChange={fileChangeHandler}/>}
-                { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {false} value={x_new} onChange={changeHandler}/>}
+                {!showInput && <input type="file" name="file" placeholder= "file" required="required"  onChange={fileChangeHandler}/>}
+                { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {!error?false:true} value={x_new} onChange={changeHandler}/>}
                 <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
                 </p>
             </form>
