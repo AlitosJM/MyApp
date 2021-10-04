@@ -10,6 +10,22 @@ export const areas = {
   spinner2: 'spinner2-area',
 };
 
+const myDebounceValidation = (fnt, delay) => {
+  let timer;
+  const internalDebounce = (x_new) => 
+    new Promise( (resolve, reject ) => { 
+      timer = setTimeout( 
+        () => 
+        { 
+          resolve(fnt(x_new))
+          clearTimeout(timer);
+        } , delay);
+      }
+    );    
+  
+  return internalDebounce;
+};
+
 
 const myDebounce = (fnt, delay) => {
   let timer;
@@ -55,6 +71,18 @@ class MyForm extends Component {
   // myDebounceLog = myDebounce( text => console.log(text) ,500 );
 
   debounceValidation = myDebounce( inputValidation, 500 );
+
+  inputDebounceValidation = async(x_new) => {
+    const valitaionFnt = await myDebounceValidation( inputValidation, 500 );  
+
+    valitaionFnt(x_new).then( res => {
+      if(!res){
+        console.log(res, "validation error");}
+      else{
+        console.log(res, "validation ok")}
+
+    })
+  }
   
 
   async sendFile(formData){
@@ -135,6 +163,7 @@ class MyForm extends Component {
   changeHandler = (e) => {
     const x_new = e.target.value;
     this.props.setStatus1(false);
+    this.inputDebounceValidation(x_new);
     this.setState(
       (state, e) => 
         (
