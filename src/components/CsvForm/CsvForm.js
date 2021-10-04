@@ -47,7 +47,8 @@ const debounce = (fnt, delay) => {
 };
 
 const inputValidation = (num) => {
-  const validNum = (num.length<3 || num.length>9) ? false : true;
+  // const validNum = (num.length<3 || num.length>9) ? false : true;
+  const validNum = (num.length===0 || num.length>9) ? false : true;
   console.log("number is...", validNum)
   // num.match(/^\d+\.\d+$/) valid float  
   
@@ -73,20 +74,20 @@ class MyForm extends Component {
   debounceValidation = myDebounce( inputValidation, 500 );
 
   inputDebounceValidation = async(x_new) => {
-    const validationFnt = await myDebounceValidation( inputValidation, 500 );  
+    const validationFnt = await myDebounceValidation( inputValidation, 125 );  
 
     const res = await validationFnt(x_new);
     if(!res){
       const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
       console.log(res, "validation error");
       this.setState(
-        (state) => ({ file:state.file, remark:state.remark, showInput:state.showInput, x_new:state.x_new, error: ModalErr })
+        (state) => ({ file:state.file, remark:state.remark, showInput:true, x_new:"", error: ModalErr })
       )
     }
     else{
       console.log(res, "validation ok");
       this.setState(
-        (state) => ({ file:state.file, remark:state.remark, showInput:true, x_new:x_new, error: null })
+        (state) => ({ file:state.file, remark:state.remark, showInput:state.showInput, x_new:x_new, error: null })
       )}
     
   }
@@ -149,19 +150,20 @@ class MyForm extends Component {
       // formData.append("remark", "csv file");
       for (const name in this.state) {
         // console.log(name);
-        name !== "showInput"? formData.append(name, this.state[name]): null;
+        (name !== "showInput" && name !== "error")?
+        formData.append(name, this.state[name]): null;
       }
-      
+      console.log("->", formData);
       trackPromise(this.sendFile(formData));
       console.log("->","fin", this.state["showInput"]);
     }
     else {
       // const isIntegerValid = this.debounceValidation(this.state.x_new);
       // const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
-      !this.state.error ? trackPromise( this.sendData(this.state.x_new) ):
+      (!this.state.error && this.state.x_new) ? trackPromise( this.sendData(this.state.x_new) ):
       (
         this.setState(
-          (state) => ({ file:state.file, remark:state.remark, showInput:false, x_new:state.x_new, error: state.error })
+          (state) => ({ file:state.file, remark:state.remark, showInput:true, x_new:state.x_new, error: state.error })
           )
       );  
     }
@@ -175,7 +177,8 @@ class MyForm extends Component {
   }
 
   errorHandler = () => {
-    const showInput = !this.state.x_new ? false:true;
+    const showInput = !this.state.x_new && !this.state.showInput ? false:true;
+    console.log("showInput",showInput)
     this.setState(
       (state) => 
         (
@@ -200,13 +203,13 @@ class MyForm extends Component {
 
     return (
         <React.Fragment>
-          {(!showInput && error) && <ErrorModal title={error.title} message={error.message} onConfirm={this.errorHandler} />}
+          {error && <ErrorModal title={error.title} message={error.message} onConfirm={this.errorHandler} />}
           
           <div className="card">
             <form onSubmit={submitHandler}>
                 <p><span style={myStyle}>{!showInput? "CSV" : "Calcular"}</span>
                 {!showInput && <input type="file" name="file" placeholder= "file" required="required" onChange={fileChangeHandler}/>}
-                { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {false}  onChange={changeHandler}/>}
+                { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {false} value={x_new} onChange={changeHandler}/>}
                 <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
                 </p>
             </form>
