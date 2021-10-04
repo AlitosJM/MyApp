@@ -73,15 +73,22 @@ class MyForm extends Component {
   debounceValidation = myDebounce( inputValidation, 500 );
 
   inputDebounceValidation = async(x_new) => {
-    const valitaionFnt = await myDebounceValidation( inputValidation, 500 );  
+    const validationFnt = await myDebounceValidation( inputValidation, 500 );  
 
-    valitaionFnt(x_new).then( res => {
-      if(!res){
-        console.log(res, "validation error");}
-      else{
-        console.log(res, "validation ok")}
-
-    })
+    const res = await validationFnt(x_new);
+    if(!res){
+      const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
+      console.log(res, "validation error");
+      this.setState(
+        (state) => ({ file:state.file, remark:state.remark, showInput:state.showInput, x_new:state.x_new, error: ModalErr })
+      )
+    }
+    else{
+      console.log(res, "validation ok");
+      this.setState(
+        (state) => ({ file:state.file, remark:state.remark, showInput:true, x_new:x_new, error: null })
+      )}
+    
   }
   
 
@@ -130,7 +137,7 @@ class MyForm extends Component {
     e.preventDefault();
 
     if (!this.state.showInput){
-      const ModalErr = {title: 'Archivo inválida', message: 'Ingrese un archivo *.csv'};
+      const ModalErr = {title: 'Archivo inválido', message: 'Ingrese un archivo *.csv'};
       if (this.state.remark.split(" ")[0] !== "csv"){
         console.log("no csv file");
         this.setState(
@@ -149,12 +156,12 @@ class MyForm extends Component {
       console.log("->","fin", this.state["showInput"]);
     }
     else {
-      const isIntegerValid = this.debounceValidation(this.state.x_new);
-      const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
-      isIntegerValid ? trackPromise( this.sendData(this.state.x_new) ):
+      // const isIntegerValid = this.debounceValidation(this.state.x_new);
+      // const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
+      !this.state.error ? trackPromise( this.sendData(this.state.x_new) ):
       (
         this.setState(
-          (state) => ({ file:state.file, remark:state.remark, showInput:true, x_new:state.x_new, error: ModalErr })
+          (state) => ({ file:state.file, remark:state.remark, showInput:false, x_new:state.x_new, error: state.error })
           )
       );  
     }
@@ -163,21 +170,16 @@ class MyForm extends Component {
   changeHandler = (e) => {
     const x_new = e.target.value;
     this.props.setStatus1(false);
-    this.inputDebounceValidation(x_new);
-    this.setState(
-      (state, e) => 
-        (
-          {file: state.file, remark: state.remark, showInput:state.showInput , x_new, error: state.error}
-        )
-      );      
-      // this.myDebounceLog( x_new );      
+    this.inputDebounceValidation(x_new);     
+    // this.myDebounceLog( x_new );      
   }
 
   errorHandler = () => {
+    const showInput = !this.state.x_new ? false:true;
     this.setState(
       (state) => 
         (
-          {file: state.file, remark: state.remark, showInput:state.showInput , x_new:state.x_new, error: null}
+          {file: state.file, remark: state.remark, showInput:showInput , x_new:state.x_new, error: null}
         )
       );     
   }
@@ -198,7 +200,7 @@ class MyForm extends Component {
 
     return (
         <React.Fragment>
-          {error && <ErrorModal title={error.title} message={error.message} onConfirm={this.errorHandler} />}
+          {(!showInput && error) && <ErrorModal title={error.title} message={error.message} onConfirm={this.errorHandler} />}
           
           <div className="card">
             <form onSubmit={submitHandler}>
