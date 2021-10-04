@@ -98,10 +98,9 @@ class MyForm extends Component {
     .then( (datitos) => {
       console.log("2",datitos);
 
-      this.props.setObj({...datitos});
- 
+      this.props.setObj({...datitos}); 
       // dataFromBackEnd.push(Obj);   
-      alert( JSON.stringify(datitos, null, "\t") )
+      // alert( JSON.stringify(datitos, null, "\t") )
     })
 
     areas.spinner1
