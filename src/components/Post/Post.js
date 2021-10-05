@@ -4,7 +4,7 @@ class Post{
     	this.post_id=post_id;
       this.title=title;
       this.subtitle=subtitle;
-      this.body=body
+      this.body=this.intro;
     }
 }
 

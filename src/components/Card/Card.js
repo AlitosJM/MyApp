@@ -1,5 +1,6 @@
 import React from "react";
 import {default as Wrapper} from "./LinkTo";
+import PYTHON from '../../images/python-logo.png';
 // import '../css/styles.css';
 
 function Card({objPost}) {
@@ -18,10 +19,11 @@ function Card({objPost}) {
           {/* <a onClick={()=>onClicked(id)}> */}
           {/* <Wrapper value={id} onClicked={onClicked}> */}
           <a onClick={onClicked}>
-            <div className="card">              
-                <h3>{objPost.title}</h3>
-                <p className="text">{objPost.subtitle}</p>
-                {objPost.body}              
+            <div className="card">          
+              <img src={PYTHON} alt="image-test" />
+              <h3>{objPost.title} {objPost.subtitle} </h3>
+              <p className="text"> {objPost.body}  </p>
+                           
             </div>
           </a>
           {/* </Wrapper> */}
