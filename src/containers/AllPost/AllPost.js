@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect } from 'react';
-import Post from '../../components/Post/Post';
+import post_objects from '../../components/Post/Post';
 import Card from '../../components/Card/Card';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Redirect } from "react-router-dom";
 
 import JMAT from '../../images/Jmat2.jpg';
+import PYTHON from '../../images/python-logo.png';
 
 // import '../css/main.css';
 
@@ -14,10 +15,10 @@ import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 
 // <Card key={post_objects[0].post_id} title={post_objects[0].title} subtitle={post_objects[0].subtitle} body={post_objects[0].body}/>
 
-let post_objects = [];
-post_objects.push(new Post(0, "Hello world!", "😄", Post.intro));
-post_objects.push(new Post(1, "Hi there!", "🤖", Post.intro));
-post_objects.push(new Post(2, "Wanna a cookie?", "🍪", Post.intro));
+// let post_objects = [];
+// post_objects.push(new Post(0, "Hello world!", "😄", Post.intro));
+// post_objects.push(new Post(1, "Hi there!", "🤖", Post.intro));
+// post_objects.push(new Post(2, "Wanna a cookie?", "🍪", Post.intro));
 
 
 const AllPost = () => {
@@ -34,7 +35,7 @@ const AllPost = () => {
   }
 
   const MappingFunc = (post) => {
-    const objPost = {id:post.post_id, title:post.title, subtitle:post.subtitle, body:post.body, fn:onClicked};
+    const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, fn:onClicked};
      return (
         <Card key={post.post_id} objPost = {objPost} />
      );

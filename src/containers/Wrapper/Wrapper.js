@@ -10,7 +10,7 @@ const Wrapper = props => {
     // const idWrapper = props.idWrapper;
     // const idFooter = props.idFooter;
     const dispatch = useDispatch();
-    // const status0 = useSelector(state => state.status0);
+    const postId = useSelector(state => state.status0);
     document.body.className='';
 
     // const  myStyle = { fontWeight: "bold", color: "red"};
@@ -44,16 +44,10 @@ const Wrapper = props => {
                                      
                     </div>
                 </header>
-                <section id="summary">
-                    <h2>Test</h2>
-                </section>
-                <main>
-                    <p> This is a test</p>
-                    <p> This is a test</p>
-                </main>
 
 
-                {props.children}       
+                {props.children}     
+
             </div>
             <section>
                 <footer id={"Myfooter"}>

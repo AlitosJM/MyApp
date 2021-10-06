@@ -1,8 +1,9 @@
 import React from "react";
 import MyFom from '../CsvForm/CsvForm';
 import DataForm from '../CsvForm/CsvForm2';
-import MyGraph from '../Graphs/Graphs'
+import MyGraph from '../Graphs/Graphs';
 import { Spinner } from '../Spinner/spinner';
+import post_objects from "../Post/Post";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams, Redirect } from "react-router-dom";
 
@@ -11,7 +12,8 @@ const Detail = props => {
     const imageUrl = useSelector(state => state.url);
     const dispatch = useDispatch();
     const history = useHistory();
-    const params = useParams();    
+    const params = useParams();   
+    const postId = +params.id; 
 
     const renderSwitch = (id) => {
         switch(id) {
@@ -48,8 +50,25 @@ const Detail = props => {
         }
     
     return (
-        renderSwitch(+params.id)
-    )
+      <React.Fragment>
+        <section id="summary">
+          <h2>{post_objects[postId].title}</h2>
+          <article>
+            <img src={post_objects[postId].image} alt="post-image" />
+            <address> 
+              Por <a href="mailto:jose.ali.toscano@hotmail.com">José Miguel Alí Toscano</a>
+            </address>
+          </article>
+        </section>        
+
+        <main>
+          <p> This is a test</p>
+          <p> This is a test</p>
+        </main>
+
+        {renderSwitch(postId)}
+      </React.Fragment>
+    );
 };
 
 export default Detail;
