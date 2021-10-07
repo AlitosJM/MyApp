@@ -26,14 +26,17 @@ const Wrapper = props => {
             <div className={"wrapper"}>
                 <header id={"main-navigation"}> 
                     <div className={"top title"}>
-                        <Link
-                            style={{ textDecoration: 'none' }}
-                            to={() => {
-                                dispatch({type:"status0", status:-1});
-                                return { pathname: "/myPage"}}} 
-                        >
-                            <h1>JMAT's Blog ☕</h1>
-                        </Link>
+                        <h1>
+                            <Link
+                                style={{ textDecoration: 'none' }}
+                                to={() => {
+                                    dispatch({type:"status0", status:-1});
+                                    return { pathname: "/myPage"}}} 
+                            >
+                                JMAT's Blog ☕                            
+                            </Link>
+                        </h1>
+
                         {/* <a onClick={onClicked}>
                             <h1>JMAT's Blog ☕</h1>  
                         </a> */}

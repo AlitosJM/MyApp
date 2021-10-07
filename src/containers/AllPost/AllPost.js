@@ -51,7 +51,7 @@ const AllPost = () => {
 
   return (
     <React.Fragment>
-      <div className="styles.wrapper">
+      <div className="wrapper">
         
         <header id="main-navigation"> 
             <div className="top title">              

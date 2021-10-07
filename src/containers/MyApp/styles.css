@@ -27,7 +27,7 @@ body {
 
 } */
 
-#main-navigation h1{
+#main-navigation div {
 	/* width: 100%; */
 	height: 5rem;
 	display: flex;
