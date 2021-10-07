@@ -58,7 +58,12 @@ const Detail = props => {
             <address> 
               Por <a href="mailto:jose.ali.toscano@hotmail.com">José Miguel Alí Toscano</a>
             </address>
+            <div>
+              Actualizado: 
+              <time></time>
+            </div>
           </article>
+
         </section>        
 
         <main>
