@@ -36,9 +36,8 @@ const AllPost = () => {
 
   const MappingFunc = (post) => {
     const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, fn:onClicked};
-     return (
-        <Card key={post.post_id} objPost = {objPost} />
-     );
+
+    return post.post_id<3 ? <Card key={post.post_id} objPost = {objPost} />:null;
   }
 
   const mystyle = {

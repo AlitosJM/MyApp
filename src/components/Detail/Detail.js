@@ -58,7 +58,7 @@ const Detail = props => {
           <article>
             <img src={post_objects[postId].image} alt="post-image" />
             <address> 
-              Por <a href="mailto:jose.ali.toscano@hotmail.com">José Miguel Alí Toscano</a>
+              By <a href="mailto:jose.ali.toscano@hotmail.com">José Miguel Alí Toscano</a>
             </address>
             <div>
               Updated: 

@@ -25,5 +25,6 @@ const post_objects = [];
 post_objects.push(new Post(0, PYTHON,"Hello world!", "😄"));
 post_objects.push(new Post(1, PYTHON,"Hi there, Python apps!", "🤖"));
 post_objects.push(new Post(2, PYTHON,"Wanna a cookie?", "🍪"));
+post_objects.push(new Post(3, PYTHON,"Test ?", "🍪"));
 
 export default post_objects;
