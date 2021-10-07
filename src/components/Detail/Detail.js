@@ -14,6 +14,8 @@ const Detail = props => {
     const history = useHistory();
     const params = useParams();   
     const postId = +params.id; 
+    // const myDate = new Date().toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
+    const myDate =new Date("October 6, 2021").toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });;
 
     const renderSwitch = (id) => {
         switch(id) {
@@ -59,8 +61,8 @@ const Detail = props => {
               Por <a href="mailto:jose.ali.toscano@hotmail.com">José Miguel Alí Toscano</a>
             </address>
             <div>
-              Actualizado: 
-              <time></time>
+              Updated: 
+              <time>{myDate}</time>
             </div>
           </article>
 

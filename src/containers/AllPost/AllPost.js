@@ -64,7 +64,9 @@ const AllPost = () => {
             <img src={JMAT} alt="JMAT's Blog"/>
             <div className="title">
               <h2>Welcome</h2>  
-              <p style={mystyle}>"Success is not final; failure is not fatal: It is the courage to continue that counts."</p> 
+              <em>
+                <p style={mystyle}>"Success is not final; failure is not fatal: It is the courage to continue that counts."</p> 
+              </em>              
               <p style={mystyle}>Winston S. Churchill</p>           
             </div>            
           </header>
