@@ -62,8 +62,8 @@ const Detail = props => {
         </section>        
 
         <main>
-          <p> This is a test</p>
-          <p> This is a test</p>
+          <p> {post_objects[postId].parag0} </p>
+          <p> {post_objects[postId].parag1} </p>
         </main>
 
         {renderSwitch(postId)}
