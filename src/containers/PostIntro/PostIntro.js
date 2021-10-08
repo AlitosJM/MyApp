@@ -21,7 +21,7 @@ import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 // post_objects.push(new Post(2, "Wanna a cookie?", "🍪", Post.intro));
 
 
-const AllPost = () => {
+const PostIntro = (props) => {
   const dispatch = useDispatch();
   const status0 = useSelector(state => state.status0);
   const history = useHistory();
@@ -47,6 +47,19 @@ const AllPost = () => {
     margin: "1rem 0.5rem auto 1rem"
   };
 
+  const intro = (
+    status0===-1? 
+    <section id="latest-posts">
+      <h2 style={mystyle}>Things I like doing...</h2>
+      <div className="sub-wrapper">
+        {post_objects.map(MappingFunc)}
+      </div>
+    </section>
+    :(
+      <Redirect to={`/detail/${status0}`}/>      
+    ));
+
+
 
   return (
     <React.Fragment>
@@ -71,20 +84,10 @@ const AllPost = () => {
           </header>
           
         </section>
-        
-        {status0===-1? 
-          <section id="latest-posts">
-            <h2 style={mystyle}>Things I like doing...</h2>
-            <div className="sub-wrapper">
-              {post_objects.map(MappingFunc)}
-            </div>
-          </section>
-          :(
-            <Redirect to={`/detail/${status0}`}/>
-            
-          )
-        }
+        {props.index_render === 0? intro: null}        
+
       </div>
+      
       <section>
         <footer id="Myfooter">
           <p> JMAT </p>
@@ -96,4 +99,4 @@ const AllPost = () => {
   );
 }
 // history.push(`/detail/${status0}`)
-export default AllPost;
+export default PostIntro;

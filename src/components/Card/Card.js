@@ -22,8 +22,7 @@ function Card({objPost}) {
             <div className="card">          
               <img src={objPost.image} alt="post-image" />
               <h3>{objPost.title} {objPost.subtitle} </h3>
-              <p className="text"> {objPost.body}  </p>
-                           
+              <p className="text"> {objPost.body}  </p>                           
             </div>
           </a>
           {/* </Wrapper> */}

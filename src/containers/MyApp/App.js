@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from 'react-router-dom';
 import Wrapper from "../Wrapper/Wrapper";
 import Intro from "../../components/Intro/Intro";
-import AllPost from '../AllPost/AllPost';
+import PostIntro from '../PostIntro/PostIntro';
 import Detail from "../../components/Detail/Detail";
 
 import './styles.css';
@@ -14,12 +14,12 @@ import './styles.css';
 // import '../components/css/noscript.css';
 
 
-const App = () => {  
-  
+const App = () => {    
   return (
     <React.Fragment>  
       <Switch>
-        <Route path="/myPage" exact component={AllPost} />  
+        <Route path="/myPage" exact render={
+          (routeProps) => <PostIntro index_render={0} {...routeProps}/>} />  
         <Route path="/detail/:id">
           <Wrapper >
               <Detail />        

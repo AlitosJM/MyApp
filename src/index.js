@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Route, BrowserRouter} from 'react-router-dom';
-import AllPost from './containers/AllPost/AllPost';
 import App from './containers/MyApp/App'
 
 import { Provider } from 'react-redux';
