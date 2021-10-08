@@ -34,10 +34,16 @@ const PostIntro = (props) => {
     console.log('onClicked in allpost:', id, status0);
   }
 
-  const MappingFunc = (post) => {
+  const MappingFunc = (post, renderPost) => {
     const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, fn:onClicked};
+    console.log("renderPost", renderPost)
 
-    return post.post_id<3 ? <Card key={post.post_id} objPost = {objPost} />:null;
+    if (post.post_id<3 && renderPost===0)
+    return <Card key={post.post_id} objPost = {objPost} />
+
+    if(renderPost===1)
+    return <Card key={post.post_id} objPost = {objPost} />
+  
   }
 
   const mystyle = {
@@ -47,18 +53,34 @@ const PostIntro = (props) => {
     margin: "1rem 0.5rem auto 1rem"
   };
 
-  const intro = (
-    status0===-1? 
-    <section id="latest-posts">
-      <h2 style={mystyle}>Things I like doing...</h2>
-      <div className="sub-wrapper">
-        {post_objects.map(MappingFunc)}
-      </div>
-    </section>
-    :(
-      <Redirect to={`/detail/${status0}`}/>      
-    ));
+const introHeader = (        
+  <section id="welcome">
+    <header>
+      <img src={JMAT} alt="JMAT's Blog"/>
+      <div className="title">
+        <h2>Welcome</h2>  
+        <em>
+          <p style={mystyle}>"Success is not final; failure is not fatal: It is the courage to continue that counts."</p> 
+        </em>              
+        <p style={mystyle}>Winston S. Churchill</p>           
+      </div>            
+    </header>          
+</section>);
 
+const introPost = (renderPost=0) => {
+  return(
+  status0===-1? 
+  <section id="latest-posts">
+    <h2 style={mystyle}>Things I like doing...</h2>
+    <div className="sub-wrapper">
+      {post_objects.map(post => MappingFunc(post, renderPost))}
+    </div>
+  </section>
+  :(
+    <Redirect to={`/detail/${status0}`}/>      
+  )
+  );
+};
 
 
   return (
@@ -71,20 +93,8 @@ const PostIntro = (props) => {
             </div>
         </header>
 
-        <section id="welcome">
-          <header>
-            <img src={JMAT} alt="JMAT's Blog"/>
-            <div className="title">
-              <h2>Welcome</h2>  
-              <em>
-                <p style={mystyle}>"Success is not final; failure is not fatal: It is the courage to continue that counts."</p> 
-              </em>              
-              <p style={mystyle}>Winston S. Churchill</p>           
-            </div>            
-          </header>
-          
-        </section>
-        {props.index_render === 0? intro: null}        
+        {props.index_render === 0? 
+        <div> {introHeader}{introPost()} </div>: introPost(1)}
 
       </div>
       
@@ -99,4 +109,7 @@ const PostIntro = (props) => {
   );
 }
 // history.push(`/detail/${status0}`)
+
+// {props.index_render === 0? introHeader: null}
+// {props.index_render === 0? introPost: null}   
 export default PostIntro;
