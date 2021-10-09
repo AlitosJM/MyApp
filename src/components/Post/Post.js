@@ -20,6 +20,7 @@ export class Post{
       this.parag1= parag1 ? parag1:this.intro1;
     }
 }
+const post_objects = [];
 
 const myIntro_0 = `Mi nombre es José Miguel Alí Toscano, soy maestro en ciencias en 
 bioelectrónica. Apasionado por proyectos relacionados a la ingeniería electrónica, 
@@ -31,9 +32,8 @@ electrónica que sea de utilidad para resolver problemas en específico.
 Actualmente, tengo interés en el diseño y desarrollo de aplicaciones web y 
 machine learning con Python con el fin de brindar soluciones oportunas para satisfacer 
 las necesidades empresariales,  académicas ó de asistencia tecnológica. 
-Estas páginas son parte de mi primer proyecto de diseño web y la he desarrollado en Flask para Python.`
+Estas páginas son parte de mi primer proyecto de diseño web con React para Javascript.`
 
-const post_objects = [];
 post_objects.push(new Post(0, PYTHON,"Hello world!", "😄", myIntro_0, myIntro_1));
 post_objects.push(new Post(1, PYTHON,"Hi there, Python apps!", "🤖"));
 post_objects.push(new Post(2, PYTHON,"Wanna a cookie?", "🍪"));

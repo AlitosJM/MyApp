@@ -10,6 +10,8 @@ export const areas = {
   spinner2: 'spinner2-area',
 };
 
+const MegaBytes = bytes => bytes*(1024**2);
+
 const myDebounceValidation = (fnt, delay) => {
   let timer;
   const internalDebounce = (x_new) => 
@@ -122,11 +124,19 @@ class MyForm extends Component {
 
   fileChangeHandler = e => {
     if(!this.state.showInput){
+      const ModalErr = {title: 'Archivo inválido', message: 'archivo > 0.5MB'};
+      const limitMB = MegaBytes(0.5);
       const file = e.target.files[0];
       const csv = file.name.replace(/^.*[\\\/]/, '').split(".")[1];
       const remark =  csv + " file";
       console.log("remark:" ,remark, "file:",file);
       // const showInput = false;
+      if (file.size > limitMB){
+        console.log("file size > 0.5MB");
+        this.setState(
+          (state) => ({ file: null, remark: '' , showInput: false, x_new: '', error: ModalErr }));
+          return;
+      }
 
       this.setState(
         (state) => ({ file, remark, showInput:false, x_new:state.x_new, error: state.error }));
