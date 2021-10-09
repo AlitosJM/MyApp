@@ -70,7 +70,7 @@ body {
     width: 10rem;
 }
 
-#latest-posts {
+#latest-posts-0 {
     background-color: rgba(78,137,174, 0.5);
     padding: 2rem 1rem 2rem 1rem;
     border-radius: 10px;
@@ -80,7 +80,17 @@ body {
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
   }
 
-#latest-posts ul {
+#latest-posts-1 {
+    background-color: rgba(78,137,174, 0.5);
+    padding: 2rem 1rem 2rem 1rem;
+    border-radius: 10px;
+    /* width: 60rem; */
+	max-width: 60rem;
+    margin: 5rem auto 2rem auto;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+  }
+
+#latest-posts-0 ul, #latest-posts-1 ul {
     list-style: none;
   }
 

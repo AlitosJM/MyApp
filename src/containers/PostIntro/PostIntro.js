@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useCallback } from 'react';
 import post_objects from '../../components/Post/Post';
 import Card from '../../components/Card/Card';
 
@@ -44,7 +44,7 @@ const PostIntro = (props) => {
     if(renderPost===1)
     return <Card key={post.post_id} objPost = {objPost} />
   
-  }
+  };
 
   const mystyle = {
     color: "white",
@@ -67,10 +67,11 @@ const introHeader = (
     </header>          
 </section>);
 
-const introPost = (renderPost=0) => {
+const introPost = (renderPost=0) => {  
+  const styleSection = renderPost===0 ? "latest-posts-0":"latest-posts-1";
   return(
   status0===-1? 
-  <section id="latest-posts">
+  <section id={styleSection} >
     <h2 style={mystyle}>Things I like doing...</h2>
     <div className="sub-wrapper">
       {post_objects.map(post => MappingFunc(post, renderPost))}
@@ -94,7 +95,7 @@ const introPost = (renderPost=0) => {
         </header>
 
         {props.index_render === 0? 
-        <div> {introHeader}{introPost()} </div>: introPost(1)}
+        <div> {introHeader}{introPost(0)} </div>: introPost(1)}
 
       </div>
       

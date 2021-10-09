@@ -19,7 +19,7 @@ const App = () => {
     <React.Fragment>  
       <Switch>
         <Route path="/myPage" exact render={
-          (routeProps) => <PostIntro index_render={1} {...routeProps}/>} />  
+          (routeProps) => <PostIntro index_render={0} {...routeProps}/>} />  
         <Route path="/detail/:id">
           <Wrapper >
               <Detail />        
