@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Wrapper from "../Wrapper/Wrapper";
 import Intro from "../../components/Intro/Intro";
 import PostIntro from '../PostIntro/PostIntro';
@@ -18,8 +18,10 @@ const App = () => {
   return (
     <React.Fragment>  
       <Switch>
-        <Route path="/myPage" exact render={
-          (routeProps) => <PostIntro index_render={0} {...routeProps}/>} />  
+        <Route path="/intro" exact render={
+          (routeProps) => <PostIntro index_render={0} {...routeProps}/>} />
+        <Route path="/allPost" exact render={
+          (routeProps) => <PostIntro index_render={1} {...routeProps}/>} /> 
         <Route path="/detail/:id">
           <Wrapper >
               <Detail />        

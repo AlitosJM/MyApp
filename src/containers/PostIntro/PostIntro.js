@@ -1,10 +1,10 @@
-import React from "react";
-import { useCallback, useMemo } from 'react';
+import React, { useCallback }  from "react";
+
 import post_objects from '../../components/Post/Post';
 import Card from '../../components/Card/Card';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory, Redirect, Link } from "react-router-dom";
 
 import JMAT from '../../images/Jmat2.jpg';
 import PYTHON from '../../images/python-logo.png';
@@ -85,8 +85,20 @@ const introPost = useCallback( () => {
       <div className="wrapper">
         
         <header id="main-navigation"> 
-            <div className="top title">              
-              <h1>JMAT's Blog ☕</h1>
+            <div className="top title">
+            {props.index_render === 1?
+              <h1>{console.log("Link")}
+                <Link
+                    style={{ textDecoration: 'none' }}
+                    to={() => {
+                        dispatch({type:"status0", status:-1});
+                        return { pathname: "/intro"}}} 
+                >
+                    JMAT's Blog ☕                            
+                </Link>
+              </h1>:
+               <h1>JMAT's Blog ☕</h1>}    
+              
             </div>
         </header>
 

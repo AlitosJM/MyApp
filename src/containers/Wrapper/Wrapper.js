@@ -31,7 +31,7 @@ const Wrapper = props => {
                                 style={{ textDecoration: 'none' }}
                                 to={() => {
                                     dispatch({type:"status0", status:-1});
-                                    return { pathname: "/myPage"}}} 
+                                    return { pathname: "/intro"}}} 
                             >
                                 JMAT's Blog ☕                            
                             </Link>
