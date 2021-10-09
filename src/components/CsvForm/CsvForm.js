@@ -229,11 +229,11 @@ class MyForm extends Component {
           
           <div className="card">
             <form onSubmit={submitHandler}>
-                <p><span style={myStyle}>{!showInput? "CSV" : "Calcular"}</span>
+                <p><span style={myStyle}>{!showInput? "Envía tu archivo CSV" : "Calcular un nuevo valor para X"}</span></p>
                 {!showInput && <input type="file" name="file" placeholder= "file" required="required"  onChange={fileChangeHandler}/>}
                 { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {!error?false:true} value={x_new} onChange={changeHandler}/>}
                 <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
-                </p>
+                
             </form>
           </div>
         </React.Fragment>
