@@ -4,7 +4,7 @@ import post_objects from '../../components/Post/Post';
 import Card from '../../components/Card/Card';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, Redirect, Link } from "react-router-dom";
+import { useHistory, Redirect, Link, NavLink } from "react-router-dom";
 
 import JMAT from '../../images/Jmat2.jpg';
 import PYTHON from '../../images/python-logo.png';
@@ -97,7 +97,8 @@ const introPost = useCallback( () => {
                     JMAT's Blog ☕                            
                 </Link>
               </h1>:
-               <h1>JMAT's Blog ☕</h1>}    
+               <h1>JMAT's Blog ☕</h1>}
+               <NavLink to="/allPost">ALLPOST</NavLink>
               
             </div>
         </header>

@@ -38,7 +38,18 @@ body {
 	/* top: 0; */
 	/* left: 0; */
 	color: white;
-  }
+}
+
+#main-navigation div a {
+    text-decoration: none;
+    color: white;
+}
+
+#main-navigation a:hover,
+#main-navigation a:active {
+  color: #0a93eed3;
+}
+
 
 #welcome {
 	background: #4e89ae;
