@@ -1,5 +1,5 @@
 import React from "react";
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import post_objects from '../../components/Post/Post';
 import Card from '../../components/Card/Card';
 
@@ -10,15 +10,22 @@ import JMAT from '../../images/Jmat2.jpg';
 import PYTHON from '../../images/python-logo.png';
 
 // import '../css/main.css';
-
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 
-// <Card key={post_objects[0].post_id} title={post_objects[0].title} subtitle={post_objects[0].subtitle} body={post_objects[0].body}/>
+const MappingFunc = React.memo(({renderPost, myClick}) => {
+  // const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, fn:onClicked};
+  console.log("renderPost");
+  
+  
+  return post_objects.map(post => {
+    const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, fn:myClick};
+    if (post.post_id<3 && renderPost===0) return <Card key={post.post_id} objPost = {objPost} />
 
-// let post_objects = [];
-// post_objects.push(new Post(0, "Hello world!", "😄", Post.intro));
-// post_objects.push(new Post(1, "Hi there!", "🤖", Post.intro));
-// post_objects.push(new Post(2, "Wanna a cookie?", "🍪", Post.intro));
+    if(renderPost===1) return <Card key={post.post_id} objPost = {objPost} />  
+  })
+ 
+});
+
 
 
 const PostIntro = (props) => {
@@ -33,18 +40,6 @@ const PostIntro = (props) => {
     dispatch({type:"status0", status:id}); 
     console.log('onClicked in allpost:', id, status0);
   }
-
-  const MappingFunc = (post, renderPost) => {
-    const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, fn:onClicked};
-    console.log("renderPost", renderPost)
-
-    if (post.post_id<3 && renderPost===0)
-    return <Card key={post.post_id} objPost = {objPost} />
-
-    if(renderPost===1)
-    return <Card key={post.post_id} objPost = {objPost} />
-  
-  };
 
   const mystyle = {
     color: "white",
@@ -67,21 +62,22 @@ const introHeader = (
     </header>          
 </section>);
 
-const introPost = (renderPost=0) => {  
-  const styleSection = renderPost===0 ? "latest-posts-0":"latest-posts-1";
+const introPost = useCallback( () => {  
+  const styleSection = props.index_render===0 ? "latest-posts-0":"latest-posts-1";
+  console.log("introPost");
   return(
   status0===-1? 
   <section id={styleSection} >
     <h2 style={mystyle}>Things I like doing...</h2>
     <div className="sub-wrapper">
-      {post_objects.map(post => MappingFunc(post, renderPost))}
+      <MappingFunc renderPost={props.index_render} myClick={onClicked}/>
     </div>
   </section>
   :(
     <Redirect to={`/detail/${status0}`}/>      
   )
   );
-};
+}, [status0, props.index_render]);
 
 
   return (
@@ -95,7 +91,7 @@ const introPost = (renderPost=0) => {
         </header>
 
         {props.index_render === 0? 
-        <div> {introHeader}{introPost(0)} </div>: introPost(1)}
+        <div> {introHeader}{introPost()} </div>: introPost()}
 
       </div>
       
