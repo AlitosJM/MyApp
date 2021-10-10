@@ -35,13 +35,15 @@ machine learning con Python con el fin de brindar soluciones oportunas para sati
 las necesidades empresariales,  académicas ó de asistencia tecnológica. 
 Estas páginas son parte de mi primer proyecto de diseño web con React para Javascript.`
 
-const MATLAB = "MATAB";
-const URL = "https://la.mathworks.com/discovery/linear-regression.html";
-const VcLatex = `The charge of capacitor is $V_c = V_s(1 - 10^{-\\frac{t}{T}})$ ${MATLAB.link(URL)}`;
+const LR_explanation = `La regresión lineal es una técnica de modelado estadístico que se emplea 
+para describir una variable de respuesta continua como una función de una o varias variables 
+predictoras ${"MATAB".link("https://la.mathworks.com/discovery/linear-regression.html")}.`;
+
+const LR = `La ecuación general de la regresión lineal es: $Y=\\beta_0+\\sum\\ \\beta_i X_i +\\epsilon_i$`;
 
 
-post_objects.push(new Post(0, PYTHON,"Hello world!", "😄", myIntro_0, myIntro_1, false));
-post_objects.push(new Post(1, PYTHON,"Hi there, Python apps!", "🤖", myIntro_0, VcLatex, true));
+post_objects.push(new Post(0, PYTHON,"¡Hola Mundo!", "😄", myIntro_0, myIntro_1, false));
+post_objects.push(new Post(1, PYTHON,"¡Regresión Lineal!", "🤖", LR_explanation, LR, true));
 post_objects.push(new Post(2, PYTHON,"Wanna a cookie?", "🍪"));
 post_objects.push(new Post(3, PYTHON,"Test ?", "🍪"));
 
