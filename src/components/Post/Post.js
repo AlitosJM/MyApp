@@ -11,13 +11,14 @@ export class Post{
   Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing 
   software like Aldus PageMaker including versions of Lorem Ipsum.`
   
-	constructor(post_id, image, title, subtitle, parag0=null, parag1=null){
-    	this.post_id=post_id;
-      this.image=image;
-      this.title=title;
-      this.subtitle=subtitle;
-      this.parag0= parag0 ? parag0:this.intro0;
-      this.parag1= parag1 ? parag1:this.intro1;
+	constructor(post_id, image, title, subtitle, parag0=null, parag1=null, latex=false){
+    	this.post_id = post_id;
+      this.image = image;
+      this.title = title;
+      this.subtitle =subtitle;
+      this.parag0 = parag0 ? parag0:this.intro0;
+      this.parag1 = parag1 ? parag1:this.intro1;
+      this.latex = latex;
     }
 }
 const post_objects = [];
@@ -34,8 +35,13 @@ machine learning con Python con el fin de brindar soluciones oportunas para sati
 las necesidades empresariales,  académicas ó de asistencia tecnológica. 
 Estas páginas son parte de mi primer proyecto de diseño web con React para Javascript.`
 
-post_objects.push(new Post(0, PYTHON,"Hello world!", "😄", myIntro_0, myIntro_1));
-post_objects.push(new Post(1, PYTHON,"Hi there, Python apps!", "🤖"));
+const MATLAB = "MATAB";
+const URL = "https://la.mathworks.com/discovery/linear-regression.html";
+const VcLatex = `The charge of capacitor is $V_c = V_s(1 - 10^{-\\frac{t}{T}})$ ${MATLAB.link(URL)}`;
+
+
+post_objects.push(new Post(0, PYTHON,"Hello world!", "😄", myIntro_0, myIntro_1, false));
+post_objects.push(new Post(1, PYTHON,"Hi there, Python apps!", "🤖", myIntro_0, VcLatex, true));
 post_objects.push(new Post(2, PYTHON,"Wanna a cookie?", "🍪"));
 post_objects.push(new Post(3, PYTHON,"Test ?", "🍪"));
 

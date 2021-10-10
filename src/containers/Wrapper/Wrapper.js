@@ -49,7 +49,6 @@ const Wrapper = props => {
                     </div>
                 </header>
 
-
                 {props.children}     
 
             </div>
