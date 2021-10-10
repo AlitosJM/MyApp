@@ -2,6 +2,7 @@ import React from "react";
 import MyFom from '../CsvForm/CsvForm';
 import DataForm from '../CsvForm/CsvForm2';
 import MyGraph from '../Graphs/Graphs';
+import { ContextualComponent } from "../../containers/Wrapper/ContextualComponent";
 import { Spinner } from '../Spinner/spinner';
 import post_objects from "../Post/Post";
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,8 +20,13 @@ const Detail = props => {
     const params = useParams();   
     const postId = +params.id; 
     // const myDate = new Date().toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
-    const myDate =new Date("October 6, 2021").toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });;
-    const VcLatex = "$V_c = V_s(1 - 10^{-\\frac{t}{T}})$";
+    const myDate =new Date("October 6, 2021").toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
+    const html = `
+      <p>JMAT</p>
+      <script>
+        console.log('script executed 🎉')
+      </script>
+    `;
 
     const renderSwitch = (id) => {
         switch(id) {
@@ -58,9 +64,10 @@ const Detail = props => {
     
     const renderParagraphs = (
       post_objects[postId].latex?
-      (<div>
+      (<div>        
         <p><Latex>{post_objects[postId].parag0}</Latex></p>
         <p><Latex>{post_objects[postId].parag1}</Latex></p>
+        
       </div>)
     : (<div>
         <p> {post_objects[postId].parag0} </p>
@@ -87,7 +94,7 @@ const Detail = props => {
 
         <main>
         {renderParagraphs}
-
+        <ContextualComponent html={html} />      
         </main>
 
         {renderSwitch(postId)}
