@@ -21,12 +21,6 @@ const Detail = props => {
     const postId = +params.id; 
     // const myDate = new Date().toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
     const myDate =new Date("October 6, 2021").toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
-    const html = `
-      <p>JMAT</p>
-      <script>
-        console.log('script executed 🎉')
-      </script>
-    `;
 
     const renderSwitch = (id) => {
         switch(id) {
@@ -65,13 +59,10 @@ const Detail = props => {
     const renderParagraphs = (
       post_objects[postId].latex?
       (<div>        
-        <p><Latex>{post_objects[postId].parag0}</Latex></p>
-        <p><Latex>{post_objects[postId].parag1}</Latex></p>
-        
+        <Latex>{post_objects[postId].parag0}</Latex>
       </div>)
     : (<div>
-        <p> {post_objects[postId].parag0} </p>
-        <p> {post_objects[postId].parag1} </p>
+        <ContextualComponent html={post_objects[postId].parag0} />
       </div>)
     );
     
@@ -94,7 +85,7 @@ const Detail = props => {
 
         <main>
         {renderParagraphs}
-        <ContextualComponent html={html} />      
+        
         </main>
 
         {renderSwitch(postId)}
