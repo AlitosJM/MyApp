@@ -1,4 +1,5 @@
 import PYTHON from '../../images/python-logo.png';
+import REACT from '../../images/react-logo.png';
 
 export class Post{
   intro0 = "Hi there, I am José Miguel, nice to meet you...";
@@ -45,7 +46,7 @@ y lineales que se deben calcular $\\epsilon_i$ es el término de error ${"MATAB"
  un valor a predecir.</p>`;
 
 
-post_objects.push(new Post(0, PYTHON,"¡Hola Mundo!", "😄", myIntro, false));
+post_objects.push(new Post(0, REACT,"¡Hola Mundo!", "😄", myIntro, false));
 post_objects.push(new Post(1, PYTHON,"¡Regresión Lineal!", "🤖", lrExplanation, true));
 post_objects.push(new Post(2, PYTHON,"Wanna a cookie?", "🍪"));
 post_objects.push(new Post(3, PYTHON,"Test ?", "🍪"));
