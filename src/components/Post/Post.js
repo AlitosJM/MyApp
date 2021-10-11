@@ -40,8 +40,8 @@ predictoras.</p>
 independiente y $Y$ la variable respuesta. $\\beta_0$ y $\\beta_i$ son las estimaciones de parámetros 
 y lineales que se deben calcular $\\epsilon_i$ es el término de error ${"MATAB".link("https://la.mathworks.com/discovery/linear-regression.html")}.</p>
 <p> La siguiente forma acepta un archivo CSV el cual deberá contener dos columnas de datos, una columna de datos
- para la variable independiente y otra para la variable respuesta. Los datos deben ser numéricos y preprocesados
- para poder calcular el <strong class="myStrong">modelo de regresión lineal simple</strong> y calcular
+ para la variable independiente y otra para la variable respuesta. Los datos deben ser numéricos, preprocesados y tener etiquetas
+ descriptoras el primer renglón para poder calcular el <strong class="myStrong">modelo de regresión lineal simple</strong> y obtener
  un valor a predecir.</p>`;
 
 
