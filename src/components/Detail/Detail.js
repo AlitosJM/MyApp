@@ -11,6 +11,7 @@ import { useHistory, useParams, Redirect } from "react-router-dom";
 
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
+import Robot from "../Robot/Robot";
 
 const Detail = props => {
     const isView = useSelector(state => state.status1);
@@ -25,25 +26,7 @@ const Detail = props => {
     const renderSwitch = (id) => {
         switch(id) {
           case 0:
-            return(
-              <div className={"robots"}>
-                <div className={"android"}>
-                  <div className={"head eyes"}>
-                    <div className={"left_eye"} />
-                    <div className={"right_eye"}/>
-                  </div>
-                  <div className={"upper_body"}>
-                    <div className={"left_arm"} />
-                    <div className={"torso"}/>
-                    <div className={"right_arm"}/>
-                  </div>
-                  <div className={"lower_body"}>
-                    <div className={"left_leg"} /> 
-                    <div className={"right_leg"} />                 
-                  </div>
-                </div>
-              </div>
-            );
+            return <Robot />;
           case 1:
               return (
                 <React.Fragment>
