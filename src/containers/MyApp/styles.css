@@ -49,6 +49,23 @@ body {
 #main-navigation a:active {
   color: #0a93eed3;
 }
+#main-navigation nav {
+	height: 100%;
+  }
+#main-navigation ul {
+	height: 100%;
+	list-style: none;
+	display: flex;
+	padding: 0;
+	margin: 0;
+	align-items: center;
+	justify-content: center;
+  }
+
+  #main-navigation li {
+	margin: 0 0.5rem;
+	width: 5rem;
+  }
 
 
 #welcome {

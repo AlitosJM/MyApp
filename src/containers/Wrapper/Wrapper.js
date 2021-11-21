@@ -36,7 +36,17 @@ const Wrapper = props => {
                                 JMAT's Blog ☕                            
                             </Link>
                         </h1>
-                        <NavLink to="/allPost">ALLPOST</NavLink>
+                        
+                        <nav>
+                            <ul>
+                                <li>
+                                    <NavLink to="/allPost">ALLPOST</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/allPost">LOGIN</NavLink>
+                                </li>
+                            </ul>
+                        </nav>
 
                         {/* <a onClick={onClicked}>
                             <h1>JMAT's Blog ☕</h1>  
