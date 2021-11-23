@@ -4,8 +4,11 @@ import Wrapper from "../Wrapper/Wrapper";
 import Intro from "../../components/Intro/Intro";
 import PostIntro from '../PostIntro/PostIntro';
 import Detail from "../../components/Detail/Detail";
+import AuthForm from "../../components/Auth/AuthForm";
 
 import './styles.css';
+
+
 
 // import { Provider } from 'react-redux';
 // import store from "../store/index";
@@ -24,7 +27,12 @@ const App = () => {
           (routeProps) => <PostIntro index_render={1} {...routeProps}/>} /> 
         <Route path="/detail/:id">
           <Wrapper >
-              <Detail />        
+            <Detail />        
+          </Wrapper>
+        </Route>
+        <Route path="/user" >
+          <Wrapper>
+            <AuthForm />
           </Wrapper>
         </Route>
         <Route path="/" component={Intro}/>

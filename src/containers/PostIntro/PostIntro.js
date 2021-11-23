@@ -104,7 +104,7 @@ const introPost = useCallback( () => {
                       <NavLink to="/allPost">ALLPOST</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/allPost">LOGIN</NavLink>
+                      <NavLink to="/user">LOGIN</NavLink>
                     </li>
                 </ul>
                </nav>

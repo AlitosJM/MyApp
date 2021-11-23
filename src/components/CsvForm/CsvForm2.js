@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { API } from '../../Api/Api';
+import { Api } from '../../Api/Api';
 
 const DataForm = () => {
 
@@ -12,7 +12,7 @@ const DataForm = () => {
         formData.append("name", name);
         formData.append("file", selectedFile);
 
-        let msg = await API.sendFile(formData);
+        let msg = await Api.sendFile(formData);
         console.log(msg)
     };
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { API } from '../../Api/Api';
+import { Api } from '../../Api/Api';
 import ErrorModal from '../ErrorModal/ErrorModal';
 // import { userAPI } from '../../DummyFetch';
 import { trackPromise } from 'react-promise-tracker';
@@ -96,7 +96,7 @@ class MyForm extends Component {
   
 
   async sendFile(formData){
-    await API.sendFile(formData, (showInput) => this.setState({showInput}))
+    await Api.sendFile(formData, (showInput) => this.setState({showInput}))
     .then( (datitos) => {
       console.log("2",datitos);
 
@@ -109,7 +109,7 @@ class MyForm extends Component {
   }
 
   sendData = async (x_new) => {
-    await API.sendData(x_new)
+    await Api.sendData(x_new)
     .then( (datitos) => {
       console.log("-> 3",datitos);
       // alert( JSON.stringify(datitos, null, "\t") );

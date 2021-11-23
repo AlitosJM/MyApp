@@ -30,25 +30,26 @@ class Timeout {
 }
 
 
-export class API{
+export class Api{
 
   static loginUser(body) {
+    const {enteredName: username, enteredPassword: password} = body;
+    const myHeader = new Headers({'Content-Type': 'application/json'});
     return fetch(`http://127.0.0.1:8000/auth/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify( body )
+      headers: myHeader,
+      body: JSON.stringify({username, password})
     }).then( resp => resp.json())
   }
 
   static registerUser(body) {
+    const {enteredName: username, enteredPassword: password} = body;
+    const myHeader = new Headers({'Content-Type': 'application/json'});
+    console.log("registerUser: ",body);
     return fetch(`http://127.0.0.1:8000/api/users/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify( body )
+      headers: myHeader,
+      body: JSON.stringify({username, password})
     }).then( resp => resp.json())
   }
 

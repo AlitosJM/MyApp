@@ -6,6 +6,7 @@
   "main": "src/index.js",
   "dependencies": {
     "react": "16.8.6",
+    "react-cookie": "^4.0.3",
     "react-dom": "16.8.6",
     "react-latex-next": "^2.1.0",
     "react-loader-spinner": "^4.0.0",
