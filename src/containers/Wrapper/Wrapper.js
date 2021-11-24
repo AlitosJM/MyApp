@@ -1,17 +1,22 @@
 import React from "react";
-import { Link, NavLink,Redirect, useHistory } from 'react-router-dom';
+import { Link, NavLink,Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useCookies } from 'react-cookie';
 
 const Wrapper = props => {
     // const { classWrapper0, classWrapper1, idWrapper, idFooter } = props;
-    // const history = useHistory();
+    const history = useHistory();
+    // const location = useLocation();
     // const classWrapper0 = props.classWrapper0;
     // const classWrapper1 = props.className1;
     // const idWrapper = props.idWrapper;
     // const idFooter = props.idFooter;
     const dispatch = useDispatch();
     const postId = useSelector(state => state.status0);
+    const [token, setToken, deleteToken] = useCookies(['mr-token']);
     document.body.className='';
+
+    //console.log(history.location.pathname, location.pathname)
 
     // const  myStyle = { fontWeight: "bold", color: "red"};
 
@@ -43,7 +48,10 @@ const Wrapper = props => {
                                     <NavLink to="/allPost">ALLPOST</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/user">LOGIN</NavLink>
+                                    {token['mr-token']? 
+                                    <NavLink to={ "/"} onClick={()=>deleteToken(['mr-token'])}>LOGOUT</NavLink>:
+                                    history.location.pathname!=='/user'? <NavLink to="/user">LOGIN</NavLink>:null
+                                    }
                                 </li>
                             </ul>
                         </nav>

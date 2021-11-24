@@ -11,10 +11,11 @@ import PYTHON from '../../images/python-logo.png';
 
 // import '../css/main.css';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
+import { useCookies } from "react-cookie";
 
 const MappingFunc = React.memo(({renderPost, myClick}) => {
   // const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, fn:onClicked};
-  console.log("renderPost");
+  console.log("MappingFunc");
   
   
   return post_objects.map(post => {
@@ -33,6 +34,7 @@ const PostIntro = (props) => {
   const status0 = useSelector(state => state.status0);
   const history = useHistory();
   document.body.className = "";
+  const [token, setToken, deleteToken] = useCookies(['mr-token']);
   // document.querySelectorAll('style,link[rel="stylesheet"]').forEach(item => item.remove())
   // console.log(post_objects[0].title)
 
@@ -79,6 +81,10 @@ const introPost = useCallback( () => {
   );
 }, [status0, props.index_render]);
 
+const logoutUser = () => {
+  deleteToken(['mr-token']);
+}
+
 
   return (
     <React.Fragment>
@@ -87,7 +93,7 @@ const introPost = useCallback( () => {
         <header id="main-navigation"> 
             <div className="top title">
             {props.index_render === 1?
-              <h1>{console.log("Link")}
+              <h1>
                 <Link
                     style={{ textDecoration: 'none' }}
                     to={() => {
@@ -104,7 +110,8 @@ const introPost = useCallback( () => {
                       <NavLink to="/allPost">ALLPOST</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/user">LOGIN</NavLink>
+                      {!token['mr-token'] ? <NavLink to="/user">LOGIN</NavLink>:
+                        <NavLink to={"/"} onClick={logoutUser}>LOGOUT</NavLink>}
                     </li>
                 </ul>
                </nav>

@@ -20,7 +20,8 @@ const AuthForm = (props) => {
 
   useEffect( () => {
     if(token['mr-token'] && isCurrentToken) {
-      history.replace('/allPost');
+      console.log(token, token['mr-token'],"token")
+      history.replace('/intro');
     //window.location.href = '/allPost';
     }
   }, [token, isCurrentToken])

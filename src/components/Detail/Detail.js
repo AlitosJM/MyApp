@@ -7,7 +7,7 @@ import { Spinner } from '../Spinner/spinner';
 import post_objects from "../Post/Post";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams, Redirect } from "react-router-dom";
-
+import { useCookies } from 'react-cookie';
 
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
@@ -22,7 +22,8 @@ const Detail = props => {
     const postId = +params.id; 
     // const myDate = new Date().toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
     const myDate =new Date("October 6, 2021").toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
-
+    const [token, setToken, deleteToken] = useCookies(['mr-token']);
+    
     const renderSwitch = (id) => {
         switch(id) {
           case 0:
