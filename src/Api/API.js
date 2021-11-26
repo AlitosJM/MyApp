@@ -53,13 +53,15 @@ export class Api{
     }).then( resp => resp.json())
   }
 
-  static sendFile(body, Myfunction) {
-    const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
+  static sendFile(body, Myfunction, token) {
+    // http://127.0.0.1:8000/file/upload/`
+    //const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
+    const authHeader = new Headers({'Authorization': `Token ${token}`});
     const timeout = new Timeout();
     const promesa = timeout
       .wrap(
         fetch(
-        `http://127.0.0.1:8000/file/upload/`, {
+        `http://127.0.0.1:8000/api/upload/`, {
           method:'POST',
           headers: authHeader,
           body: body
@@ -100,14 +102,20 @@ export class Api{
 
   }
 
-  static sendData(x_new){
-    const authHeader = new Headers({'Content-Type':'application/json', "Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
+  static sendData(x_new, token){
+    // 'Authorization': `Token ${token}`
+    // `http://127.0.0.1:8000/api/users/${userId}/change_pass/`
+
+    //  "Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN` sin token
+    // `http://127.0.0.1:8000/file/lr/` sin token
+    //const authHeader = new Headers({'Content-Type':'application/json', "Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
+    const authHeader = new Headers({'Content-Type':'application/json', 'Authorization': `Token ${token}`});
     console.log("sendData: ", x_new);
     const timeout = new Timeout();
 
     const promesa = timeout.wrap(
       fetch(
-        `http://127.0.0.1:8000/file/lr/`, {
+        `http://127.0.0.1:8000/api/lr/`, {
           method:'POST',
           headers: authHeader,
           body: JSON.stringify({x: x_new})}

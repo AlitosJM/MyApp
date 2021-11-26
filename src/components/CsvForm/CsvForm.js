@@ -68,6 +68,7 @@ class MyForm extends Component {
   constructor(props) {
     super(props);
     this.state = {file: null, remark: '' , showInput: false, x_new: '', error: null}
+    this.token = this.props.token || null;
   }
 
   // debounceLog = debounce( this.inputValidation ,500 );
@@ -95,8 +96,8 @@ class MyForm extends Component {
   }
   
 
-  async sendFile(formData){
-    await Api.sendFile(formData, (showInput) => this.setState({showInput}))
+  async sendFile(formData, token){
+    await Api.sendFile(formData, (showInput) => this.setState({showInput}), token)
     .then( (datitos) => {
       console.log("2",datitos);
 
@@ -108,8 +109,8 @@ class MyForm extends Component {
     areas.spinner1
   }
 
-  sendData = async (x_new) => {
-    await Api.sendData(x_new)
+  sendData = async (x_new, token) => {
+    await Api.sendData(x_new, token)
     .then( (datitos) => {
       console.log("-> 3",datitos);
       // alert( JSON.stringify(datitos, null, "\t") );
@@ -163,7 +164,7 @@ class MyForm extends Component {
         formData.append(name, this.state[name]): null;
       }
       console.log("->", formData);
-      trackPromise(this.sendFile(formData));
+      trackPromise(this.sendFile(formData, this.token));
       console.log("->","fin", this.state["showInput"]);
     }
     else {
@@ -171,7 +172,7 @@ class MyForm extends Component {
       if(!this.state.error ){
         console.log("!this.state.error");
         if(this.state.x_new.trim()){
-          trackPromise( this.sendData(this.state.x_new) )
+          trackPromise( this.sendData(this.state.x_new, this.token) )
         }
         else{
           const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
@@ -213,8 +214,7 @@ class MyForm extends Component {
 
     const myStyle = {
       color: "black",
-      fontWeight: "bold",
-      textDecoration: "underline"
+      fontWeight: "bold",      
     };
 
     const submitHandler = this.submitHandler;
@@ -225,17 +225,26 @@ class MyForm extends Component {
 
     return (
         <React.Fragment>
-          {error && <ErrorModal title={error.title} message={error.message} onConfirm={this.errorHandler} />}
+          { this.token?
+            <>          
+            {error && <ErrorModal title={error.title} message={error.message} onConfirm={this.errorHandler} />}
           
-          <div className="card">
-            <form onSubmit={submitHandler}>
-                <p><span style={myStyle}>{!showInput? "Envía tu archivo CSV" : "Calcular un nuevo valor para X"}</span></p>
-                {!showInput && <input type="file" name="file" placeholder= "file" required="required"  onChange={fileChangeHandler}/>}
-                { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {!error?false:true} value={x_new} onChange={changeHandler}/>}
-                <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
-                
-            </form>
-          </div>
+            <div className="card">
+              <form onSubmit={submitHandler}>
+                  <p><span style={myStyle}>{!showInput? "Envía tu archivo CSV" : "Calcular un nuevo valor para X"}</span></p>
+                  {!showInput && <input type="file" name="file" placeholder= "file" required="required"  onChange={fileChangeHandler}/>}
+                  { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {!error?false:true} value={x_new} onChange={changeHandler}/>}
+                  <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
+                  
+              </form>
+            </div>
+            </>: 
+                <div className="auth">
+                  <p >
+                    <span>You have to be logged in, to access the full content!</span>
+                  </p>
+                </div>
+          }
         </React.Fragment>
     );
   }

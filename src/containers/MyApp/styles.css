@@ -236,11 +236,11 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 	font-weight:bold; */
   }
 
-.card img {
-	width: 5rem;
-	height: 5rem;
+.card .miniature {
+	width: 4rem;
+	height: 4rem;
 	object-fit: cover;
-	border-radius: 40%;
+	border-radius: 10%;
 }
 
 .post .card{
@@ -324,28 +324,28 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 	cursor: pointer;
 	font: inherit;
 	color: white;
-	background-color: #9f5ccc;
-	border: 1px solid #9f5ccc;
+	/* background-color: #9f5ccc; */
+	/* border: 1px solid #9f5ccc; */
 	border-radius: 4px;
 	padding: 0.5rem 2.5rem;
 }
 
-.actions button:hover {
+/* .actions button:hover {
 	background-color: #873abb;
 	border-color: #873abb;
-}
+} */
 
 .actions .toggle {
 	margin-top: 1rem;
 	background-color: transparent;
-	color: #9f5ccc;
+	color: white;
 	border: none;
 	padding: 0.15rem 1.5rem;
 }
 
 .actions .toggle:hover {
 	background-color: transparent;
-	color: #ae82cc;
+	color:black;
 }
 
 #Myfooter {

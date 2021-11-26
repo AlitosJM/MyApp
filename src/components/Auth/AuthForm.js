@@ -77,7 +77,7 @@ const AuthForm = (props) => {
           <input type='password' id='password' required ref={passwordInputRef}/>
         </div>
         <div className={"actions"}>
-          {!isLoading && <button>{isLogin ? 'Login' : 'Create Account'}</button>}
+          {!isLoading && <button type="submit" className="btn btn-primary btn-large" >{isLogin ? 'Login' : 'Create Account'}</button>}
           {isLoading && <p>Sending request...</p>}
           <button
             type='button'
@@ -91,5 +91,6 @@ const AuthForm = (props) => {
     </section>
   )
 }
-
+// className = "btn btn-primary btn-block btn-large"
+// <button className="btn btn-primary btn-large">{isLogin ? 'Login' : 'Create Account'}</button>
 export default AuthForm;

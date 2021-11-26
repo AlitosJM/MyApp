@@ -31,7 +31,7 @@ const Detail = props => {
           case 1:
               return (
                 <React.Fragment>
-                  <MyFom />                  
+                  <MyFom token={token['mr-token']}/>                  
                   <Spinner />
                   {isView && <MyGraph image={imageUrl}/>}
                 </React.Fragment>
