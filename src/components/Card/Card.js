@@ -8,7 +8,7 @@ function Card({objPost}) {
 
   const onClicked = () =>{
     console.log('Clicked', id);
-    objPost.fn(id);
+    objPost.func(id);
   }
 
   return (    

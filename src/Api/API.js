@@ -66,7 +66,7 @@ export class Api{
           headers: authHeader,
           body: body
         })
-        , 3000, {
+        , 30000, {
         reason: 'Fetch timeout',
       })
       .then(
@@ -119,7 +119,7 @@ export class Api{
           method:'POST',
           headers: authHeader,
           body: JSON.stringify({x: x_new})}
-          ), 3000, {
+          ), 30000, {
             reason: 'Fetch timeout',
         })
         .then( resp => {

@@ -19,7 +19,7 @@ const MappingFunc = React.memo(({renderPost, myClick}) => {
   
   
   return post_objects.map(post => {
-    const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, fn:myClick};
+    const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, func:myClick};
     if (post.post_id<3 && renderPost===0) return <Card key={post.post_id} objPost = {objPost} />
 
     if(renderPost===1) return <Card key={post.post_id} objPost = {objPost} />  
