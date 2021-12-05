@@ -5,10 +5,10 @@ import ErrorModal from '../ErrorModal/ErrorModal';
 import { trackPromise } from 'react-promise-tracker';
 import { connect } from 'react-redux';
 
-export const areas = {
-  spinner1: 'spinner1-area',
-  spinner2: 'spinner2-area',
-};
+// export const areas = {
+//   spinner1: 'spinner1-area',
+//   spinner2: 'spinner2-area',
+// };
 
 const MegaBytes = bytes => bytes*(1024**2);
 
@@ -106,7 +106,7 @@ class MyForm extends Component {
       // alert( JSON.stringify(datitos, null, "\t") )
     })
 
-    areas.spinner1
+    // areas.spinner1
   }
 
   sendData = async (x_new, token) => {
@@ -119,7 +119,7 @@ class MyForm extends Component {
       this.props.setStatus1(true); 
       this.props.setUrl(url);    
     })
-    areas.spinner2
+    // areas.spinner2
     // return msg
   }
 
@@ -172,7 +172,7 @@ class MyForm extends Component {
       if(!this.state.error ){
         console.log("!this.state.error");
         if(this.state.x_new.trim()){
-          trackPromise( this.sendData(this.state.x_new, this.token) )
+          trackPromise( this.sendData(this.state.x_new, this.token))
         }
         else{
           const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};

@@ -6,6 +6,8 @@ import PostIntro from '../PostIntro/PostIntro';
 import Detail from "../../components/Detail/Detail";
 import AuthForm from "../../components/Auth/AuthForm";
 
+import { Spinner } from "../../components/Spinner/spinner";
+
 import './styles.css';
 
 
@@ -33,6 +35,7 @@ const App = () => {
         <Route path="/user" >
           <Wrapper>
             <AuthForm />
+            <Spinner />
           </Wrapper>
         </Route>
         <Route path="/" component={Intro}/>

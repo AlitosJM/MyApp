@@ -29,11 +29,14 @@ const AuthForm = (props) => {
   const { promiseInProgress } = usePromiseTracker();
 
   useEffect( () => {
-    if(token['mr-token'] && isCurrentToken) {
-      console.log(token, token['mr-token'],"token")
-      history.replace('/intro');
-    //window.location.href = '/allPost';
-    }
+    const timer = setTimeout( () => {
+      if(token['mr-token'] && isCurrentToken) {
+        console.log(token, token['mr-token'],"token")
+        history.replace('/intro');
+      //window.location.href = '/allPost';
+      }
+    }, 1000);
+    return () => clearTimeout(timer);
   }, [token, isCurrentToken])
   
 
@@ -144,7 +147,7 @@ const AuthForm = (props) => {
           </div>
         </form>
       </section>
-    <Spinner />
+    
     </>
   )
 }
