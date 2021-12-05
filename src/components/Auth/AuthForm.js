@@ -9,10 +9,10 @@ import { Spinner } from '../Spinner/spinner';
 // import { registerUser } from '../../store';
 import { useCookies } from 'react-cookie';
 
-const areas = {
-  spinner3: 'spinner3-area',
-  spinner4: 'spinner4-area',
-};
+// const areas = {
+//   spinner3: 'spinner3-area',
+//   spinner4: 'spinner4-area',
+// };
 
 const AuthForm = (props) => {
   // const dispatch = useDispatch();
@@ -63,7 +63,7 @@ const AuthForm = (props) => {
       setIsLoading(false);
       setIsCurrentToken(false);
     }
-    areas.spinner3;
+    // areas.spinner3;
     // history.replace('/');    
   }
 
@@ -85,7 +85,7 @@ const AuthForm = (props) => {
       }
       else {setIsLogin( prevState => !prevState);}
       console.log("After checking out the error");
-      areas.spinner4;
+      // areas.spinner4;
   }
 
   const switchAuthModeHandler = () => {
