@@ -2,11 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Api } from '../../Api/Api';
-
+import { trackPromise } from 'react-promise-tracker';
+import { usePromiseTracker } from "react-promise-tracker";
 import { Spinner } from '../Spinner/spinner';
 
 // import { registerUser } from '../../store';
 import { useCookies } from 'react-cookie';
+
+const areas = {
+  spinner3: 'spinner3-area',
+  spinner4: 'spinner4-area',
+};
 
 const AuthForm = (props) => {
   // const dispatch = useDispatch();
@@ -19,6 +25,8 @@ const AuthForm = (props) => {
   const [isCurrentToken, setIsCurrentToken] = useState(false);
 
   const [token, setToken] = useCookies(['mr-token']);
+
+  const { promiseInProgress } = usePromiseTracker();
 
   useEffect( () => {
     if(token['mr-token'] && isCurrentToken) {
@@ -55,6 +63,7 @@ const AuthForm = (props) => {
       setIsLoading(false);
       setIsCurrentToken(false);
     }
+    areas.spinner3;
     // history.replace('/');    
   }
 
@@ -76,7 +85,7 @@ const AuthForm = (props) => {
       }
       else {setIsLogin( prevState => !prevState);}
       console.log("After checking out the error");
-
+      areas.spinner4;
   }
 
   const switchAuthModeHandler = () => {
@@ -92,12 +101,16 @@ const AuthForm = (props) => {
     setIsCurrentToken(false);
 
     if (isLogin){
-      loginClicked(enteredName, enteredPassword);
+      trackPromise(
+        loginClicked(enteredName, enteredPassword)
+      );
     }
     else{
       // dispatch(registerUser( {enteredEmail, enteredPassword} ));
       console.log(enteredName, enteredPassword);
-      registerClicked(enteredName, enteredPassword)
+      trackPromise(
+        registerClicked(enteredName, enteredPassword)
+      );
       // await Api.registerUser({enteredName, enteredPassword})
       // .then( () => loginClicked())
       // .catch( error => console.log(error))
@@ -106,31 +119,33 @@ const AuthForm = (props) => {
   }
 
   return (
-    <section className={"auth"}>
-      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form onSubmit={submitHandler}>
-        <div className={"control"}>
-          <label htmlFor='name'>Your Name</label>
-          <input type='text' id='name' required ref={nameInputRef}/>
-        </div>
-        <div className={"control"}>
-          <label htmlFor='password'>Your Password</label>
-          <input type='password' id='password' required ref={passwordInputRef}/>
-        </div>
-        <div className={"actions"}>
-          {!isLoading && <button type="submit" className="btn btn-primary btn-large" >{isLogin ? 'Login' : 'Create Account'}</button>}
-          {isLoading && <p>Sending request...</p>}
-          <button
-            type='button'
-            className={"toggle"}
-            onClick={switchAuthModeHandler}
-          >
-            {isLogin ? 'Create new account' : 'Login with existing account'}
-          </button>
-        </div>
-      </form>
-      <Spinner />
-    </section>
+    <>
+      <section className={"auth"}>
+        <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+        <form onSubmit={submitHandler}>
+          <div className={"control"}>
+            <label htmlFor='name'>Your Name</label>
+            <input type='text' id='name' required ref={nameInputRef}/>
+          </div>
+          <div className={"control"}>
+            <label htmlFor='password'>Your Password</label>
+            <input type='password' id='password' required ref={passwordInputRef}/>
+          </div>
+          <div className={"actions"}>
+            {!isLoading && <button type="submit" className="btn btn-primary btn-large" >{isLogin ? 'Login' : 'Create Account'}</button>}
+            {isLoading && <p>Sending request...</p>}
+            <button
+              type='button'
+              className={"toggle"}
+              onClick={switchAuthModeHandler}
+            >
+              {isLogin ? !promiseInProgress && 'Create new account' : !promiseInProgress && 'Login with existing account'}
+            </button>
+          </div>
+        </form>
+      </section>
+    <Spinner />
+    </>
   )
 }
 // className = "btn btn-primary btn-block btn-large"
