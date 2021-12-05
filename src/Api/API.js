@@ -35,22 +35,61 @@ export class Api{
   static loginUser(body) {
     const {enteredName: username, enteredPassword: password} = body;
     const myHeader = new Headers({'Content-Type': 'application/json'});
-    return fetch(`http://127.0.0.1:8000/auth/`, {
+    const timeout = new Timeout();
+
+    const promise = timeout
+    .wrap(
+      fetch(`http://127.0.0.1:8000/auth/`, {
       method: 'POST',
       headers: myHeader,
-      body: JSON.stringify({username, password})
-    }).then( resp => resp.json())
+      body: JSON.stringify({username, password})}
+      ).catch(e => e), 20000, {reason: 'Fetch timeout'}     
+    )
+    .then(
+      resp => {
+        if (resp.ok){
+          if (resp.status===200) return resp.json()
+        }
+        else throw new Error("Error creating new user " + [resp.statusText, resp.status].join(" "))
+      }      
+    )
+    .finally(() => {
+      timeout.clear(...timeout.ids);
+      console.log("finally 1");
+    });
+
+    return promise;
   }
 
   static registerUser(body) {
     const {enteredName: username, enteredPassword: password} = body;
     const myHeader = new Headers({'Content-Type': 'application/json'});
+    const timeout = new Timeout();
     console.log("registerUser: ",body);
-    return fetch(`http://127.0.0.1:8000/api/users/`, {
-      method: 'POST',
-      headers: myHeader,
-      body: JSON.stringify({username, password})
-    }).then( resp => resp.json())
+
+    const promise = timeout
+      .wrap(
+        fetch(`http://127.0.0.1:8000/api/users/`, {
+        method: 'POST',
+        headers: myHeader,
+        body: JSON.stringify({username, password})}
+        ).catch(e => e), 20000, {reason: 'Fetch timeout'}     
+      )
+      .then(
+        resp => {
+          if (resp.ok){
+            if (resp.status===201) return resp.json()
+          }
+          else throw new Error("Error creating new user " + [resp.statusText, resp.status].join(" "))
+        }
+        
+      )
+      .finally(() => {
+        timeout.clear(...timeout.ids);
+        console.log("finally 1");
+      });
+
+    return promise;
   }
 
   static sendFile(body, Myfunction, token) {
@@ -58,7 +97,7 @@ export class Api{
     //const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
     const authHeader = new Headers({'Authorization': `Token ${token}`});
     const timeout = new Timeout();
-    const promesa = timeout
+    const promise = timeout
       .wrap(
         fetch(
         `http://127.0.0.1:8000/api/upload/`, {
@@ -98,7 +137,7 @@ export class Api{
       });
 
     console.log("fin"); 
-    return promesa;
+    return promise;
 
   }
 

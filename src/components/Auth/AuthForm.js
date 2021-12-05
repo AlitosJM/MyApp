@@ -27,16 +27,38 @@ const AuthForm = (props) => {
   }, [token, isCurrentToken])
   
 
-  const loginClicked = () => {
-    const enteredName = nameInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
+  const loginClicked = async (enteredName, enteredPassword) => {
 
-    Api.loginUser({enteredName, enteredPassword})
-      .then( resp => {
-        setToken('mr-token', resp.token);
-        setIsCurrentToken(true);})
-      .catch( error => console.log(error))
+    try{
+      await Api.loginUser({enteredName, enteredPassword})
+        .then( resp => {
+          setToken('mr-token', resp.token);
+          setIsCurrentToken(true);});
+    }
+    catch(error){
+      const isObj = typeof error !== 'undefined' && "reason" in error;
+      !isObj? console.error("loginClicked error 1 "+ error.name + ': ' + error.message)  :
+      console.log(`loginClicked Failed with reason: ${error.reason}`);  
+    }
     // history.replace('/');    
+  }
+
+  const registerClicked = async (enteredName, enteredPassword) => {
+    const resp = await Api.registerUser({enteredName, enteredPassword})
+    .catch( 
+      error => {
+        const isObj = typeof error !== 'undefined' && "reason" in error;
+        console.log("obj", isObj);
+        !isObj? console.log("registerClicked error 1 ", `${error.name }: ${error.message}`):
+        console.log(`Failed with reason: ${error.reason}`);    
+      })   
+      console.log("After catch()");
+      if (!(resp instanceof Error) && typeof resp !== 'undefined'){
+        console.log("Resp is not an error: ", resp);
+        loginClicked(enteredName, enteredPassword); 
+      }
+      console.log("After checking out the error");
+
   }
 
   const switchAuthModeHandler = () => {
@@ -52,14 +74,15 @@ const AuthForm = (props) => {
     setIsCurrentToken(false);
 
     if (isLogin){
-      loginClicked();
+      loginClicked(enteredName, enteredPassword);
     }
     else{
       // dispatch(registerUser( {enteredEmail, enteredPassword} ));
       console.log(enteredName, enteredPassword);
-      Api.registerUser({enteredName, enteredPassword})
-      .then( () => loginClicked())
-      .catch( error => console.log(error))
+      registerClicked(enteredName, enteredPassword)
+      // await Api.registerUser({enteredName, enteredPassword})
+      // .then( () => loginClicked())
+      // .catch( error => console.log(error))
 
     }
   }
