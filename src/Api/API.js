@@ -36,23 +36,29 @@ export class Api{
     const {enteredName: username, enteredPassword: password} = body;
     const myHeader = new Headers({'Content-Type': 'application/json'});
     const timeout = new Timeout();
-
+    // .catch(e => {console.log(e.name, e.message); return e})
     const promise = timeout
     .wrap(
       fetch(`http://127.0.0.1:8000/auth/`, {
       method: 'POST',
       headers: myHeader,
       body: JSON.stringify({username, password})}
-      ).catch(e => e), 20000, {reason: 'Fetch timeout'}     
+      ), 15000, {reason: 'Fetch timeout'}     
     )
     .then(
       resp => {
         if (resp.ok){
           if (resp.status===200) return resp.json()
         }
-        else throw new Error("Error creating new user " + [resp.statusText, resp.status].join(" "))
+        else throw new Error("Error logging user " + [resp.statusText, resp.status].join(" "))
       }      
     )
+    // .catch( error => {
+    //   const isObj = typeof error !== 'undefined' && "reason" in error;
+    //   !isObj? console.error("loginUser error "+ error.name + ': ' + error.message)  :
+    //   console.log(`loginUser Failed with reason: ${error.reason}`);  
+    //   return error;
+    // })
     .finally(() => {
       timeout.clear(...timeout.ids);
       console.log("finally 1");
@@ -73,7 +79,7 @@ export class Api{
         method: 'POST',
         headers: myHeader,
         body: JSON.stringify({username, password})}
-        ).catch(e => e), 20000, {reason: 'Fetch timeout'}     
+        ), 20000, {reason: 'Fetch timeout'}     
       )
       .then(
         resp => {
@@ -81,9 +87,14 @@ export class Api{
             if (resp.status===201) return resp.json()
           }
           else throw new Error("Error creating new user " + [resp.statusText, resp.status].join(" "))
-        }
-        
+        }        
       )
+      // .catch( error => {
+      //   const isObj = typeof error !== 'undefined' && "reason" in error;
+      //   !isObj? console.error("registerUser error "+ error.name + ': ' + error.message)  :
+      //   console.log(`registerUser Failed with reason: ${error.reason}`);  
+      //   return error;
+      // })
       .finally(() => {
         timeout.clear(...timeout.ids);
         console.log("finally 1");
@@ -105,7 +116,7 @@ export class Api{
           headers: authHeader,
           body: body
         })
-        , 30000, {
+        , 20000, {
         reason: 'Fetch timeout',
       })
       .then(

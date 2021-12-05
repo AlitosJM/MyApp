@@ -3,6 +3,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Api } from '../../Api/Api';
 
+import { Spinner } from '../Spinner/spinner';
+
 // import { registerUser } from '../../store';
 import { useCookies } from 'react-cookie';
 
@@ -32,13 +34,26 @@ const AuthForm = (props) => {
     try{
       await Api.loginUser({enteredName, enteredPassword})
         .then( resp => {
-          setToken('mr-token', resp.token);
-          setIsCurrentToken(true);});
+          console.log(".then Api.loginUser", resp)
+          if ("token" in resp){
+            setToken('mr-token', resp.token);
+            setIsCurrentToken(true);
+          }
+          else{
+            setIsLogin(true);
+            setIsLoading(false);
+            setIsCurrentToken(false);
+          }
+        })
+        console.log("After .then Api.loginUser")
     }
     catch(error){
       const isObj = typeof error !== 'undefined' && "reason" in error;
-      !isObj? console.error("loginClicked error 1 "+ error.name + ': ' + error.message)  :
+      !isObj? console.error("loginClicked "+ error.name + ': ' + error.message)  :
       console.log(`loginClicked Failed with reason: ${error.reason}`);  
+      setIsLogin(true);
+      setIsLoading(false);
+      setIsCurrentToken(false);
     }
     // history.replace('/');    
   }
@@ -49,14 +64,17 @@ const AuthForm = (props) => {
       error => {
         const isObj = typeof error !== 'undefined' && "reason" in error;
         console.log("obj", isObj);
-        !isObj? console.log("registerClicked error 1 ", `${error.name }: ${error.message}`):
-        console.log(`Failed with reason: ${error.reason}`);    
+        !isObj? console.log("registerClicked ", `${error.name }: ${error.message}`):
+        console.log(`Failed with reason: ${error.reason}`); 
+        setIsLoading(false);  
+        setIsLogin( prevState => !prevState);
       })   
-      console.log("After catch()");
+      console.log("After catch() ", resp);
       if (!(resp instanceof Error) && typeof resp !== 'undefined'){
         console.log("Resp is not an error: ", resp);
         loginClicked(enteredName, enteredPassword); 
       }
+      else {setIsLogin( prevState => !prevState);}
       console.log("After checking out the error");
 
   }
@@ -88,7 +106,7 @@ const AuthForm = (props) => {
   }
 
   return (
-      <section className={"auth"}>
+    <section className={"auth"}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
       <form onSubmit={submitHandler}>
         <div className={"control"}>
@@ -111,6 +129,7 @@ const AuthForm = (props) => {
           </button>
         </div>
       </form>
+      <Spinner />
     </section>
   )
 }
