@@ -12,6 +12,7 @@ import { useCookies } from 'react-cookie';
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
 import Robot from "../Robot/Robot";
+import Game from "../Game/Game";
 
 const Detail = props => {
     const isView = useSelector(state => state.status1);
@@ -38,7 +39,8 @@ const Detail = props => {
               );
           case 2:
                 return(            
-                  <DataForm />
+                  // <DataForm />
+                  <Game></Game>
                 );
           default:
             console.log("detail default");

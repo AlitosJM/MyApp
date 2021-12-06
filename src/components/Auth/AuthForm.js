@@ -29,13 +29,15 @@ const AuthForm = (props) => {
   const { promiseInProgress } = usePromiseTracker();
 
   useEffect( () => {
-    const timer = setTimeout( () => {
+
+    const goTo = () => {
       if(token['mr-token'] && isCurrentToken) {
         console.log(token, token['mr-token'],"token")
         history.replace('/intro');
       //window.location.href = '/allPost';
       }
-    }, 1000);
+    }
+    const timer = setTimeout( () => goTo(), 1000);
     return () => clearTimeout(timer);
   }, [token, isCurrentToken])
   
