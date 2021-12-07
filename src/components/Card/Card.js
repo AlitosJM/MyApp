@@ -20,7 +20,7 @@ function Card({objPost}) {
           {/* <Wrapper value={id} onClicked={onClicked}> */}
           <a onClick={onClicked}>
             <div className="card">          
-              <img  className="miniature"src={objPost.image} alt="post-image" />
+              <img className="miniature"src={objPost.image} alt="post-image" />
               <h3>{objPost.title} {objPost.subtitle} </h3>
               <p className="text"> {objPost.body}  </p>                           
             </div>
