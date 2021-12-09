@@ -1,5 +1,6 @@
 // https://stackoverflow.com/questions/38235715/fetch-reject-promise-and-catch-the-error-if-status-is-not-ok
 // https://www.30secondsofcode.org/articles/s/javascript-await-timeout
+// https://jasonwatmore.com/post/2021/10/09/fetch-error-handling-for-failed-http-responses-and-network-errors
 class Timeout {
   constructor() {
     this.ids = [];
@@ -56,8 +57,9 @@ export class Api{
         else {
           // throw resp;
           // data.non_field_errors array(1) data.non_field_errors[0]
-          const error = (data && data.non_field_errors) || resp.status;
-          console.log("Err", error);
+          // console.log(data);
+          const error = (data && (data.non_field_errors || data.username || data.password)) || resp.status;
+          // console.log("Err", error);
           throw new Error(["Logging User", `${error}`].join(" "));
         }
       }      
@@ -94,8 +96,8 @@ export class Api{
           }
           else {
             // data.username array(1) data.username[0]
-            const error = (data && data.username[0]) || resp.status;
-            console.log("Err", error);
+            const error = (data && (data.username || data.password)) || resp.status;
+            // console.log("Err", error);
             throw new Error('Error ' + ["Creating New User", `${error}`].join(" "));
           }
         }        
