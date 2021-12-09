@@ -43,22 +43,26 @@ export class Api{
       method: 'POST',
       headers: myHeader,
       body: JSON.stringify({username, password})}
-      ), 15000, {reason: 'Fetch timeout'}     
+      ), 15000, {reason: 'Fetch Timeout'}     
     )
     .then(
-      resp => {
+      async resp => {
+        const isJson = resp.headers.get('content-type')?.includes('application/json');
+        const data = isJson ? await resp.json() : null;
+        
         if (resp.ok){
-          if (resp.status===200) return resp.json()
+          if (resp.status===200) return data;
         }
-        else throw new Error("Error logging user " + [resp.statusText, resp.status].join(" "))
+        else {
+          // throw resp;
+          // data.non_field_errors array(1) data.non_field_errors[0]
+          const error = (data && data.non_field_errors) || resp.status;
+          console.log("Err", error);
+          throw new Error(["Logging User", `${error}`].join(" "));
+        }
       }      
     )
-    // .catch( error => {
-    //   const isObj = typeof error !== 'undefined' && "reason" in error;
-    //   !isObj? console.error("loginUser error "+ error.name + ': ' + error.message)  :
-    //   console.log(`loginUser Failed with reason: ${error.reason}`);  
-    //   return error;
-    // })
+    // .catch( error => { console.log("Inside ",error); return error})
     .finally(() => {
       timeout.clear(...timeout.ids);
       console.log("finally 1");
@@ -79,14 +83,21 @@ export class Api{
         method: 'POST',
         headers: myHeader,
         body: JSON.stringify({username, password})}
-        ), 20000, {reason: 'Fetch timeout'}     
+        ), 20000, {reason: 'Fetch Timeout'}     
       )
       .then(
-        resp => {
+        async resp => {
+          const isJson = resp.headers.get('content-type')?.includes('application/json');
+          const data = isJson ? await resp.json() : null;
           if (resp.ok){
-            if (resp.status===201) return resp.json()
+            if (resp.status===201) return data;
           }
-          else throw new Error("Error creating new user " + [resp.statusText, resp.status].join(" "))
+          else {
+            // data.username array(1) data.username[0]
+            const error = (data && data.username[0]) || resp.status;
+            console.log("Err", error);
+            throw new Error('Error ' + ["Creating New User", `${error}`].join(" "));
+          }
         }        
       )
       // .catch( error => {

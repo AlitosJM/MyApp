@@ -5,6 +5,7 @@ import { Api } from '../../Api/Api';
 import { trackPromise } from 'react-promise-tracker';
 import { usePromiseTracker } from "react-promise-tracker";
 import { Spinner } from '../Spinner/spinner';
+import ErrorModal from '../ErrorModal/ErrorModal';
 
 // import { registerUser } from '../../store';
 import { useCookies } from 'react-cookie';
@@ -23,6 +24,8 @@ const AuthForm = (props) => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isCurrentToken, setIsCurrentToken] = useState(false);
+
+  const [errorDisplay, setErrorDisplay] = useState(null);
 
   const [token, setToken] = useCookies(['mr-token']);
 
@@ -61,9 +64,12 @@ const AuthForm = (props) => {
         console.log("After .then Api.loginUser")
     }
     catch(error){
-      const isObj = typeof error !== 'undefined' && "reason" in error;
-      !isObj? console.error("loginClicked "+ error.name + ': ' + error.message)  :
-      console.log(`loginClicked Failed with reason: ${error.reason}`);  
+      console.log(error.message)
+      const isError = typeof error !== 'undefined' && "reason" in error;
+      const displayError = !isError? "LoginClicked "+ error.name + ': ' + error.message:
+      `LoginClicked Failed With Reason: ${error.reason}`;  
+      const ModalErr = {title: 'Logging Error', message: displayError};
+      setErrorDisplay(ModalErr);
       setIsLogin(true);
       setIsLoading(false);
       setIsCurrentToken(false);
@@ -76,14 +82,16 @@ const AuthForm = (props) => {
     const resp = await Api.registerUser({enteredName, enteredPassword})
     .catch( 
       error => {
-        const isObj = typeof error !== 'undefined' && "reason" in error;
-        console.log("obj", isObj);
-        !isObj? console.log("registerClicked ", `${error.name }: ${error.message}`):
-        console.log(`Failed with reason: ${error.reason}`); 
+        const isError = typeof error !== 'undefined' && "reason" in error;
+        console.log("isError", isError);
+        const displayError = !isError? "RegisterClicked "+`${error.name }: ${error.message}`:
+        'Failed With Reason: ' + error.reason; 
+        const ModalErr = {title: 'Registering Error', message: displayError};
+        setErrorDisplay(ModalErr);
         setIsLoading(false);  
         setIsLogin( prevState => !prevState);
       })   
-      console.log("After catch() ", resp);
+      console.log("After catch() ", resp, !(resp instanceof Error) && typeof resp !== 'undefined');
       if (!(resp instanceof Error) && typeof resp !== 'undefined'){
         console.log("Resp is not an error: ", resp);
         loginClicked(enteredName, enteredPassword); 
@@ -119,12 +127,16 @@ const AuthForm = (props) => {
       // await Api.registerUser({enteredName, enteredPassword})
       // .then( () => loginClicked())
       // .catch( error => console.log(error))
-
     }
   }
 
+  const errorHandler = () => {setErrorDisplay(null)};
+
+  
+
   return (
     <>
+      {errorDisplay && <ErrorModal title={errorDisplay.title} message={errorDisplay.message} onConfirm={errorHandler} />}
       <section className={"auth"}>
         <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
         <form onSubmit={submitHandler}>
