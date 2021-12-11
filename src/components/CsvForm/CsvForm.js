@@ -156,14 +156,13 @@ class MyForm extends Component {
         )
         return ;        
       }
+      // const formData = new FormData();
+      // for (const name in this.state) {
+      //   (name !== "showInput" && name !== "error")?
+      //   formData.append(name, this.state[name]): null;
+      // }
       const formData = new FormData();
-      // formData.append("remark", "csv file");
-      for (const name in this.state) {
-        // console.log(name);
-        (name !== "showInput" && name !== "error")?
-        formData.append(name, this.state[name]): null;
-      }
-      console.log("->", formData);
+      formData.append("remark", "csv file");
       trackPromise(this.sendFile(formData, this.token));
       console.log("->","fin", this.state["showInput"]);
     }
@@ -232,8 +231,8 @@ class MyForm extends Component {
             <div className="card">
               <form onSubmit={submitHandler}>
                   <p><span style={myStyle}>{!showInput? "Envía tu archivo CSV" : "Calcular un nuevo valor para X"}</span></p>
-                  {!showInput && <input type="file" name="file" placeholder= "file" required="required"  onChange={fileChangeHandler}/>}
-                  { showInput && <input type='text' name="x_new" placeholder= "v.i." disabled = {!error?false:true} value={x_new} onChange={changeHandler}/>}
+                  {!showInput && <input type="file" name="file" placeholder= "file" required  onChange={fileChangeHandler}/>}
+                  { showInput && <input type='text' name="x_new" placeholder= "v.i." value={x_new} onChange={changeHandler}/>}
                   <input type="submit" value={!showInput? "Enviar" : "Calcular"} className="btn btn-primary btn-block btn-large"/>
                   
               </form>

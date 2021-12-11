@@ -1,6 +1,8 @@
 // https://stackoverflow.com/questions/38235715/fetch-reject-promise-and-catch-the-error-if-status-is-not-ok
 // https://www.30secondsofcode.org/articles/s/javascript-await-timeout
 // https://jasonwatmore.com/post/2021/10/09/fetch-error-handling-for-failed-http-responses-and-network-errors
+// https://stackoverflow.com/questions/37121301/how-to-check-if-the-response-of-a-fetch-is-a-json-object-in-javascript
+// https://developer.mozilla.org/es/docs/Web/API/Response
 class Timeout {
   constructor() {
     this.ids = [];
@@ -118,7 +120,7 @@ export class Api{
 
   static sendFile(body, Myfunction, token) {
     // http://127.0.0.1:8000/file/upload/`
-    //const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
+    // const authHeader = new Headers({"Authorization": `Bearer MY-CUSTOM-AUTH-TOKEN`});
     const authHeader = new Headers({'Authorization': `Token ${token}`});
     const timeout = new Timeout();
     const promise = timeout
@@ -130,26 +132,38 @@ export class Api{
           body: body
         })
         , 20000, {
-        reason: 'Fetch timeout',
+        reason: 'Fetch Timeout',
       })
       .then(
-        resp => {
-        const datitos = resp;
-        if (datitos.ok)
-          {
-          console.log("datitos ok");      
-          console.log("0", datitos);    
-          resp.status===201? Myfunction(true) : Myfunction(false);
-          return datitos.json();  
-        }
-        else{
-          console.log("datitos no ok"); 
-          throw new Error("sending data "+[datitos.statusText, datitos.status].join(" "));
+        async resp => {
+          const isJson = resp.headers.get('content-type')?.includes('application/json');
+          const data = isJson ? await resp.json() : null;
+          if (resp.ok)
+            {
+            console.log("data ok");      
+            console.log(data);    
+            // resp.status===201? Myfunction(true):Myfunction(false);
+            if (resp.status===201){
+              Myfunction(true);
+              return data;
+            }
+            else{
+              Myfunction(false);
+            }
+            
+          }
+          else{
+            console.log("data no ok"); 
+            const errorOne = (data && (data.detail || data.error)) || resp.status;
+            const errorTwo = (data && (data.detail || data.serializer_error)) || resp.status;
+            console.log("Err", errorOne, errorTwo);
+            throw new Error(["Sending File", `${errorOne}`].join(" "));
+            // throw new Error("sending data "+[datitos.statusText, datitos.status].join(" "));
           }
         }  
       )
       .catch( (error) => {  
-        console.log("inner catch", error.reason);     
+        console.log("inner catch", error);     
         const isObj = typeof error !== 'undefined' && "reason" in error;
         console.log("obj", isObj);
         !isObj? console.log(`${error}`):
