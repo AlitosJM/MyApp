@@ -131,7 +131,7 @@ export class Api{
           headers: authHeader,
           body: body
         })
-        , 20000, {
+        , 10000, {
         reason: 'Fetch Timeout',
       })
       .then(
@@ -153,21 +153,29 @@ export class Api{
             
           }
           else{
-            console.log("data no ok"); 
+            let error = ["Sending File:"];
             const errorOne = (data && (data.detail || data.error)) || resp.status;
-            const errorTwo = (data && (data.detail || data.serializer_error)) || resp.status;
-            console.log("Err", errorOne, errorTwo);
-            throw new Error(["Sending File", `${errorOne}`].join(" "));
+            const errorTwo = (data && data.serializer_error) || resp.status;
+            error.push(`${errorOne}`);
+            // console.log("Err1", error);
+            if(typeof errorTwo === 'object' && errorTwo !== null && !Array.isArray(errorTwo)){
+              //console.log("Err2", errorTwo.file, errorTwo.remark);              
+              if("file" in errorTwo) error.push(errorTwo.file+'');
+              if("remark" in errorTwo) error.push(errorTwo.remark.toString());              
+            }
+            // console.log("Err3", error);
+            throw new Error(error.join(" "));
             // throw new Error("sending data "+[datitos.statusText, datitos.status].join(" "));
           }
         }  
       )
-      .catch( (error) => {  
-        console.log("inner catch", error);     
-        const isObj = typeof error !== 'undefined' && "reason" in error;
-        console.log("obj", isObj);
-        !isObj? console.log(`${error}`):
-                console.log(`Failed with reason: ${error.reason}`)
+      .catch( (error) => {
+        // console.log("inner catch1", error);
+        // console.log("inner catch2", error.name);
+        const isError = typeof error !== 'undefined' && "reason" in error;
+        console.log("isError", isError);
+        const displayError = !isError? String(error.message):`Failed With Reason: ${error.reason}`
+        throw displayError;
       })
       .finally(() => {
         timeout.clear(...timeout.ids);

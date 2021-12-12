@@ -99,11 +99,17 @@ class MyForm extends Component {
   async sendFile(formData, token){
     await Api.sendFile(formData, (showInput) => this.setState({showInput}), token)
     .then( (datitos) => {
-      console.log("2",datitos);
+      console.log("sendFile then",datitos);
 
       this.props.setObj({...datitos}); 
       // dataFromBackEnd.push(Obj);   
       // alert( JSON.stringify(datitos, null, "\t") )
+    })
+    .catch( (error) => {
+      console.log("sendFile catch",error);
+      const ModalErr = {title: 'Archivo inválido', message: error};
+      this.setState(
+        (state) => ({ file: null, remark: '' , showInput: false, x_new: '', error: ModalErr }));
     })
 
     // areas.spinner1
