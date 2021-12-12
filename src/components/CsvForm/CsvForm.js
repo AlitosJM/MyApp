@@ -69,6 +69,7 @@ class MyForm extends Component {
     super(props);
     this.state = {file: null, remark: '' , showInput: false, x_new: '', error: null}
     this.token = this.props.token || null;
+    this.result = "";
   }
 
   // debounceLog = debounce( this.inputValidation ,500 );
@@ -125,11 +126,16 @@ class MyForm extends Component {
 
     if (typeof data !== 'undefined'){
       try{
-        console.log(data.result);
+        this.result = data.result;
         const imageUrl = await Api.getImg(token, data.data["pk"]);
 
         this.props.setStatus1(true); 
         this.props.setUrl(imageUrl.image+'');
+
+        const ModalErr = {title: 'Result', message: this.result};
+        this.setState(
+          (state) => ({ file: state.file, remark: state.remark , showInput: true, x_new: state.x_new, error: ModalErr }));
+      
       }
       catch(error){
         const ModalErr = {title: 'Image Error', message: error};
