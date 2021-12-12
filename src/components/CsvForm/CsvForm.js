@@ -98,10 +98,10 @@ class MyForm extends Component {
 
   async sendFile(formData, token){
     await Api.sendFile(formData, (showInput) => this.setState({showInput}), token)
-    .then( (datitos) => {
-      console.log("sendFile then",datitos);
+    .then( (data) => {
+      console.log("sendFile then",data);
 
-      this.props.setObj({...datitos}); 
+      this.props.setObj({...data}); 
       // dataFromBackEnd.push(Obj);   
       // alert( JSON.stringify(datitos, null, "\t") )
     })
@@ -116,15 +116,27 @@ class MyForm extends Component {
   }
 
   sendData = async (x_new, token) => {
-    await Api.sendData(x_new, token)
-    .then( (datitos) => {
-      console.log("-> 3",datitos);
-      // alert( JSON.stringify(datitos, null, "\t") );
-      const url = datitos['url'].toString();
-      console.log("-> 4",url);
-      this.props.setStatus1(true); 
-      this.props.setUrl(url);    
-    })
+    const data = await Api.sendData(x_new, token)
+    .catch( (error) => {
+      const ModalErr = {title: 'Dato inválido', message: error};
+      this.setState(
+        (state) => ({ file: state.file, remark: state.remark , showInput: true, x_new: state.x_new, error: ModalErr }));
+    });
+
+    if (typeof data !== 'undefined'){
+      try{
+        console.log(data.result);
+        const imageUrl = await Api.getImg(token, data.data["pk"]);
+
+        this.props.setStatus1(true); 
+        this.props.setUrl(imageUrl.image+'');
+      }
+      catch(error){
+        const ModalErr = {title: 'Image Error', message: error};
+        this.setState(
+          (state) => ({ file: state.file, remark: state.remark , showInput: true, x_new: state.x_new, error: ModalErr }));
+      }
+    }   
     // areas.spinner2
     // return msg
   }
@@ -162,13 +174,13 @@ class MyForm extends Component {
         )
         return ;        
       }
-      // const formData = new FormData();
-      // for (const name in this.state) {
-      //   (name !== "showInput" && name !== "error")?
-      //   formData.append(name, this.state[name]): null;
-      // }
       const formData = new FormData();
-      formData.append("remark", "csv file");
+      for (const name in this.state) {
+        (name !== "showInput" && name !== "error")?
+        formData.append(name, this.state[name]): null;
+      }
+      // const formData = new FormData();
+      // formData.append("remark", "csv file");
       trackPromise(this.sendFile(formData, this.token));
       console.log("->","fin", this.state["showInput"]);
     }

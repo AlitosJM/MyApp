@@ -205,37 +205,82 @@ export class Api{
           headers: authHeader,
           body: JSON.stringify({x: x_new})}
           ), 30000, {
-            reason: 'Fetch timeout',
+            reason: 'Fetch Timeout',
         })
-        .then( resp => {
-          const datitos = resp;
+        .then( async resp => {
+          const isJson = resp.headers.get('content-type')?.includes('application/json');
+          const data = isJson ? await resp.json() : null;
 
-          if (datitos.ok){
-            console.log("-> 1", datitos);
-            return datitos.json();}
+          if (resp.ok){
+            console.log("-> 1", resp);
+            return data;}
           else{
-            console.log("-> 1.3", datitos);
-            console.log("datitos no ok"); 
-            throw new Error("sending data "+[datitos.statusText, datitos.status].join(" "));}
+            let error = ["Sending x:"];
+            const errorOne = (data && (data.detail || data.error)) || resp.status;
+            const errorTwo = (data && data.serializer_error) || resp.status;
+            error.push(`${errorOne}`);
+            error.push(errorTwo+'');
+            console.log("Err0", errorOne);
+            console.log("Err1", error);
+            throw new Error(error.join(" "));
+          }
         })
-        .then( (datitos) => {
-          console.log("-> 1.5",datitos)
-          const url = ["http://127.0.0.1:8000", datitos.data['image']];
-          datitos.url= url.join("")
+        // .then( (data) => {
+        //   const url = ["http://127.0.0.1:8000", data.data['image']];
+        //   data.url= url.join("")
 
-          console.log("-> 2",datitos)
-          // alert( JSON.stringify(datitos, null, "\t") ); 
-          // alert(datitos); 
-          return datitos })
+        //   console.log("-> 2",data)
+        //   // alert( JSON.stringify(datitos, null, "\t") ); 
+        //   // alert(datitos); 
+        //   return data })
         .catch(error => {
-          const isObj = typeof error !== 'undefined' && "reason" in error;
-          console.log("obj", isObj);
-          !isObj? console.log(`${error}`):
-                  console.log(`Failed with reason: ${error.reason}`)
+          const isError = typeof error !== 'undefined' && "reason" in error;
+          console.log("isError", isError);
+          const displayError = !isError? error.message.toString():
+          "Failed With Reason: " + error.reason+'';
+          throw displayError;
         })
         .finally(() => timeout.clear(...timeout.ids));
     
     return promesa; 
-  }  
+  }
+
+  static getImg(token, id, url="http://127.0.0.1:8000/api/ml/images"){
+    const authHeader = new Headers({'Content-Type':'application/json', 'Authorization': `Token ${token}`});
+    const timeout = new Timeout();
+
+    const promesa = timeout.wrap(
+      fetch(
+        url+`/${id}`, {
+          method:'GET',
+          headers: authHeader,}
+          ), 10000, {
+            reason: 'Fetch Timeout',
+      })
+      .then( async resp => {
+        const isJson = resp.headers.get('content-type')?.includes('application/json');
+        const data = isJson ? await resp.json() : null;
+        if (resp.ok){
+          return data;
+        }
+        else{
+          let error = ["Getting Image:"];
+          const errorOne = (data && data.detail) || resp.status;
+          error.push(String(errorOne));
+          // console.log("Err1", error);
+          throw new Error(error.join(" "));
+        }        
+      })
+      .catch(error => {
+        const isError = typeof error !== 'undefined' && "reason" in error;
+        console.log("isError", isError);
+        const displayError = !isError? error.message.toString():
+        "Failed With Reason: " + error.reason+'';
+        throw displayError;
+      })
+      .finally(() => timeout.clear(...timeout.ids));
+
+    return promesa;
+  }
 
 }
