@@ -6,16 +6,17 @@ const Canvas = () => {
     const contextRef = useRef(null);
     const [ previousX, setPreviousX ] = useState(0);
     const [ previousY, setPreviousY ] = useState(0);
-    const [ currentX, setCurrentX ] = useState(0);
-    const [ currentY, setCurrentY ] = useState(0);
     const [ isDrawing, setIsDrawing ] = useState(false);
 
-    const draw = () => {
+    const draw = (currentx, currenty) => {
         contextRef.current.beginPath();
         contextRef.current.moveTo(previousX, previousY);
-        contextRef.current.lineTo(currentX, currentY);
+        contextRef.current.lineTo(currentx, currenty);
         contextRef.current.stroke();
         contextRef.current.closePath();
+
+        setPreviousX(currentx);
+        setPreviousY(currenty);
     }
 
     useEffect(() => {
@@ -51,54 +52,47 @@ const Canvas = () => {
         const { offsetX, offsetY } = event.nativeEvent;
         console.log("onMouseDown");
         
-        setCurrentX(offsetX);
-        setCurrentY(offsetY);
+        setPreviousX(offsetX);
+        setPreviousY(offsetY);
         console.log(offsetX, offsetY);
         // console.log('canvas', canvas.offsetLeft, canvas.offsetTop);
         // console.log('client', event.clientX, event.clientY);
-        contextRef.current.beginPath();
-        contextRef.current.moveTo(offsetX, offsetY);
+        // contextRef.current.beginPath();
+        // contextRef.current.moveTo(offsetX, offsetY);
 
         setIsDrawing(true);
     };
 
     const finishDrawing = (event) => {
         console.log("onMouseUp");
-        contextRef.current.closePath();
+        // contextRef.current.closePath();
         setIsDrawing(false);
     };
     
     const paint = (event) => {
         const { offsetX, offsetY } = event['nativeEvent'];
 
-        if (isDrawing) {
+        if (!isDrawing) {return;}
 
-            if (offsetX<1 || offsetX>148)
-            {
-                contextRef.current.closePath();
-                setIsDrawing(false);
-                return;
-            }
-
-            if (offsetY<1 || offsetY>148)
-            {
-                contextRef.current.closePath();
-                setIsDrawing(false);
-                return;
-            }
-
-            console.log("onMouseMove");
-            setPreviousX(currentX);
-            setCurrentX(offsetX);
-
-            setPreviousY(currentY);
-            setCurrentY(offsetY);
-
-            contextRef.current.lineTo(offsetX, offsetY);
-            contextRef.current.stroke();
-            // draw();            
+        if (offsetX<1 || offsetX>148)
+        {
+            contextRef.current.closePath();
+            setIsDrawing(false);
+            return;
         }
 
+        if (offsetY<1 || offsetY>148)
+        {
+            contextRef.current.closePath();
+            setIsDrawing(false);
+            return;
+        }
+
+        console.log("onMouseMove");
+
+        // contextRef.current.lineTo(offsetX, offsetY);
+        // contextRef.current.stroke();
+        draw(offsetX, offsetY);
     };
 
     return (
