@@ -1,0 +1,14 @@
+.canvas-container {
+    text-align: center;
+    margin: 50px auto;
+  }
+  
+#my-canvas {
+    vertical-align: top;
+    display: inline;
+    border: 5px solid #FFFFFF;
+    border-radius: 5%;
+    margin-left: 25px;
+    cursor: crosshair;
+}
+  

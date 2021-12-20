@@ -2,6 +2,7 @@ import React from "react";
 import MyFom from '../CsvForm/CsvForm';
 import DataForm from '../CsvForm/CsvForm2';
 import MyGraph from '../Graphs/Graphs';
+import Canvas from "../Canvas/Canvas";
 import { ContextualComponent } from "../../containers/Wrapper/ContextualComponent";
 import { Spinner } from '../Spinner/spinner';
 import post_objects from "../Post/Post";
@@ -42,6 +43,8 @@ const Detail = props => {
                   // <DataForm />
                   <Game></Game>
                 );
+          case 3:
+            return <Canvas />
           default:
             console.log("detail default");
             return <Redirect to="/myPage"/>
