@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "opencv.js": "^1.2.1",
     "react": "16.8.6",
     "react-cookie": "^4.0.3",
     "react-dom": "16.8.6",

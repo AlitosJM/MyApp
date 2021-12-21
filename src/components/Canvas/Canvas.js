@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import InjectScript from "../OpenCv/InjectScript";
 import "./Canvas.css";
+// var cv = require('opencv.js');
 
 const Canvas = () => {
+    // const OPENCV_URL = 'vendor/opencv.js';
+    const OPENCV_URL = "https://docs.opencv.org/master/opencv.js";
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
     const [ previousX, setPreviousX ] = useState(0);
@@ -43,7 +47,23 @@ const Canvas = () => {
             context.lineWidth = 5;
             contextRef.current = context;
         };
-        console.log("useEffect")
+
+        const loadOpenCv = () => {
+            const promise = InjectScript('opencv-injected-js', OPENCV_URL);
+            promise
+            .then((resp) => {
+              console.log(`success to load ${OPENCV_URL}`, resp.window, '1');
+              // eslint-disable-next-line no-undef
+              // console.log('1', cv.getBuildInformation());
+              // this.playerRef.trigger('opencvReady');
+            })
+            .catch(() => {
+              // eslint-disable-next-line no-console
+              console.log(`Failed to load ${OPENCV_URL}`);
+            });
+        };
+        console.log("useEffect");
+        loadOpenCv();
         prepareCanvas();
 
     }, []);
@@ -95,6 +115,15 @@ const Canvas = () => {
         draw(offsetX, offsetY);
     };
 
+    const clickHandler = () => {
+        const canvas = canvasRef.current;
+        const image = cv.imread(canvas);
+        outputCanvas = document.createElement('CANVAS');
+        cv.imshow(outputCanvas, image);
+        document.body.appendChild(outputCanvas);
+    };
+
+
     return (
         <div className="canvas-container">
             <canvas id="my-canvas"
@@ -102,7 +131,8 @@ const Canvas = () => {
                 onMouseMove={paint}
                 onMouseUp={finishDrawing}
                 ref={canvasRef}
-            />       
+            />
+            <button onClick={clickHandler}>Test</button>
         </div>
     )
 }
