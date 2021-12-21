@@ -116,11 +116,30 @@ const Canvas = () => {
     };
 
     const clickHandler = () => {
-        const canvas = canvasRef.current;
-        const image = cv.imread(canvas);
-        outputCanvas = document.createElement('CANVAS');
+        const canvas = canvasRef.current;   
+        let image = cv.imread(canvas);
+
+        cv.cvtColor(image, image, cv.COLOR_RGBA2GRAY, 0);
+        cv.threshold(image, image, 175, 255, cv.THRESH_BINARY);
+
+        let contours = new cv.MatVector();
+        let hierarchy = new cv.Mat();
+        // You can try more different parameters
+        cv.findContours(image, contours, hierarchy, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE);
+
+        let cnt = contours.get(0);
+        let rect = cv.boundingRect(cnt);
+        image = image.roi(rect);
+    
+    
+    
+        const outputCanvas = document.createElement('CANVAS');
         cv.imshow(outputCanvas, image);
         document.body.appendChild(outputCanvas);
+
+        contextRef.current.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+        setPreviousX(0);
+        setPreviousY(0); 
     };
 
 

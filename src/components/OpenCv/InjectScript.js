@@ -1,4 +1,5 @@
 import React from 'react';
+// https://stackoverflow.com/questions/49777780/can-anybody-generate-opencv-js
 
 const InjectScript = (scriptId, scriptLink) =>
   new Promise((resolve, reject) => {
