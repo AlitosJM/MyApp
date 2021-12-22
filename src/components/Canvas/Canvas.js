@@ -6,6 +6,8 @@ import "./Canvas.css";
 const Canvas = () => {
     // const OPENCV_URL = 'vendor/opencv.js';
     const OPENCV_URL = "https://docs.opencv.org/master/opencv.js";
+    const TENSORFLOW_URL = "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js";
+
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
     const [ previousX, setPreviousX ] = useState(0);
@@ -48,22 +50,23 @@ const Canvas = () => {
             contextRef.current = context;
         };
 
-        const loadOpenCv = () => {
-            const promise = InjectScript('opencv-injected-js', OPENCV_URL);
+        const loadScript = (id, URL) => {
+            const promise = InjectScript(id, URL);
             promise
             .then((resp) => {
-              console.log(`success to load ${OPENCV_URL}`, resp.window, '1');
+              console.log(`success to load ${URL}`, resp.window, '1');
               // eslint-disable-next-line no-undef
               // console.log('1', cv.getBuildInformation());
               // this.playerRef.trigger('opencvReady');
             })
             .catch(() => {
               // eslint-disable-next-line no-console
-              console.log(`Failed to load ${OPENCV_URL}`);
+              console.log(`Failed to load ${URL}`);
             });
         };
         console.log("useEffect");
-        loadOpenCv();
+        loadScript('opencv-injected-js', OPENCV_URL);
+        loadScript('tensorflow-injected-js', TENSORFLOW_URL);
         prepareCanvas();
 
     }, []);
@@ -180,7 +183,9 @@ const Canvas = () => {
         console.log(`pixel values: ${pixelValues}`);
 
         pixelValues = pixelValues.map( item => item/255.0 );
-        console.log(`scaled array: ${pixelValues}`);     
+        console.log(`scaled array: ${pixelValues}`);   
+        
+        const X = tf.tensor([pixelValues]);
 
     
         const outputCanvas = document.createElement('CANVAS');
