@@ -27,9 +27,9 @@ const InjectScript = (scriptId, scriptLink) =>
       const node = document.getElementsByTagName('script')[0]; // <script src="/static/js/bundle.js"></script>
       document.head.appendChild(script);
 
-      script.onload = () => {
-        console.log("script.onload: ", window.cv);
-      }
+      // script.onload = () => {
+      //   console.log("script.onload: ", window.cv);
+      // }
 
       // node.parentNode.insertBefore(script, node);
     } else if (resolve) {
