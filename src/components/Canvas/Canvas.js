@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import InjectScript from "../OpenCv/InjectScript";
+import InjectScript from "../InjectScript/InjectScript";
 import "./Canvas.css";
-// var cv = require('opencv.js');
 
 const Canvas = () => {
     // const OPENCV_URL = 'vendor/opencv.js';
@@ -12,6 +11,7 @@ const Canvas = () => {
     const contextRef = useRef(null);
     const [ previousX, setPreviousX ] = useState(0);
     const [ previousY, setPreviousY ] = useState(0);
+    const [ model, setModel ] = useState(null);
     const [ isDrawing, setIsDrawing ] = useState(false);
 
     const draw = (currentx, currenty) => {
@@ -36,9 +36,7 @@ const Canvas = () => {
             // canvas.style.height = `${window.innerHeight}px`;
 
             // canvas.style.width = `${150}px`;
-            // canvas.style.height = `${150}px`;
-
-        
+            // canvas.style.height = `${150}px`;        
             const context = canvas.getContext("2d");
             context.fillStyle = '#000000';
             context.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
@@ -64,11 +62,20 @@ const Canvas = () => {
               console.log(`Failed to load ${URL}`);
             });
         };
+
+        const loadModel = async () => {
+            const model = await tf.loadGraphModel(process.env.PUBLIC_URL + '/model.json');
+            console.log(model);
+            setModel(model);
+        };
+
         console.log("useEffect");
         loadScript('opencv-injected-js', OPENCV_URL);
         loadScript('tensorflow-injected-js', TENSORFLOW_URL);
         prepareCanvas();
-
+        
+        const timer = setTimeout( () => loadModel(), 5000);
+        return () => clearTimeout(timer);
     }, []);
 
     const startDrawing = (event) => {
@@ -117,6 +124,7 @@ const Canvas = () => {
         // contextRef.current.stroke();
         draw(offsetX, offsetY);
     };
+
 
     const clickHandler = () => {
         const canvas = canvasRef.current;   
@@ -180,12 +188,16 @@ const Canvas = () => {
         let pixelValues = image.data;
 
         pixelValues = Float32Array.from(pixelValues);
-        console.log(`pixel values: ${pixelValues}`);
+        // console.log(`pixel values: ${pixelValues}`);
 
         pixelValues = pixelValues.map( item => item/255.0 );
-        console.log(`scaled array: ${pixelValues}`);   
+        // console.log(`scaled array: ${pixelValues}`);   
         
         const X = tf.tensor([pixelValues]);
+
+        const result = model.predict(X);
+        result.print();
+        const output = result.dataSync()[0];   
 
     
         const outputCanvas = document.createElement('CANVAS');
