@@ -4,7 +4,7 @@ import React from 'react';
 const InjectScript = (scriptId, scriptLink) =>
   new Promise((resolve, reject) => {
     const existingscript = document.getElementById(scriptId);
-    let cv;
+
     if (!existingscript) {
       const script = document.createElement('script');
       script.setAttribute('async', '');
@@ -13,7 +13,7 @@ const InjectScript = (scriptId, scriptLink) =>
       script.addEventListener('load', () => {
         if (resolve) {
           console.log('resolve 1: ');
-          console.log("script.onload 1: ", window.cv);
+          console.log("script.onload 1: ");
           resolve();          
         }
       });

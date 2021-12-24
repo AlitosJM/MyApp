@@ -6,7 +6,7 @@
   }
 
 
-body {
+/* body {
 	height: 100%;
 	margin: 0;
 	-webkit-font-smoothing: antialiased;
@@ -20,7 +20,7 @@ body {
 	background-position: top left,		center center,		bottom center;
 	background-attachment: fixed,			fixed,				fixed;
 	font-family: "Source Sans Pro", Helvetica, sans-serif;
-}
+} */
 
 /* #main-navigation h1{
 	color: white;

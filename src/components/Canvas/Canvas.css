@@ -1,14 +1,30 @@
 .canvas-container {
-    text-align: center;
-    margin: 50px auto;
-  }
-  
-#my-canvas {
-    vertical-align: top;
-    display: inline;
-    border: 5px solid #FFFFFF;
-    border-radius: 5%;
-    margin-left: 25px;
-    cursor: crosshair;
+  /* display: flex;
+  flex-direction: column; */
+
+  background-color: rgba(78,137,174, 0.5);
+
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  margin: 3rem auto 3rem auto;
+  align-items: center;
 }
+  
+.my-canvas {
+  vertical-align: bottom;
+  display: inline;
+  border: 5px solid #FFFFFF;
+  border-radius: 5%;
+  margin-left: 25px;
+  cursor: crosshair;
+}
+
+.question {
+  display: inline;
+  color: white;
+  font-weight: 400;
+  font-size: 7rem;
+}
+
   

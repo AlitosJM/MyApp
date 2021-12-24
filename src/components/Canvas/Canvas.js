@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import InjectScript from "../InjectScript/InjectScript";
 import "./Canvas.css";
 
+
+// https://stackoverflow.com/questions/53639919/load-tensorflow-js-model-from-local-file-system-in-javascript
+
 const Canvas = () => {
-    // const OPENCV_URL = 'vendor/opencv.js';
     const OPENCV_URL = "https://docs.opencv.org/master/opencv.js";
     const TENSORFLOW_URL = "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js";
 
@@ -12,7 +14,50 @@ const Canvas = () => {
     const [ previousX, setPreviousX ] = useState(0);
     const [ previousY, setPreviousY ] = useState(0);
     const [ model, setModel ] = useState(null);
+    const [ numb, setNumb ] = useState({n1: 0, n2: 0, suma: 0, output: 0});
     const [ isDrawing, setIsDrawing ] = useState(false);
+    const [ isClicked, setIsClicked ] = useState(false);
+    const [ score, setScore ]= useState(0);
+
+    const nextQuestion = () => {
+        const n1 = Math.floor(Math.random() * 5);
+        const n2 = Math.floor(Math.random() * 6);
+        const suma = n1 + n2;
+        setNumb(previous => ({...previous, n1, n2, suma}));
+    };
+
+    const checkAnswer = (output) =>{
+        numb.suma === output? alert("Ok"):alert("No Ok");
+        let backgroundImages = new Array(6).fill(null)
+        .map(
+            (item, index) => `url(${process.env.PUBLIC_URL + `/background${index+1}.svg`})`
+        )
+
+        let scoreLocal = score;
+        console.log("scoreLocal: ", scoreLocal);
+
+        // process.env.PUBLIC_URL + '/background1.svg';
+        
+        // backgroundImages.push(background1);
+        // backgroundImages.push(background2);
+        // backgroundImages.push(background3);
+        // backgroundImages.push(background4);
+
+        console.log(backgroundImages);
+
+        if (numb.suma === output) {
+            scoreLocal++;
+            setScore(scoreLocal);
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundImage = backgroundImages.slice(0, score+1)
+            console.log(backgroundImages.slice(0, score+1));
+        }
+
+        nextQuestion();
+        setIsClicked(true);
+    };
 
     const draw = (currentx, currenty) => {
         contextRef.current.beginPath();
@@ -27,6 +72,7 @@ const Canvas = () => {
 
     useEffect(() => {
         const prepareCanvas = () => {
+            console.log("prepareCanvas");
             const canvas = canvasRef.current
             canvas.width = 150;
             canvas.height = 150;
@@ -49,33 +95,38 @@ const Canvas = () => {
         };
 
         const loadScript = (id, URL) => {
+            console.log("loadScript");
             const promise = InjectScript(id, URL);
             promise
             .then((resp) => {
-              console.log(`success to load ${URL}`, resp.window, '1');
+              console.log(`success to load ${URL}`, resp, '1');
               // eslint-disable-next-line no-undef
               // console.log('1', cv.getBuildInformation());
               // this.playerRef.trigger('opencvReady');
             })
-            .catch(() => {
+            .catch((error) => {
               // eslint-disable-next-line no-console
-              console.log(`Failed to load ${URL}`);
+              console.log(`Failed to load ${URL}: `,error.message);
             });
         };
 
         const loadModel = async () => {
             const model = await tf.loadGraphModel(process.env.PUBLIC_URL + '/model.json');
-            console.log(model);
+            console.log("in loadModel");
             setModel(model);
         };
+
+        let timer = null;
 
         console.log("useEffect");
         loadScript('opencv-injected-js', OPENCV_URL);
         loadScript('tensorflow-injected-js', TENSORFLOW_URL);
         prepareCanvas();
+        nextQuestion();
         
-        const timer = setTimeout( () => loadModel(), 5000);
-        return () => clearTimeout(timer);
+        timer = setTimeout( () => {console.log("invoking loadModel"); loadModel();}, 3000);        
+
+        return () => {console.log("clearTimeout");clearTimeout(timer);};
     }, []);
 
     const startDrawing = (event) => {
@@ -197,12 +248,13 @@ const Canvas = () => {
 
         const result = model.predict(X);
         result.print();
-        const output = result.dataSync()[0];   
+        const output = result.dataSync()[0];
 
+        setNumb(previous => ({...previous, output}));
     
-        const outputCanvas = document.createElement('CANVAS');
-        cv.imshow(outputCanvas, image);
-        document.body.appendChild(outputCanvas);
+        // const outputCanvas = document.createElement('CANVAS');
+        // cv.imshow(outputCanvas, image);
+        // document.body.appendChild(outputCanvas);
 
         contextRef.current.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
         setPreviousX(0);
@@ -214,19 +266,35 @@ const Canvas = () => {
         cnt.delete();
         hierarchy.delete();
         M.delete();
+        X.dispose();
+        result.dispose();
+
+        checkAnswer(output);
+
+        setIsClicked(true);
 
     };
+    
 
 
     return (
-        <div className="canvas-container">
-            <canvas id="my-canvas"
-                onMouseDown={startDrawing} 
-                onMouseMove={paint}
-                onMouseUp={finishDrawing}
-                ref={canvasRef}
-            />
-            <button onClick={clickHandler}>Test</button>
+        <div className="canvas-container"> 
+
+        
+                <h2 className='question'>
+                    <span id='n1'>{numb.n1}</span>+ 
+                    <span id='n2'>{numb.n2}</span>= 
+                </h2>      
+
+                <canvas className="my-canvas"
+                    onMouseDown={startDrawing} 
+                    onMouseMove={paint}
+                    onMouseUp={finishDrawing}
+                    ref={canvasRef}
+                />
+                <button className="btn btn-primary btn-block btn-large" onClick={clickHandler}>Test</button>
+    
+            
         </div>
     )
 }
