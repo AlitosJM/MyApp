@@ -4,6 +4,7 @@ import "./Canvas.css";
 
 
 // https://stackoverflow.com/questions/53639919/load-tensorflow-js-model-from-local-file-system-in-javascript
+// https://www.delftstack.com/howto/javascript/remove-last-element-from-array-in-javascript/
 
 const Canvas = () => {
     const OPENCV_URL = "https://docs.opencv.org/master/opencv.js";
@@ -16,7 +17,7 @@ const Canvas = () => {
     const [ model, setModel ] = useState(null);
     const [ numb, setNumb ] = useState({n1: 0, n2: 0, suma: 0, output: 0});
     const [ isDrawing, setIsDrawing ] = useState(false);
-    const [ isClicked, setIsClicked ] = useState(false);
+    const [ backgroundImages, setBackgroundImages ] = useState([]);
     const [ score, setScore ]= useState(0);
 
     const nextQuestion = () => {
@@ -28,35 +29,58 @@ const Canvas = () => {
 
     const checkAnswer = (output) =>{
         numb.suma === output? alert("Ok"):alert("No Ok");
-        let backgroundImages = new Array(6).fill(null)
-        .map(
-            (item, index) => `url(${process.env.PUBLIC_URL + `/background${index+1}.svg`})`
-        )
-
+        let backgroundImageslocal = backgroundImages;
         let scoreLocal = score;
+
         console.log("scoreLocal: ", scoreLocal);
-
-        // process.env.PUBLIC_URL + '/background1.svg';
-        
-        // backgroundImages.push(background1);
-        // backgroundImages.push(background2);
-        // backgroundImages.push(background3);
-        // backgroundImages.push(background4);
-
-        console.log(backgroundImages);
 
         if (numb.suma === output) {
             scoreLocal++;
-            setScore(scoreLocal);
-            document.body.style.backgroundSize = 'cover';
-            document.body.style.backgroundRepeat = 'no-repeat';
-            document.body.style.backgroundPosition = 'center';
-            document.body.style.backgroundImage = backgroundImages.slice(0, score+1)
-            console.log(backgroundImages.slice(0, score+1));
+            backgroundImageslocal = new Array(scoreLocal).fill(null)
+            .map(
+                (item, index) => `url(${process.env.PUBLIC_URL + `/background${index+1}.svg`})`
+            ); // .push()
+            
+            console.log(backgroundImageslocal);
+            
+            if (scoreLocal < 7){
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundRepeat = 'no-repeat';
+                document.body.style.backgroundPosition = 'center';
+                document.body.style.backgroundImage = backgroundImageslocal; // .slice(0, score+1)
+                console.log(backgroundImageslocal.slice(0, score+1));
+            }
+            else{
+                scoreLocal = 0;    
+                document.body.style.backgroundSize = '';
+                document.body.style.backgroundRepeat = '';
+                document.body.style.backgroundPosition = '';  
+                document.body.style.backgroundImage = [];          
+            }
         }
+        else{
+            if (scoreLocal !== 0){ scoreLocal--; }
+
+            if (scoreLocal===0){
+                document.body.style.backgroundSize = '';
+                document.body.style.backgroundRepeat = '';
+                document.body.style.backgroundPosition = '';
+                document.body.style.backgroundImage = [];
+            }
+            else{
+                backgroundImageslocal.splice(-1,1); // .pop()
+                // backgroundImageslocal = backgroundImageslocal.slice(0, -1);
+                // backgroundImageslocal = backgroundImageslocal.filter(
+                //     (element, index) => index < backgroundImageslocal.length - 1);
+                console.log('error: ', backgroundImageslocal);
+                document.body.style.backgroundImage = backgroundImageslocal;
+            }
+        }
+        setBackgroundImages(backgroundImageslocal);
+        setScore(scoreLocal);
 
         nextQuestion();
-        setIsClicked(true);
+       
     };
 
     const draw = (currentx, currenty) => {
@@ -271,15 +295,11 @@ const Canvas = () => {
 
         checkAnswer(output);
 
-        setIsClicked(true);
-
-    };
-    
+    };    
 
 
     return (
-        <div className="canvas-container"> 
-
+        <div className="canvas-container">
         
                 <h2 className='question'>
                     <span id='n1'>{numb.n1}</span>+ 
@@ -292,8 +312,7 @@ const Canvas = () => {
                     onMouseUp={finishDrawing}
                     ref={canvasRef}
                 />
-                <button className="btn btn-primary btn-block btn-large" onClick={clickHandler}>Test</button>
-    
+                <button className="btn btn-primary btn-block btn-large" onClick={clickHandler}>Test</button>    
             
         </div>
     )
