@@ -42,7 +42,7 @@ function PortalToIntro() {
 
           <footer>
             <ul className={"icons"}>
-              <li><Link className={"icon solid fa-robot"} to="/intro">Robot</Link></li>
+              <li><Link className={"icon solid fa-rocket"} to="/intro">Robot</Link></li>
             </ul>
           </footer>
 

@@ -300,20 +300,20 @@ const Canvas = () => {
 
     return (
         <div className="canvas-container">
-        
+            <div className="container-flex">
                 <h2 className='question'>
                     <span id='n1'>{numb.n1}</span>+ 
                     <span id='n2'>{numb.n2}</span>= 
                 </h2>      
-
+            
                 <canvas className="my-canvas"
                     onMouseDown={startDrawing} 
                     onMouseMove={paint}
                     onMouseUp={finishDrawing}
                     ref={canvasRef}
                 />
-                <button className="btn btn-primary btn-block btn-large" onClick={clickHandler}>Test</button>    
-            
+                <button className="btn btn-primary btn-large toggle" onClick={clickHandler}>Check Answer</button>    
+            </div>
         </div>
     )
 }
