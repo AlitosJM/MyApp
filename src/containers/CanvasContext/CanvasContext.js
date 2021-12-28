@@ -4,9 +4,6 @@ import InjectScript from "../../components/InjectScript/InjectScript";
 const CanvasContext = React.createContext();
 
 export const CanvasProvider = ({ children }) => {
-    const OPENCV_URL = "https://docs.opencv.org/master/opencv.js";
-    const TENSORFLOW_URL = "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js";
-
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
     const [ previousX, setPreviousX ] = useState(0);
@@ -71,11 +68,6 @@ export const CanvasProvider = ({ children }) => {
         setPreviousY(offsetY);
         console.log(offsetX, offsetY);
         setIsDrawing(true);
-    };
-
-    const finishDrawing = (event) => {
-        console.log("onMouseUp");
-        setIsDrawing(false);
     };
 
     const finishDrawing = (event) => {
@@ -276,6 +268,7 @@ export const CanvasProvider = ({ children }) => {
   return (
     <CanvasContext.Provider
       value={{
+        numb,
         canvasRef,
         contextRef,
         prepareCanvas,

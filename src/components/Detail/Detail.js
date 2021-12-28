@@ -3,6 +3,8 @@ import MyFom from '../CsvForm/CsvForm';
 import DataForm from '../CsvForm/CsvForm2';
 import MyGraph from '../Graphs/Graphs';
 import Canvas from "../Canvas/Canvas";
+import CanvasForCtx from "../Canvas/CanvasForCtx";
+import { CanvasProvider } from "../../containers/CanvasContext/CanvasContext";
 import { ContextualComponent } from "../../containers/Wrapper/ContextualComponent";
 import { Spinner } from '../Spinner/spinner';
 import post_objects from "../Post/Post";
@@ -44,7 +46,10 @@ const Detail = props => {
                   <Game></Game>
                 );
           case 3:
-            return <Canvas />
+            // return <Canvas />
+            return (<CanvasProvider>
+                      <CanvasForCtx />
+                    </CanvasProvider>);
           default:
             console.log("detail default");
             return <Redirect to="/myPage"/>
