@@ -4,6 +4,7 @@ import { useCanvas } from '../../containers/CanvasContext/CanvasContext';
 const CanvasForCtx = () => {
     const OPENCV_URL = "https://docs.opencv.org/master/opencv.js";
     const TENSORFLOW_URL = "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js";
+
     const {
         numb,
         canvasRef,
@@ -13,8 +14,8 @@ const CanvasForCtx = () => {
         paint,
         loadScript,
         nextQuestion,
-        loadModel,
         clickHandler,
+        timerForLoadModel: waitingModel,
     } = useCanvas();
 
     useEffect(() => {
@@ -22,9 +23,11 @@ const CanvasForCtx = () => {
         loadScript('tensorflow-injected-js', TENSORFLOW_URL);
         prepareCanvas();
         nextQuestion();
-        const timer = setTimeout( () => {console.log("invoking loadModel"); loadModel();}, 3000); 
-        
-        return () => {console.log("clearTimeout");clearTimeout(timer);};
+        const clearTimer = waitingModel(2000);
+        return () => {
+            console.log("clearTimeout useEffect"); 
+            clearTimer();
+        };
     }, []);
 
     return (

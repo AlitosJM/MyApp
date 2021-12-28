@@ -19,7 +19,7 @@ const myDebounceValidation = (fnt, delay) => {
       timer = setTimeout( 
         () => 
         { 
-          resolve(fnt(x_new))
+          resolve(fnt(x_new));
           clearTimeout(timer);
         } , delay);
       }

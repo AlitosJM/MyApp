@@ -13,6 +13,15 @@ export const CanvasProvider = ({ children }) => {
     const [ isDrawing, setIsDrawing ] = useState(false);
     const [ backgroundImages, setBackgroundImages ] = useState([]);
     const [ score, setScore ]= useState(0);
+    // const [ timersId, setTimersId ] = useState([]);
+
+    const timerForLoadModel = (delay=3000) => {
+        const timer = setTimeout( () => { console.log("setTimeout invoking loadModel", timer);loadModel()}, delay)
+        return () => {
+          console.log("clearTimeout", timer);
+          clearTimeout(timer);
+        };      
+    };
 
     const loadModel = async () => {
         const model = await tf.loadGraphModel(process.env.PUBLIC_URL + '/model.json');
@@ -281,6 +290,7 @@ export const CanvasProvider = ({ children }) => {
         loadModel,
         clickHandler,
         checkAnswer,
+        timerForLoadModel,
       }}
     >
       {children}
