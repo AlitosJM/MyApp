@@ -3,7 +3,7 @@ import { usePromiseTracker } from "react-promise-tracker";
 import Loader from "react-loader-spinner";
 import "./spinner.css";
 
-export const Spinner = (props) => {
+const Spinner = (props) => {
   console.log("area: ",props.area);
   const { promiseInProgress } = usePromiseTracker({area: props.area, delay: 0});
 
@@ -16,4 +16,6 @@ export const Spinner = (props) => {
     )
   );
 };
+
+export default Spinner;
 

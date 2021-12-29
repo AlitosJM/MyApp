@@ -6,7 +6,7 @@ import Canvas from "../Canvas/Canvas";
 import CanvasForCtx from "../Canvas/CanvasForCtx";
 import { CanvasProvider } from "../../containers/CanvasContext/CanvasContext";
 import { ContextualComponent } from "../../containers/Wrapper/ContextualComponent";
-import { Spinner } from '../Spinner/spinner';
+import Spinner from '../Spinner/spinner';
 import post_objects from "../Post/Post";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams, Redirect } from "react-router-dom";
