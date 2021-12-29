@@ -1,6 +1,6 @@
 import React, {Fragment, useReducer} from 'react';
 import Board from './Board';
-import "./game.css";
+// import "./game.css";
 
 const reducer = (state, action) => {
     switch (action.type) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import InjectScript from "../InjectScript/InjectScript";
-import "./Canvas.css";
+// import "./Canvas.css";
 
 
 // https://stackoverflow.com/questions/53639919/load-tensorflow-js-model-from-local-file-system-in-javascript

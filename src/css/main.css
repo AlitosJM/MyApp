@@ -1803,3 +1803,132 @@ ul.icons li a:hover {
 	border-radius: 15px;
 	background-color: black;
 }
+
+.spinner {
+	width: 100%;
+	height: 100%;
+  }
+  
+.spinner > div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-game {
+    background-color: rgba(78,137,174, 0.5);
+    color: #e5dc15;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    margin: 15px;
+    padding: 5px;
+    border: 2px solid #e5dc15;
+    border-radius: 5px;
+    box-shadow: 0 12px #c2bb11, 0 18px rgba(78,137,174, 0.5);
+    font-size: 60px;
+    width: 90px;
+    height: 80px;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+  }
+  .disabled .btn-game {
+    cursor: default;
+  }
+  .disabled .btn-game:hover {
+    top: 0;
+    background: #ffffff;
+    color: #e5dc15;
+    box-shadow: 0 12px #c2bb11, 0 18px rgba(0, 0, 0, 0.4);
+  }
+  
+  .btn-game.disabled {
+    cursor: default;
+  }
+  .btn-game.disabled:hover {
+    top: 0;
+    background: #ffffff;
+    color: #0e80b0;
+    box-shadow: 0 12px #c2bb11, 0 18px rgba(0, 0, 0, 0.4);
+  }
+  
+  .btn-game:hover {
+    background-color: #e5dc15;
+    color: #0e80b0;
+    top: 4px;
+    box-shadow: 0 8px #c2bb11, 0 14px rgba(0, 0, 0, 0.4);
+  }
+  .btn-game:active {
+    top: 8px;
+    box-shadow: 0 4px grey, 0 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  .game {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(78,137,174, 0.5);
+    padding: 25px;
+    width: fit-content;
+    margin: 1rem auto 1rem auto;
+    box-shadow: 0 0 15px 5px #ccc;
+    border-radius: 10px;
+    /* text-align: center; */
+    border: 2px solid grey;
+}
+  .game-info {
+    margin: 15px;
+    color: #ffffff;
+  }
+
+  .game-info ul{
+    list-style: none;
+  }
+  
+  .board > div {
+    display: flex;
+  }
+
+  /* check line-height in main styles*/
+
+  .board button {
+    line-height: 0;
+  }
+
+  .canvas-container {
+	background-color: rgba(78,137,174, 0.5);
+	border-radius: 10px;
+	width: 90%;
+	margin: 2rem auto 2rem auto; 
+  }
+  
+  .container-flex {
+	margin-top: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+  }
+  
+  .container-flex .toggle {
+	  margin-top: 1rem;
+  }
+  
+	
+  .my-canvas {
+	vertical-align: bottom;
+	display: inline;
+	border: 5px solid #FFFFFF;
+	border-radius: 5%;
+	margin-left: 25px;
+	cursor: crosshair;
+  }
+  
+  .question {
+	display: inline;
+	color: white;
+	font-weight: 400;
+	font-size: 7rem;
+	margin: 0 0 1rem 0;
+  }
+  
+	
