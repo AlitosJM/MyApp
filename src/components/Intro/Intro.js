@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import JMAT from '../../images/Jmat2.jpg';
 
 
-import './main.css';
+// import './main.css';
 // import classes from'./main.module.css';
 
 // import '../css/main.css';

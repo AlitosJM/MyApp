@@ -5,10 +5,11 @@ import Intro from "../../components/Intro/Intro";
 import PostIntro from '../PostIntro/PostIntro';
 import Detail from "../../components/Detail/Detail";
 import AuthForm from "../../components/Auth/AuthForm";
-
 import { Spinner } from "../../components/Spinner/spinner";
 
-import './styles.css';
+import '../../css/main.css'
+
+// import './styles.css';
 
 
 
