@@ -36,7 +36,7 @@ class Timeout {
 export class Api{
 
   static loginUser(body) {
-    const {enteredName: username, enteredPassword: password} = body;
+    const {enteredName: username, enteredPassword: password, enteredEmail: email} = body;
     const myHeader = new Headers({'Content-Type': 'application/json'});
     const timeout = new Timeout();
     // .catch(e => {console.log(e.name, e.message); return e})
@@ -45,7 +45,7 @@ export class Api{
       fetch(`http://127.0.0.1:8000/auth/`, {
       method: 'POST',
       headers: myHeader,
-      body: JSON.stringify({username, password})}
+      body: JSON.stringify({username, password, email})}
       ), 15000, {reason: 'Fetch Timeout'}     
     )
     .then(
@@ -76,7 +76,7 @@ export class Api{
   }
 
   static registerUser(body) {
-    const {enteredName: username, enteredPassword: password} = body;
+    const {enteredName: username, enteredPassword: password, enteredEmail: email} = body;
     const myHeader = new Headers({'Content-Type': 'application/json'});
     const timeout = new Timeout();
     console.log("registerUser: ",body);
@@ -86,7 +86,7 @@ export class Api{
         fetch(`http://127.0.0.1:8000/api/users/`, {
         method: 'POST',
         headers: myHeader,
-        body: JSON.stringify({username, password})}
+        body: JSON.stringify({username, password, email})}
         ), 20000, {reason: 'Fetch Timeout'}     
       )
       .then(

@@ -3,7 +3,7 @@ import InjectScript from "../../components/InjectScript/InjectScript";
 
 const CanvasContext = React.createContext();
 
-export const CanvasProvider = ({ children }) => {
+export const CanvasProvider = ({ tokencito, children }) => {
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
     const [ previousX, setPreviousX ] = useState(0);
@@ -13,7 +13,7 @@ export const CanvasProvider = ({ children }) => {
     const [ isDrawing, setIsDrawing ] = useState(false);
     const [ backgroundImages, setBackgroundImages ] = useState([]);
     const [ score, setScore ]= useState(0);
-    // const [ timersId, setTimersId ] = useState([]);
+    const [ restart, setRestart ] = useState(false);
 
     const timerForLoadModel = (delay=3000) => {
         const timer = setTimeout( () => { console.log("setTimeout invoking loadModel", timer);loadModel()}, delay)
@@ -221,7 +221,6 @@ export const CanvasProvider = ({ children }) => {
     };    
 
     const checkAnswer = (output) =>{
-        numb.suma === output? alert("Ok"):alert("No Ok");
         let backgroundImageslocal = backgroundImages;
         let scoreLocal = score;
 
@@ -249,6 +248,7 @@ export const CanvasProvider = ({ children }) => {
                 document.body.style.backgroundRepeat = '';
                 document.body.style.backgroundPosition = '';  
                 document.body.style.backgroundImage = [];          
+                setRestart(true);
             }
         }
         else{
@@ -274,12 +274,16 @@ export const CanvasProvider = ({ children }) => {
         nextQuestion();       
     };
 
+    const modalHandler = () => setRestart(false);
+
   return (
     <CanvasContext.Provider
       value={{
+        tokencito,
         numb,
         canvasRef,
         contextRef,
+        restart,
         prepareCanvas,
         startDrawing,
         finishDrawing,
@@ -291,6 +295,7 @@ export const CanvasProvider = ({ children }) => {
         clickHandler,
         checkAnswer,
         timerForLoadModel,
+        modalHandler,
       }}
     >
       {children}

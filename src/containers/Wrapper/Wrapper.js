@@ -49,7 +49,7 @@ const Wrapper = props => {
                                 </li>
                                 <li>
                                     {token['mr-token']? 
-                                    <NavLink to={ "/"} onClick={()=>deleteToken(['mr-token'])}>LOGOUT</NavLink>:
+                                    <NavLink to={ "/"} onClick={()=>{deleteToken(['mr-token']);}}>LOGOUT</NavLink>:
                                     history.location.pathname!=='/user'? <NavLink to="/user">LOGIN</NavLink>:null
                                     }
                                 </li>

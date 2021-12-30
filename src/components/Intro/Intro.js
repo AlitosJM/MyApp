@@ -18,6 +18,7 @@ import JMAT from '../../images/Jmat2.jpg';
 function PortalToIntro() {
 
   useEffect( () => {
+
     if ('addEventListener' in window) {
       console.log('addEventListener');
       window.addEventListener('load', () => { document.getElementsByTagName("BODY")[0].className = document.getElementsByTagName("BODY")[0].className.replace(/\bis-preload\b/, ''); });

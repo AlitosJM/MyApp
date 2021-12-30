@@ -20,6 +20,7 @@ const AuthForm = (props) => {
   const history = useHistory();
   const nameInputRef = useRef();
   const passwordInputRef = useRef();
+  const emailInputRef = useRef();
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,10 +46,10 @@ const AuthForm = (props) => {
   }, [token, isCurrentToken])
   
 
-  const loginClicked = async (enteredName, enteredPassword) => {
+  const loginClicked = async (enteredName, enteredPassword, enteredEmail) => {
 
     try{
-      await Api.loginUser({enteredName, enteredPassword})
+      await Api.loginUser({enteredName, enteredPassword, enteredEmail})
         .then( resp => {
           console.log(".then Api.loginUser", resp)
           if ("token" in resp){
@@ -78,8 +79,8 @@ const AuthForm = (props) => {
     // history.replace('/');    
   }
 
-  const registerClicked = async (enteredName, enteredPassword) => {
-    const resp = await Api.registerUser({enteredName, enteredPassword})
+  const registerClicked = async (enteredName, enteredPassword, enteredEmail) => {
+    const resp = await Api.registerUser({enteredName, enteredPassword, enteredEmail})
     .catch( 
       error => {
         const isError = typeof error !== 'undefined' && "reason" in error;
@@ -94,7 +95,7 @@ const AuthForm = (props) => {
       console.log("After catch() ", resp, !(resp instanceof Error) && typeof resp !== 'undefined');
       if (!(resp instanceof Error) && typeof resp !== 'undefined'){
         console.log("Resp is not an error: ", resp);
-        loginClicked(enteredName, enteredPassword); 
+        loginClicked(enteredName, enteredPassword, enteredEmail); 
       }
       else {setIsLogin( prevState => !prevState);}
       console.log("After checking out the error");
@@ -107,22 +108,23 @@ const AuthForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const enteredName = nameInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
+    const enteredName = nameInputRef.current.value.trim();
+    const enteredPassword = passwordInputRef.current.value.trim();
+    const enteredEmail = emailInputRef.current.value.trim();
 
     setIsLoading(true);
     setIsCurrentToken(false);
 
     if (isLogin){
       trackPromise(
-        loginClicked(enteredName, enteredPassword)
+        loginClicked(enteredName, enteredPassword, enteredEmail)
       );
     }
     else{
       // dispatch(registerUser( {enteredEmail, enteredPassword} ));
       console.log(enteredName, enteredPassword);
       trackPromise(
-        registerClicked(enteredName, enteredPassword)
+        registerClicked(enteredName, enteredPassword, enteredEmail)
       );
       // await Api.registerUser({enteredName, enteredPassword})
       // .then( () => loginClicked())
@@ -130,9 +132,7 @@ const AuthForm = (props) => {
     }
   }
 
-  const errorHandler = () => {setErrorDisplay(null)};
-
-  
+  const errorHandler = () => {setErrorDisplay(null)};  
 
   return (
     <>
@@ -143,6 +143,10 @@ const AuthForm = (props) => {
           <div className={"control"}>
             <label htmlFor='name'>Your Name</label>
             <input type='text' id='name' required ref={nameInputRef}/>
+          </div>
+          <div className={"control"}>
+            <label htmlFor='email'>Your Email</label>
+            <input type='email' id='email' required ref={emailInputRef}/>
           </div>
           <div className={"control"}>
             <label htmlFor='password'>Your Password</label>

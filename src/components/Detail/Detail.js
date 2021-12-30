@@ -47,7 +47,7 @@ const Detail = props => {
                 );
           case 3:
             // return <Canvas />
-            return (<CanvasProvider>
+            return (<CanvasProvider tokencito={token['mr-token']}>
                       <CanvasForCtx />
                     </CanvasProvider>);
           default:
