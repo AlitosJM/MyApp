@@ -36,7 +36,7 @@ const CanvasForCtx = () => {
                 clearTimer();
             };
         }
-    }, [token]);
+    }, [token]);// token
 
     return (
         <React.Fragment> 
@@ -54,6 +54,11 @@ const CanvasForCtx = () => {
                             onMouseDown={startDrawing} 
                             onMouseMove={paint}
                             onMouseUp={finishDrawing}
+                            onMouseLeave={finishDrawing}
+                            onTouchStart={startDrawing}
+                            onTouchMove={paint}
+                            onTouchEnd={finishDrawing}
+                            onTouchCancel={finishDrawing}
                             ref={canvasRef}
                         />
                         <button className="btn btn-primary btn-large toggle" onClick={clickHandler}>Check Answer</button>    

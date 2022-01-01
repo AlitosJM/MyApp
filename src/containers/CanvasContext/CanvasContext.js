@@ -11,6 +11,7 @@ export const CanvasProvider = ({ tokencito, children }) => {
     const [ model, setModel ] = useState(null);
     const [ numb, setNumb ] = useState({n1: 0, n2: 0, suma: 0, output: 0});
     const [ isDrawing, setIsDrawing ] = useState(false);
+    const [ isFinished , setFinished ] = useState(false);
     const [ backgroundImages, setBackgroundImages ] = useState([]);
     const [ score, setScore ]= useState(0);
     const [ restart, setRestart ] = useState(false);
@@ -69,13 +70,36 @@ export const CanvasProvider = ({ tokencito, children }) => {
         contextRef.current = context;
     };
 
-    const startDrawing = (event) => {
-        const { offsetX, offsetY } = event.nativeEvent;
-        console.log("onMouseDown");
+    const startDrawing = (event) => {        
+        const canvas = canvasRef.current;
+        const isStarting = event.nativeEvent || event.touches;
+        let offsetX = null;
+        let offsetY = null;   
+        
+        if(isStarting instanceof MouseEvent){
+            const { offsetX:X, offsetY:Y } = event.nativeEvent;
+            offsetX = X;
+            offsetY = Y;
+            // console.log(isStarting instanceof MouseEvent);
+        }
+        else if (isStarting instanceof TouchEvent){
+            offsetX = event.touches[0].pageX - event.touches[0].target.offsetLeft; //-canvas.offsetLeft 
+            offsetY = event.touches[0].pageY - event.touches[0].target.offsetTop; //-canvas.offsetTop
+            // console.log(isStarting instanceof TouchEvent, 'TouchEvent', event.touches);
+            // console.log(event.touches[0].clientX, event.touches[0].pageX,canvas.offsetLeft);
+            // console.log(event.touches[0].clientY, event.touches[0].pageY,canvas.offsetTop);
+
+            // console.log(event.touches[0].target.offsetLeft,canvas.offsetLeft);
+            // console.log(event.touches[0].target.offsetTop,canvas.offsetTop);
+            
+        }
+        // console.log("onMouseDown: ", event.nativeEvent.changedTouches);
+        console.log("onTouchStart: ", event.touches);
+        // console.log("isStarting: ", isStarting, event.nativeEvent);
         
         setPreviousX(offsetX);
         setPreviousY(offsetY);
-        console.log(offsetX, offsetY);
+        // console.log(offsetX, offsetY);
         setIsDrawing(true);
     };
 
@@ -83,10 +107,29 @@ export const CanvasProvider = ({ tokencito, children }) => {
         console.log("onMouseUp");
         // contextRef.current.closePath();
         setIsDrawing(false);
+        setFinished(true);
     };
     
     const paint = (event) => {
-        const { offsetX, offsetY } = event['nativeEvent'];
+        const canvas = canvasRef.current;
+        const isStarting = event.nativeEvent || event.touches; //event.type mousemove or touchmove
+        let offsetX = null;
+        let offsetY = null; 
+
+        if(isStarting instanceof MouseEvent){
+            const { offsetX:X, offsetY:Y } = event['nativeEvent'];
+            offsetX = X;
+            offsetY = Y;
+            // console.log(isStarting instanceof MouseEvent);
+        }
+        else if (isStarting instanceof TouchEvent){
+            offsetX = event.touches[0].pageX - canvas.offsetLeft ;
+            offsetY = event.touches[0].pageY - canvas.offsetTop;
+            // offsetX = event.touches[0].clientX - canvas.Left;
+            // offsetY = event.touches[0].clientY - canvas.Top;
+            // console.log(isStarting instanceof TouchEvent, 'TouchEvent');
+            // console.log(event.nativeEvent.changedTouches[0].clientX, event.touches[0].clientX)
+        }
 
         if (!isDrawing) {return;}
 
@@ -104,7 +147,7 @@ export const CanvasProvider = ({ tokencito, children }) => {
             return;
         }
 
-        console.log("onMouseMove");
+        // console.log("onMouseMove");
         draw(offsetX, offsetY);
     };
 
@@ -112,8 +155,8 @@ export const CanvasProvider = ({ tokencito, children }) => {
         contextRef.current.beginPath();
         contextRef.current.moveTo(previousX, previousY);
         contextRef.current.lineTo(currentx, currenty);
-        contextRef.current.stroke();
         contextRef.current.closePath();
+        contextRef.current.stroke();        
 
         setPreviousX(currentx);
         setPreviousY(currenty);
@@ -127,6 +170,10 @@ export const CanvasProvider = ({ tokencito, children }) => {
     }
 
     const clickHandler = () => {
+        if (!isFinished) {
+            setFinished(false);
+            return;
+        }
         const canvas = canvasRef.current;   
         let image = cv.imread(canvas);
 
@@ -218,6 +265,7 @@ export const CanvasProvider = ({ tokencito, children }) => {
         result.dispose();
 
         checkAnswer(output);
+        setFinished(false);
     };    
 
     const checkAnswer = (output) =>{
