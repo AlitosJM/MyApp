@@ -7,24 +7,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Redirect, Link, NavLink } from "react-router-dom";
 
 import JMAT from '../../images/Jmat2.jpg';
-import PYTHON from '../../images/python-logo.png';
-
-// import '../css/main.css';
-import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import { useCookies } from "react-cookie";
 
-const MappingFunc = React.memo(({renderPost, myClick}) => {
-  // const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, fn:onClicked};
-  console.log("MappingFunc");
-  
-  
+const MappingFunc = React.memo(({renderPost, myClick}) => {  
   return post_objects.map(post => {
     const objPost = {id:post.post_id, image: post.image,title:post.title, subtitle:post.subtitle, body:post.body, func:myClick};
     if (post.post_id<3 && renderPost===0) return <Card key={post.post_id} objPost = {objPost} />
 
     if(renderPost===1) return <Card key={post.post_id} objPost = {objPost} />  
-  })
- 
+  }) 
 });
 
 
@@ -35,12 +26,9 @@ const PostIntro = (props) => {
   const history = useHistory();
   document.body.className = "";
   const [token, setToken, deleteToken] = useCookies(['mr-token']);
-  // document.querySelectorAll('style,link[rel="stylesheet"]').forEach(item => item.remove())
-  // console.log(post_objects[0].title)
 
   const onClicked = (id) => {
     dispatch({type:"status0", status:id}); 
-    console.log('onClicked in allpost:', id, status0);
   }
 
   const mystyle = {
@@ -66,7 +54,6 @@ const introHeader = (
 
 const introPost = useCallback( () => {  
   const styleSection = props.index_render===0 ? "latest-posts-0":"latest-posts-1";
-  console.log("introPost");
   return(
   status0===-1? 
   <section id={styleSection} >
@@ -134,8 +121,5 @@ const logoutUser = () => {
 
   );
 }
-// history.push(`/detail/${status0}`)
 
-// {props.index_render === 0? introHeader: null}
-// {props.index_render === 0? introPost: null}   
 export default PostIntro;

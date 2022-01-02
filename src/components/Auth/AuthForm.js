@@ -1,22 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Api } from '../../Api/Api';
 import { trackPromise } from 'react-promise-tracker';
 import { usePromiseTracker } from "react-promise-tracker";
-import { Spinner } from '../Spinner/spinner';
 import ErrorModal from '../ErrorModal/ErrorModal';
 
-// import { registerUser } from '../../store';
 import { useCookies } from 'react-cookie';
 
-// const areas = {
-//   spinner3: 'spinner3-area',
-//   spinner4: 'spinner4-area',
-// };
 
 const AuthForm = (props) => {
-  // const dispatch = useDispatch();
   const history = useHistory();
   const nameInputRef = useRef();
   const passwordInputRef = useRef();
@@ -36,9 +28,7 @@ const AuthForm = (props) => {
 
     const goTo = () => {
       if(token['mr-token'] && isCurrentToken) {
-        console.log(token, token['mr-token'],"token")
         history.replace('/intro');
-      //window.location.href = '/allPost';
       }
     }
     const timer = setTimeout( () => goTo(), 1000);
@@ -51,7 +41,6 @@ const AuthForm = (props) => {
     try{
       await Api.loginUser({enteredName, enteredPassword, enteredEmail})
         .then( resp => {
-          console.log(".then Api.loginUser", resp)
           if ("token" in resp){
             setToken('mr-token', resp.token);
             setIsCurrentToken(true);
@@ -62,10 +51,8 @@ const AuthForm = (props) => {
             setIsCurrentToken(false);
           }
         })
-        console.log("After .then Api.loginUser")
     }
     catch(error){
-      console.log(error.message)
       const isError = typeof error !== 'undefined' && "reason" in error;
       const displayError = !isError? "LoginClicked "+ error.name + ': ' + error.message:
       `LoginClicked Failed With Reason: ${error.reason}`;  
@@ -84,7 +71,6 @@ const AuthForm = (props) => {
     .catch( 
       error => {
         const isError = typeof error !== 'undefined' && "reason" in error;
-        console.log("isError", isError);
         const displayError = !isError? "RegisterClicked "+`${error.name }: ${error.message}`:
         'Failed With Reason: ' + error.reason; 
         const ModalErr = {title: 'Registering Error', message: displayError};
@@ -92,14 +78,12 @@ const AuthForm = (props) => {
         setIsLoading(false);  
         setIsLogin( prevState => !prevState);
       })   
-      console.log("After catch() ", resp, !(resp instanceof Error) && typeof resp !== 'undefined');
       if (!(resp instanceof Error) && typeof resp !== 'undefined'){
-        console.log("Resp is not an error: ", resp);
+     
         loginClicked(enteredName, enteredPassword, enteredEmail); 
       }
       else {setIsLogin( prevState => !prevState);}
-      console.log("After checking out the error");
-      // areas.spinner4;
+
   }
 
   const switchAuthModeHandler = () => {
@@ -121,14 +105,10 @@ const AuthForm = (props) => {
       );
     }
     else{
-      // dispatch(registerUser( {enteredEmail, enteredPassword} ));
-      console.log(enteredName, enteredPassword);
       trackPromise(
         registerClicked(enteredName, enteredPassword, enteredEmail)
       );
-      // await Api.registerUser({enteredName, enteredPassword})
-      // .then( () => loginClicked())
-      // .catch( error => console.log(error))
+
     }
   }
 

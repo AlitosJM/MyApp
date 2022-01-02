@@ -1,30 +1,14 @@
 import React from "react";
-import { Link, NavLink,Redirect, useHistory, useLocation } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useCookies } from 'react-cookie';
 
 const Wrapper = props => {
-    // const { classWrapper0, classWrapper1, idWrapper, idFooter } = props;
     const history = useHistory();
-    // const location = useLocation();
-    // const classWrapper0 = props.classWrapper0;
-    // const classWrapper1 = props.className1;
-    // const idWrapper = props.idWrapper;
-    // const idFooter = props.idFooter;
     const dispatch = useDispatch();
     const postId = useSelector(state => state.status0);
     const [token, setToken, deleteToken] = useCookies(['mr-token']);
     document.body.className='';
-
-    //console.log(history.location.pathname, location.pathname)
-
-    // const  myStyle = { fontWeight: "bold", color: "red"};
-
-    /* const onClicked = () => {
-        dispatch({type:"status0", status:-1}); 
-        console.log("push");
-        history.push("/myPage");
-    } */
 
     return (
         <React.Fragment>
@@ -55,14 +39,6 @@ const Wrapper = props => {
                                 </li>
                             </ul>
                         </nav>
-
-                        {/* <a onClick={onClicked}>
-                            <h1>JMAT's Blog ☕</h1>  
-                        </a> */}
-                        
-                        {/* <a href="/myPage">
-                            <h1>JMAT's Blog ☕</h1>  
-                        </a>  */}
                                      
                     </div>
                 </header>

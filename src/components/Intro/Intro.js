@@ -5,25 +5,13 @@ import { Link } from 'react-router-dom';
 import JMAT from '../../images/Jmat2.jpg';
 
 
-// import './main.css';
-// import classes from'./main.module.css';
-
-// import '../css/main.css';
-// import '../css/noscript.css';
-// https://embed.plnkr.co/eoa4QEp6b83L9Ky3F3Tj/
-// document.getElementsByTagName("BODY")[0].className
-// document.body.className = "";
-// icon brands fa-python
-
 function PortalToIntro() {
 
   useEffect( () => {
 
     if ('addEventListener' in window) {
-      console.log('addEventListener');
       window.addEventListener('load', () => { document.getElementsByTagName("BODY")[0].className = document.getElementsByTagName("BODY")[0].className.replace(/\bis-preload\b/, ''); });
       document.getElementsByTagName("BODY")[0].className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? 'is-ie' : '');
-      console.log(document.getElementsByTagName("BODY")[0].className);
     }
 
   },[])

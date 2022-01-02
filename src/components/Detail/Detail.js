@@ -1,8 +1,8 @@
 import React from "react";
 import MyFom from '../CsvForm/CsvForm';
-import DataForm from '../CsvForm/CsvForm2';
+
 import MyGraph from '../Graphs/Graphs';
-import Canvas from "../Canvas/Canvas";
+
 import CanvasForCtx from "../Canvas/CanvasForCtx";
 import { CanvasProvider } from "../../containers/CanvasContext/CanvasContext";
 import { ContextualComponent } from "../../containers/Wrapper/ContextualComponent";
@@ -24,8 +24,7 @@ const Detail = props => {
     const history = useHistory();
     const params = useParams();   
     const postId = +params.id; 
-    // const myDate = new Date().toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
-    const myDate =new Date("October 6, 2021").toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
+    const myDate =new Date("January 1, 2022").toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric' });
     const [token, setToken, deleteToken] = useCookies(['mr-token']);
     
     const renderSwitch = (id) => {
@@ -35,31 +34,21 @@ const Detail = props => {
           case 1:
               return (
                 <React.Fragment>
-                  <MyFom token={token['mr-token']}/>                  
+                  <MyFom token={token['mr-token']}/>               
                   <Spinner />
                   {isView && <MyGraph image={imageUrl}/>}
                 </React.Fragment>
               );
           case 2:
                 return(            
-                  // <DataForm />
                   <Game></Game>
                 );
           case 3:
-            // return <Canvas />
             return (<CanvasProvider tokencito={token['mr-token']}>
                       <CanvasForCtx />
                     </CanvasProvider>);
           default:
-            console.log("detail default");
             return <Redirect to="/myPage"/>
-            // dispatch({type:"status0", status:-1}); 
-            // history.push("/Detail");   
-            // return <React.Fragment>
-            //   <MyFom />                  
-            //   <Spinner />
-            //   {isView && <MyGraph image={imageUrl}/>}
-            // </React.Fragment>
           }
         }
     

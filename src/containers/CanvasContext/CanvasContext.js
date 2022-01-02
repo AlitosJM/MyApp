@@ -1,8 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import InjectScript from "../../components/InjectScript/InjectScript";
 
-// https://www.py4u.net/discuss/340306
-
 const CanvasContext = React.createContext();
 
 export const CanvasProvider = ({ tokencito, children }) => {
@@ -21,14 +19,12 @@ export const CanvasProvider = ({ tokencito, children }) => {
     const timerForLoadModel = (delay=3000) => {
         const timer = setTimeout( () => { console.log("setTimeout invoking loadModel", timer);loadModel()}, delay)
         return () => {
-          console.log("clearTimeout", timer);
           clearTimeout(timer);
         };      
     };
 
     const loadModel = async () => {
         const model = await tf.loadGraphModel(process.env.PUBLIC_URL + '/model.json');
-        console.log("in loadModel");
         setModel(model);
     };
 
@@ -44,19 +40,14 @@ export const CanvasProvider = ({ tokencito, children }) => {
         const promise = InjectScript(id, URL);
         promise
         .then((resp) => {
-          console.log(`success to load ${URL}`, resp, '1');
-          // eslint-disable-next-line no-undef
-          // console.log('1', cv.getBuildInformation());
-          // this.playerRef.trigger('opencvReady');
+          console.log(`success to load ${URL}`);
         })
         .catch((error) => {
-          // eslint-disable-next-line no-console
           console.log(`Failed to load ${URL}: `,error.message);
         });
     };
 
     const prepareCanvas = () => {
-        console.log("prepareCanvas");
         const canvas = canvasRef.current
         canvas.width = 150;
         canvas.height = 150;
@@ -82,39 +73,26 @@ export const CanvasProvider = ({ tokencito, children }) => {
             const { offsetX:X, offsetY:Y } = event.nativeEvent;
             offsetX = X;
             offsetY = Y;
-            // console.log(isStarting instanceof MouseEvent);
         }
         else if (isStarting instanceof TouchEvent){
-            offsetX = event.touches[0].pageX - event.touches[0].target.offsetLeft; //-canvas.offsetLeft 
-            offsetY = event.touches[0].pageY - event.touches[0].target.offsetTop; //-canvas.offsetTop
-            // console.log(isStarting instanceof TouchEvent, 'TouchEvent', event.touches);
-            // console.log(event.touches[0].clientX, event.touches[0].pageX,canvas.offsetLeft);
-            // console.log(event.touches[0].clientY, event.touches[0].pageY,canvas.offsetTop);
-
-            // console.log(event.touches[0].target.offsetLeft,canvas.offsetLeft);
-            // console.log(event.touches[0].target.offsetTop,canvas.offsetTop);
-            
+            offsetX = event.touches[0].pageX - event.touches[0].target.offsetLeft; 
+            offsetY = event.touches[0].pageY - event.touches[0].target.offsetTop;            
         }
-        // console.log("onMouseDown: ", event.nativeEvent.changedTouches);
-        console.log("onTouchStart: ", event.touches);
-        // console.log("isStarting: ", isStarting, event.nativeEvent);
         
         setPreviousX(offsetX);
         setPreviousY(offsetY);
-        // console.log(offsetX, offsetY);
         setIsDrawing(true);
     };
 
     const finishDrawing = (event) => {
         console.log("onMouseUp");
-        // contextRef.current.closePath();
         setIsDrawing(false);
         setFinished(true);
     };
     
     const paint = (event) => {
         const canvas = canvasRef.current;
-        const isStarting = event.nativeEvent || event.touches; //event.type mousemove or touchmove
+        const isStarting = event.nativeEvent || event.touches;
         let offsetX = null;
         let offsetY = null; 
 
@@ -122,15 +100,10 @@ export const CanvasProvider = ({ tokencito, children }) => {
             const { offsetX:X, offsetY:Y } = event['nativeEvent'];
             offsetX = X;
             offsetY = Y;
-            // console.log(isStarting instanceof MouseEvent);
         }
         else if (isStarting instanceof TouchEvent){
             offsetX = event.touches[0].pageX - canvas.offsetLeft ;
             offsetY = event.touches[0].pageY - canvas.offsetTop;
-            // offsetX = event.touches[0].clientX - canvas.Left;
-            // offsetY = event.touches[0].clientY - canvas.Top;
-            // console.log(isStarting instanceof TouchEvent, 'TouchEvent');
-            // console.log(event.nativeEvent.changedTouches[0].clientX, event.touches[0].clientX)
         }
 
         if (!isDrawing) {return;}
@@ -149,7 +122,6 @@ export const CanvasProvider = ({ tokencito, children }) => {
             return;
         }
 
-        // console.log("onMouseMove");
         draw(offsetX, offsetY);
     };
 
@@ -230,17 +202,13 @@ export const CanvasProvider = ({ tokencito, children }) => {
         newSize = new cv.Size(image.cols, image.rows);
         const M = cv.matFromArray(2, 3, cv.CV_64FC1, [1, 0, X_SHIFT, 0, 1, Y_SHIFT]);
         cv.warpAffine(image, image, M, newSize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, BLACK);
-        
-        // cv.imwrite("test_image_out.png", image);
 
         // normalise
         let pixelValues = image.data;
 
         pixelValues = Float32Array.from(pixelValues);
-        // console.log(`pixel values: ${pixelValues}`);
 
-        pixelValues = pixelValues.map( item => item/255.0 );
-        // console.log(`scaled array: ${pixelValues}`);   
+        pixelValues = pixelValues.map( item => item/255.0 );  
         
         const X = tf.tensor([pixelValues]);
 
@@ -250,9 +218,6 @@ export const CanvasProvider = ({ tokencito, children }) => {
 
         setNumb(previous => ({...previous, output}));
     
-        // const outputCanvas = document.createElement('CANVAS');
-        // cv.imshow(outputCanvas, image);
-        // document.body.appendChild(outputCanvas);
         contextRef.current.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
         setPreviousX(0);
         setPreviousY(0); 
@@ -312,9 +277,6 @@ export const CanvasProvider = ({ tokencito, children }) => {
             }
             else{
                 backgroundImageslocal.splice(-1,1); // .pop()
-                // backgroundImageslocal = backgroundImageslocal.slice(0, -1);
-                // backgroundImageslocal = backgroundImageslocal.filter(
-                //     (element, index) => index < backgroundImageslocal.length - 1);
                 console.log('error: ', backgroundImageslocal);
                 document.body.style.backgroundImage = backgroundImageslocal;
             }

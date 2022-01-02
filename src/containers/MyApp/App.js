@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { Switch, Route } from 'react-router-dom';
 import Wrapper from "../Wrapper/Wrapper";
-// import Intro from "../../components/Intro/Intro";
 import PostIntro from '../PostIntro/PostIntro';
 import Detail from "../../components/Detail/Detail";
 import AuthForm from "../../components/Auth/AuthForm";

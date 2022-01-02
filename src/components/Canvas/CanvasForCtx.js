@@ -36,7 +36,7 @@ const CanvasForCtx = () => {
                 clearTimer();
             };
         }
-    }, [token]);// token
+    }, [token]);
 
     return (
         <React.Fragment> 

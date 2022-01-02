@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { Api } from '../../Api/Api';
 import ErrorModal from '../ErrorModal/ErrorModal';
-// import { userAPI } from '../../DummyFetch';
 import { trackPromise } from 'react-promise-tracker';
 import { connect } from 'react-redux';
-
-// export const areas = {
-//   spinner1: 'spinner1-area',
-//   spinner2: 'spinner2-area',
-// };
 
 const MegaBytes = bytes => bytes*(1024**2);
 
@@ -49,18 +43,11 @@ const debounce = (fnt, delay) => {
 };
 
 const inputValidation = (num) => {
-  // const validNum = (num.length<3 || num.length>9) ? false : true;
   const validNum = (num.length===0 || num.length>9) ? false : true;
-  console.log("number is...", validNum)
-  // num.match(/^\d+\.\d+$/) valid float  
   
   if(validNum){
-    //valid integer (positive or negative)
-    console.log("number ok...", validNum)
     return num.match(/^-?\d+$/) ? true:false;
   }
-    //not valid number
-    console.log("number no ok...", validNum)
     return false; 
 }
 
@@ -72,8 +59,6 @@ class MyForm extends Component {
     this.result = "";
   }
 
-  // debounceLog = debounce( this.inputValidation ,500 );
-  // myDebounceLog = myDebounce( text => console.log(text) ,500 );
 
   debounceValidation = myDebounce( inputValidation, 500 );
 
@@ -83,13 +68,11 @@ class MyForm extends Component {
     const res = await validationFnt(x_new);
     if(!res){
       const ModalErr = {title: 'Entrada inválida', message: 'Ingrese un entero'};
-      console.log(res, "validation error");
       this.setState(
         (state) => ({ file:state.file, remark:state.remark, showInput:true, x_new:"", error: ModalErr })
       )
     }
     else{
-      console.log(res, "validation ok");
       this.setState(
         (state) => ({ file:state.file, remark:state.remark, showInput:state.showInput, x_new:x_new, error: null })
       )}
@@ -100,20 +83,13 @@ class MyForm extends Component {
   async sendFile(formData, token){
     await Api.sendFile(formData, (showInput) => this.setState({showInput}), token)
     .then( (data) => {
-      console.log("sendFile then",data);
-
-      this.props.setObj({...data}); 
-      // dataFromBackEnd.push(Obj);   
-      // alert( JSON.stringify(datitos, null, "\t") )
+      this.props.setObj({...data});
     })
     .catch( (error) => {
-      console.log("sendFile catch",error);
       const ModalErr = {title: 'Archivo inválido', message: error};
       this.setState(
         (state) => ({ file: null, remark: '' , showInput: false, x_new: '', error: ModalErr }));
     })
-
-    // areas.spinner1
   }
 
   sendData = async (x_new, token) => {
@@ -154,10 +130,8 @@ class MyForm extends Component {
       const file = e.target.files[0];
       const csv = file.name.replace(/^.*[\\\/]/, '').split(".")[1];
       const remark =  csv + " file";
-      console.log("remark:" ,remark, "file:",file);
       // const showInput = false;
       if (file.size > limitMB){
-        console.log("file size > 0.5MB");
         this.setState(
           (state) => ({ file: null, remark: '' , showInput: false, x_new: '', error: ModalErr }));
           return;
@@ -174,7 +148,6 @@ class MyForm extends Component {
     if (!this.state.showInput){
       const ModalErr = {title: 'Archivo inválido', message: 'Ingrese un archivo *.csv'};
       if (this.state.remark.split(" ")[0] !== "csv"){
-        console.log("no csv file");
         this.setState(
           state => ({ file:state.file, remark:state.remark, showInput:false, x_new:state.x_new, error: ModalErr })
         )
@@ -185,15 +158,11 @@ class MyForm extends Component {
         (name !== "showInput" && name !== "error")?
         formData.append(name, this.state[name]): null;
       }
-      // const formData = new FormData();
-      // formData.append("remark", "csv file");
       trackPromise(this.sendFile(formData, this.token));
-      console.log("->","fin", this.state["showInput"]);
     }
     else {
-      // const isIntegerValid = this.debounceValidation(this.state.x_new);
       if(!this.state.error ){
-        console.log("!this.state.error");
+
         if(this.state.x_new.trim()){
           trackPromise( this.sendData(this.state.x_new, this.token))
         }
@@ -218,13 +187,11 @@ class MyForm extends Component {
   changeHandler = (e) => {
     const x_new = e.target.value;
     this.props.setStatus1(false);
-    this.inputDebounceValidation(x_new);     
-    // this.myDebounceLog( x_new );      
+    this.inputDebounceValidation(x_new);       
   }
 
   errorHandler = () => {
     const showInput = !this.state.x_new && !this.state.showInput ? false:true;
-    console.log("showInput",showInput)
     this.setState(
       (state) => 
         (
