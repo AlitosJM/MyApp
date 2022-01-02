@@ -1,6 +1,8 @@
 import React, { useContext, useRef, useState } from "react";
 import InjectScript from "../../components/InjectScript/InjectScript";
 
+// https://www.py4u.net/discuss/340306
+
 const CanvasContext = React.createContext();
 
 export const CanvasProvider = ({ tokencito, children }) => {
