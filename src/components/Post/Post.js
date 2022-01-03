@@ -64,6 +64,6 @@ el crecimiento de un "Jardín Matemático".
 post_objects.push(new Post(0, REACT,"¡Hola Mundo!", "😄", myIntro, false));
 post_objects.push(new Post(1, PYTHON,"Regresión Lineal", "🤖", lrExplanation, true));
 post_objects.push(new Post(2, JS,"Tic Tac Toe", "🎮", TicTacToc));
-post_objects.push(new Post(3, PYTHON,"Jardín Matemático", "🌷", TensorFlow));
+post_objects.push(new Post(3, PYTHON,"Jardín Aritmético", "🌷", TensorFlow));
 
 export default post_objects;
