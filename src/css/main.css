@@ -1160,6 +1160,19 @@ height: 100%;
 	width: 5rem;
   }
 
+  @media screen and (max-width: 480px) {
+
+	#welcome header {
+		flex-direction: column;
+	}
+	#welcome img {align-self: center;
+	}
+
+	#latest-posts-0{
+		max-width: 20rem !important;
+	}
+}
+
 
 #welcome {
 	background: #4e89ae;
@@ -1463,7 +1476,6 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 
 	#summary article {
 		position: unset !important;
-		/*flex-basis: 50%;*/
 	}
 	
 }
