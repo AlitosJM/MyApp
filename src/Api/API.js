@@ -40,7 +40,7 @@ export class Api{
       method: 'POST',
       headers: myHeader,
       body: JSON.stringify({username, password, email})}
-      ), 15000, {reason: 'Fetch Timeout'}     
+      ), 25000, {reason: 'Fetch Timeout'}     
     )
     .then(
       async resp => {
@@ -75,7 +75,7 @@ export class Api{
         method: 'POST',
         headers: myHeader,
         body: JSON.stringify({username, password, email})}
-        ), 20000, {reason: 'Fetch Timeout'}     
+        ), 25000, {reason: 'Fetch Timeout'}     
       )
       .then(
         async resp => {

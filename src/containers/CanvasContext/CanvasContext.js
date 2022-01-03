@@ -64,6 +64,7 @@ export const CanvasProvider = ({ tokencito, children }) => {
     };
 
     const startDrawing = (event) => {        
+        event.preventDefault();
         const canvas = canvasRef.current;
         const isStarting = event.nativeEvent || event.touches;
         let offsetX = null;
@@ -85,12 +86,13 @@ export const CanvasProvider = ({ tokencito, children }) => {
     };
 
     const finishDrawing = (event) => {
-        console.log("onMouseUp");
+        event.preventDefault();
         setIsDrawing(false);
         setFinished(true);
     };
     
     const paint = (event) => {
+        event.preventDefault();
         const canvas = canvasRef.current;
         const isStarting = event.nativeEvent || event.touches;
         let offsetX = null;
