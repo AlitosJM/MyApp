@@ -16,6 +16,16 @@ export const CanvasProvider = ({ tokencito, children }) => {
     const [ score, setScore ]= useState(0);
     const [ restart, setRestart ] = useState(false);
 
+    const disableScrolling = () => {
+        let x=window.scrollX;
+        let y=window.scrollY;
+        window.onscroll=function(){window.scrollTo(x, y);};
+    }
+    
+    const enableScrolling = () => {
+        window.onscroll=function(){};
+    }
+
     const timerForLoadModel = (delay=3000) => {
         const timer = setTimeout( () => { console.log("setTimeout invoking loadModel", timer);loadModel()}, delay)
         return () => {
@@ -65,6 +75,7 @@ export const CanvasProvider = ({ tokencito, children }) => {
 
     const startDrawing = (event) => {        
         event.preventDefault();
+        disableScrolling();
         const canvas = canvasRef.current;
         const isStarting = event.nativeEvent || event.touches;
         let offsetX = null;
@@ -87,6 +98,7 @@ export const CanvasProvider = ({ tokencito, children }) => {
 
     const finishDrawing = (event) => {
         event.preventDefault();
+        enableScrolling();
         setIsDrawing(false);
         setFinished(true);
     };
